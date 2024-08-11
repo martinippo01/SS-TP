@@ -32,5 +32,8 @@ public class ParticleNeighbours {
         return new ArrayList<Particle>(map.get(p));
     }
 
+    public Map<Particle, List<Particle>> getMap(){
+        return new HashMap<>(map);
+    }
 
 }

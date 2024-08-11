@@ -1,5 +1,11 @@
 package ar.edu.itba.ss;
 
+import ar.edu.itba.ss.utils.OutputData;
+import com.google.gson.Gson;
+
+import java.io.FileWriter;
+import java.io.IOError;
+import java.io.IOException;
 import java.util.Random;
 
 public class Main {
@@ -39,6 +45,15 @@ public class Main {
         ParticleNeighbours particleNeighbours = cim.getParticleNeighbours();
         long endTime = System.nanoTime();
         long totalTime = endTime - startTime;
+
+        Gson gson = new Gson();
+        OutputData outputData = new OutputData(length, m, n, totalTime, plane);
+        try(FileWriter fileWriter = new FileWriter("results.json")){
+            gson.toJson(outputData, fileWriter);
+            System.out.println("JSON with output data created succesfully");
+        }catch (IOException e){
+            System.err.println("Error while creating JSON file" + e.getMessage());
+        }
 
         /*
           {
