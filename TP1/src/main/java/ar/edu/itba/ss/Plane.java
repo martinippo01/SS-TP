@@ -93,6 +93,11 @@ public class Plane {
             return null;
         return matrix.get(row).get(col);
     }
+    public List<Particle> getParticles(){
+        List<Particle> toReturn = new ArrayList<>();
+        matrix.forEach((r) -> r.forEach((c) -> toReturn.addAll(c.getInnerParticles())));
+        return toReturn;
+    }
 }
 
 

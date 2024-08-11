@@ -19,7 +19,7 @@ public class ParticleNeighbours {
     }
 
     public static ParticleNeighbours getParticleNeighbours() {
-        if(pn!=null) { pn = new ParticleNeighbours(); }
+        if(pn == null) { pn = new ParticleNeighbours(); }
         return pn;
     }
 
@@ -32,5 +32,8 @@ public class ParticleNeighbours {
         return new ArrayList<Particle>(map.get(p));
     }
 
+    public Map<Particle, List<Particle>> getMap(){
+        return new HashMap<>(map);
+    }
 
 }
