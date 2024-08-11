@@ -32,9 +32,9 @@ public class Main {
         // Generate random particles and add them to the plane
         Random r = new Random();
         for(int i=0; i<n; i++) {
-            double random_x = r.nextDouble(length);
-            double random_y = r.nextDouble(length);
-            double random_r = r.nextDouble(maxRadius);
+            double random_x = (length) * r.nextDouble();
+            double random_y = (length) * r.nextDouble();
+            double random_r = (maxRadius) * r.nextDouble();
             Particle p = new Particle(i, random_x, random_y, random_r);
             plane.addParticle(p);
         }
@@ -54,24 +54,6 @@ public class Main {
         }catch (IOException e){
             System.err.println("Error while creating JSON file" + e.getMessage());
         }
-
-        /*
-          {
-            particles: [
-             { id: 1, radius: , x: , y: },
-             { id: 2, radius: , x: , y: },
-             ...
-            ],
-            neighbours: {
-             1: [2, 10, 15]
-             2: [1, 20],
-            },
-            m:
-            l:
-            n:
-            time:
-          }
-         */
 
 
     }

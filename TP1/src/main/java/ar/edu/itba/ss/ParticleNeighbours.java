@@ -19,7 +19,7 @@ public class ParticleNeighbours {
     }
 
     public static ParticleNeighbours getParticleNeighbours() {
-        if(pn!=null) { pn = new ParticleNeighbours(); }
+        if(pn == null) { pn = new ParticleNeighbours(); }
         return pn;
     }
 
