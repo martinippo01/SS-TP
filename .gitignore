@@ -451,3 +451,4 @@ $RECYCLE.BIN/
 *.json
 input
 results
+TP1/analisis/output_data/*
