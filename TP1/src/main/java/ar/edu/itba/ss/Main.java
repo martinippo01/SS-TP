@@ -71,7 +71,7 @@ public class Main {
         String outputFileName = outputData.getFileName();
         try(FileWriter fileWriter = new FileWriter(outputFileName)){
             gson.toJson(outputData, fileWriter);
-            System.out.println("JSON with output data created succesfully");
+            System.out.println("JSON with output data created successfully");
         }catch (IOException e){
             System.err.println("Error while creating JSON file" + e.getMessage());
         }
