@@ -4,7 +4,6 @@ import ar.edu.itba.ss.utils.OutputData;
 import com.google.gson.Gson;
 
 import java.io.FileWriter;
-import java.io.IOError;
 import java.io.IOException;
 import java.util.Random;
 
@@ -22,7 +21,7 @@ public class Main {
         // Validate inequation L/M > r_c + 2R
         if (length / m <= radiusC + 2 * maxRadius) {
             throw new IllegalArgumentException("m is too big");
-        } else if (m <= 1) {
+        } else if (m < 1) {
             throw new IllegalArgumentException("m must be greater or equal to 1");
         }
 

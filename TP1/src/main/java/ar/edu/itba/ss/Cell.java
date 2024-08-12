@@ -11,14 +11,26 @@ public class Cell {
     private final List<Particle> innerParticles;
 
     public Cell(int id, double length, Point bottomLeft) {
+        this(id, length, bottomLeft, new ArrayList<>());
+    }
+
+    public Cell(int id, double length, Point bottomLeft, List<Particle> innerParticles) {
         this.id = id;
         this.length = length;
         this.bottomLeft = bottomLeft;
-        this.innerParticles = new ArrayList<>();
+        this.innerParticles = innerParticles;
     }
 
     public int getId() {
         return this.id;
+    }
+
+    public double getLength() {
+        return length;
+    }
+
+    public Point getBottomLeft() {
+        return new Point(this.bottomLeft.getX(), this.bottomLeft.getY());
     }
 
     private Point getBottomRight() {
@@ -30,7 +42,7 @@ public class Cell {
     }
 
     public Cell getCopy() {
-        return new Cell(this.id, this.length, this.bottomLeft);
+        return new Cell(this.id, this.length, this.bottomLeft, this.getInnerParticles());
     }
 
     public List<Particle> getInnerParticles() {
