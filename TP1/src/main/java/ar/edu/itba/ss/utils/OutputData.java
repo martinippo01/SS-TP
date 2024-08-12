@@ -4,28 +4,61 @@ import ar.edu.itba.ss.Particle;
 import ar.edu.itba.ss.ParticleNeighbours;
 import ar.edu.itba.ss.Plane;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/*
+ {
+    l: 0.0,
+    m: 0,
+    n: 0,
+    rc: 0.0,
+    maxRadius: 0.0,
+    pacman: true,
+    particles: [
+        {
+            id: 0,
+            x: 0.0,
+            y: 0.0,
+            r: 0.0
+        },
+        {}
+    ],
+    neighbours: {
+        0: [1, 2, 3],
+        1: [0, 2, 3],
+        2: [0, 1, 3],
+        3: [0, 1, 2]
+    }
+ }
+ */
+
 public class OutputData {
 
-    private final double L;
-    private final int M;
-    private final int N;
+    private final double l;
+    private final int m;
+    private final int n;
+    private final double rc;
     private final long time;
+    private final boolean pacman;
+    private final String outputFilePrefix;
     private final List<Particle> particles;
-    private final Map<Integer, List<Integer>> particleNeighbours = new HashMap<>();
+    private final Map<Integer, List<Integer>> neighbours = new HashMap<>();
 
-    public OutputData(double L, int M, int N, long time, Plane plane){
-        this.L = L;
-        this.M = M;
-        this.N = N;
+    public OutputData(InputData inputData, long time, Plane plane, ParticleNeighbours particleNeighbours) {
+        this.l = inputData.getLength();
+        this.m = inputData.getM();
+        this.n = inputData.getN();
+        this.rc = inputData.getRadiusC();
+        this.pacman = inputData.isPacman();
         this.time = time;
         this.particles = plane.getParticles();
+        this.outputFilePrefix = inputData.getOutputFilePrefix();
 
-        for (Map.Entry<Particle, List<Particle>> entry : ParticleNeighbours.getParticleNeighbours().getMap().entrySet()) {
+        for (Map.Entry<Particle, List<Particle>> entry : particleNeighbours.getMap().entrySet()) {
             // Extract id from key
             Integer keyId = entry.getKey().getId();
 
@@ -35,20 +68,32 @@ public class OutputData {
                     .collect(Collectors.toList());
 
             // Put the ids into the new map
-            particleNeighbours.put(keyId, valueIds);
+            this.neighbours.put(keyId, valueIds);
         }
     }
 
+    public String getFileName() {
+        LocalDateTime now = LocalDateTime.now();
+        String timestamp = String.format("%d-%02d-%02d_%02d-%02d-%02d",
+                now.getYear(), now.getMonthValue(), now.getDayOfMonth(),
+                now.getHour(), now.getMinute(), now.getSecond());
+        return String.format("%s_%s.json", outputFilePrefix, timestamp);
+    }
+
     public double getL() {
-        return L;
+        return l;
     }
 
     public int getM() {
-        return M;
+        return m;
     }
 
     public int getN() {
-        return N;
+        return n;
+    }
+
+    public double getRc() {
+        return rc;
     }
 
     public List<Particle> getParticles() {
@@ -59,8 +104,12 @@ public class OutputData {
         return time;
     }
 
-    public Map<Integer, List<Integer>> getParticleNeighbours() {
-        return particleNeighbours;
+    public boolean isPacman() {
+        return pacman;
+    }
+
+    public Map<Integer, List<Integer>> getNeighbours() {
+        return neighbours;
     }
 }
 
