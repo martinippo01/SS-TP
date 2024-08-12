@@ -39,6 +39,10 @@ public class Plane {
 
 
     public void addParticle(Particle particle) {
+        double px = particle.getX(), py = particle.getY();
+        if(px < 0 || px > L || py < 0 || py > L) {
+            throw new IllegalArgumentException("Particle out of bounds");
+        }
         int row = (int) Math.floor(particle.getY()/(L/M));
         int col = (int) Math.floor(particle.getX()/(L/M));
         matrix.get(row).get(col).addParticle(particle);
