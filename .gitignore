@@ -452,3 +452,4 @@ $RECYCLE.BIN/
 input
 results
 TP1/analisis/output_data/*
+*.lock

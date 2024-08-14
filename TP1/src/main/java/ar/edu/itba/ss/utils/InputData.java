@@ -54,7 +54,7 @@ public class InputData {
             this.pacman = Optional.ofNullable(inputData.pacman).orElse(false);
             this.outputFilePrefix = Optional.ofNullable(inputData.outputFilePrefix).orElse(".");
             this.particles = Optional.ofNullable(inputData.particles).orElse(Collections.emptyList());
-            if (particles.size() != n) {
+            if (!particles.isEmpty() && particles.size() != n) {
                 throw new IllegalArgumentException("Number of particles does not match n");
             }
         } catch (IOException e) {
