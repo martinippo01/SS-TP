@@ -11,7 +11,7 @@ def process_json(dir_path, output_name_file):
     for file_name in glob.glob(dir_path + '*.json'):
         with open(file_name, 'r') as file:
             data = json.load(file)
-            M_value = data["M"]
+            M_value = data["m"]
             time_value = data["time"]
 
             # Append the time value to the list of times for the corresponding M value
@@ -26,6 +26,7 @@ def process_json(dir_path, output_name_file):
     for M_value, times in data_dict.items():
         avg_time = statistics.mean(times)
         std_dev = statistics.stdev(times) if len(times) > 1 else 0
+        std_dev = int(std_dev)
         output_data.append({"M": M_value, "avg_time": avg_time, "std": std_dev})
 
     # Save the output data to a new JSON file

@@ -15,14 +15,12 @@ yerr = [entry['std'] for entry in data]  # Extract the 'std' values
 
 # Plotting the data with error bars
 plt.figure(figsize=(10, 5))
-plt.errorbar(x, y, yerr=yerr, fmt='o', ecolor='r', capsize=5, capthick=2)
+plt.errorbar(x, y, yerr=yerr, fmt='o-', ecolor='r', capsize=5, capthick=2)
 
 # Add labels to the axes
-plt.xlabel('M Values')
-plt.ylabel('Average Time (with Standard Deviation)')
+plt.xlabel('Valores de M')
+plt.ylabel('Tiempo (ns)')
 
-# Add title to the graph
-plt.title('Graph of M vs Time with Standard Deviation')
 
 # Add labels to the tick marks on the axes
 plt.xticks(x)

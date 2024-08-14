@@ -3,7 +3,7 @@ import json
 
 import numpy as np
 
-with open('../../._2024-08-14_12-29-12.json') as json_data:
+with open('./results_2024-08-14_16-32-53.json') as json_data:
     data = json.load(json_data)
     json_data.close()
     print(data)
@@ -27,6 +27,7 @@ points_whole_ax = L * 0.8 * 72  # Cuenta mágica para la cantidad de puntos en l
 
 # el segundo valor es rc/L
 rc_radius = (2 * (rc / L) / 1.0 * points_whole_ax) ** 2  # Cuenta para calcular bien el size
+s =[]
 
 for i in range(len(p)):
     x.append(p[i]['point']['x'])
@@ -35,6 +36,7 @@ for i in range(len(p)):
     id.append(pid)
 
     rad = p[i]['radius']
+    s.append((2 * ((rad + rc) / L) / 1.0 * points_whole_ax) ** 2)
     if rad < 0.0 + epsilon:
         radius.append(50)
     else:
@@ -64,9 +66,12 @@ ax.set_yticks(ticks)
 
 # partículas
 ax.scatter(x, y, s=radius, c=colors)
+ax.scatter(x, y, s=s, marker='o', facecolors='none', edgecolors='y')
+ax.scatter(x, y, s=s, marker='o', alpha=0.05)
 # rc
-plt.scatter(x, y, s=rc_radius, marker='o', facecolors='none', edgecolors='y')
-plt.scatter(x, y, s=rc_radius, marker='o', alpha=0.05)
+# for i, _ in enumerate(x):
+#     plt.scatter(x[i], y[i], s=s[i], marker='o', facecolors='none', edgecolors='y')
+#     plt.scatter(x[i], y[i], s=s[i], marker='o', alpha=0.05)
 
 plt.grid(True, which='both')
 
