@@ -3,11 +3,10 @@ import json
 
 import numpy as np
 
-with open('./results_2024-08-14_16-32-53.json') as json_data:
+with open('../../._2024-08-14_12-29-12.json') as json_data:
     data = json.load(json_data)
     json_data.close()
     print(data)
-
 
 p = data['particles']
 
@@ -21,12 +20,38 @@ particles_by_neigh_count = {}
 
 points_whole_ax = L * 0.8 * 72  # Cuenta mágica para la cantidad de puntos en la pantalla
 
-# el segundo valor es rc/L
-rc_radius = (2 * (rc / L) / 1.0 * points_whole_ax) ** 2  # Cuenta para calcular bien el size
 s = []
 
 plt.figure(figsize=[L, L])
 ax = plt.axes([0.1, 0.1, 0.8, 0.8], xlim=(0, L), ylim=(0, L))
+
+
+def pacman_radius(ghost_x, ghost_y, ghost_rad, ghost_rc, real_L, particle_info_dict):
+    if ghost_x + ghost_rad > L and ghost_y + ghost_rad > real_L:
+        add_ghost_particle(particle_info_dict, ghost_x - L, ghost_y - L, ghost_rad, ghost_rc)
+
+    if ghost_x + ghost_rad > real_L:
+        add_ghost_particle(particle_info_dict, ghost_x - L, ghost_y, ghost_rad, ghost_rc)
+
+    if ghost_y + ghost_rad > real_L:
+        add_ghost_particle(particle_info_dict, ghost_x, ghost_y - L, ghost_rad, ghost_rc)
+
+    if ghost_x - ghost_rad < 0 and ghost_y - ghost_rad < 0:
+        add_ghost_particle(particle_info_dict, ghost_x + L, ghost_y + L, ghost_rad, ghost_rc)
+
+    if ghost_x - ghost_rad < 0:
+        add_ghost_particle(particle_info_dict, ghost_x + L, ghost_y, ghost_rad, ghost_rc)
+
+    if ghost_y - ghost_rad < 0:
+        add_ghost_particle(particle_info_dict, ghost_x, ghost_y + L, ghost_rad, ghost_rc)
+
+
+def add_ghost_particle(p_info, ghost_x_val, ghost_y_val, ghost_p_rad, ghost_rc_val):
+    p_info['x'].append(ghost_x_val)
+    p_info['y'].append(ghost_y_val)
+    p_info['radius'].append(ghost_p_rad)
+    p_info['s'].append(ghost_rc_val)
+
 
 for i in range(len(p)):
     pid = p[i]['id']
@@ -52,11 +77,19 @@ for i in range(len(p)):
     x.append(px)
     y.append(py)
 
-    s.append((2 * ((rad + rc) / L) / 1.0 * points_whole_ax) ** 2)
+    rc_rad = (2 * ((rad + rc) / L) / 1.0 * points_whole_ax) ** 2
+    s.append(rc_rad)
+
     if rad < 0.0 + epsilon:
-        radius.append(50)
+        rad_in_pixels = 50
     else:
-        radius.append((2 * (rad / L) / 1.0 * points_whole_ax) ** 2)
+        rad_in_pixels = (2 * (rad / L) / 1.0 * points_whole_ax) ** 2
+
+    radius.append(rad_in_pixels)
+
+    if data['pacman']:
+        pacman_radius(px, py, rad_in_pixels, rc_rad, L, particles_by_neigh_count[neigh_count_str])
+
     ax.annotate(pid, (px, py), xytext=(px - 0.05, py + 0.1))
 
 # Seteamos la cantidad de líneas a mostrar en el grid
