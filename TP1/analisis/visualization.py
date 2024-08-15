@@ -27,24 +27,34 @@ ax = plt.axes([0.1, 0.1, 0.8, 0.8], xlim=(0, L), ylim=(0, L))
 
 
 def pacman_radius(ghost_x, ghost_y, ghost_rad, ghost_rc, real_L, particle_info_dict):
-    if ghost_x + ghost_rad > L and ghost_y + ghost_rad > real_L:
+    over_top = ghost_y + ghost_rad > real_L
+    over_right = ghost_x + ghost_rad > real_L
+    over_bottom = ghost_y - ghost_rad < 0
+    over_left = ghost_x - ghost_rad < 0
+
+    if over_right and over_top:
         add_ghost_particle(particle_info_dict, ghost_x - L, ghost_y - L, ghost_rad, ghost_rc)
 
-    if ghost_x + ghost_rad > real_L:
+    if over_right:
         add_ghost_particle(particle_info_dict, ghost_x - L, ghost_y, ghost_rad, ghost_rc)
 
-    if ghost_y + ghost_rad > real_L:
+    if over_top:
         add_ghost_particle(particle_info_dict, ghost_x, ghost_y - L, ghost_rad, ghost_rc)
 
-    if ghost_x - ghost_rad < 0 and ghost_y - ghost_rad < 0:
+    if over_left and over_bottom:
         add_ghost_particle(particle_info_dict, ghost_x + L, ghost_y + L, ghost_rad, ghost_rc)
 
-    if ghost_x - ghost_rad < 0:
+    if over_left:
         add_ghost_particle(particle_info_dict, ghost_x + L, ghost_y, ghost_rad, ghost_rc)
 
-    if ghost_y - ghost_rad < 0:
+    if over_bottom:
         add_ghost_particle(particle_info_dict, ghost_x, ghost_y + L, ghost_rad, ghost_rc)
 
+    if over_right and over_bottom:
+        add_ghost_particle(particle_info_dict, ghost_x - L, ghost_y + L, ghost_rad, ghost_rc)
+
+    if over_left and over_top:
+        add_ghost_particle(particle_info_dict, ghost_x + L, ghost_y - L, ghost_rad, ghost_rc)
 
 def add_ghost_particle(p_info, ghost_x_val, ghost_y_val, ghost_p_rad, ghost_rc_val):
     p_info['x'].append(ghost_x_val)
