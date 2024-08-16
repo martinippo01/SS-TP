@@ -80,7 +80,7 @@ def plot_results_by_m_and_n(config):
                 x.append(m)
                 y.append(results['mean'])
                 yerr.append(results['std'])
-            plt.errorbar(x, y, yerr=yerr, marker='o', label=f'{n} partículas')
+            plt.errorbar(x, y, yerr=yerr, marker='o', label=f'{n/20**2} p/u²')
 
         plt.yscale('log')
         plt.legend()
