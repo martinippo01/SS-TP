@@ -8,16 +8,17 @@ def process_json(dir_path, output_name_file):
     data_dict = {}
 
     # Use glob to match all JSON files in the directory
-    for file_name in glob.glob(dir_path + '*.json'):
+    for file_name in glob.glob(dir_path + '**/*.json', recursive=True):
         with open(file_name, 'r') as file:
             data = json.load(file)
             M_value = data["m"]
             time_value = data["time"]
+            time_value_in_ms = float(time_value) / 1000000
 
             # Append the time value to the list of times for the corresponding M value
             if M_value not in data_dict:
                 data_dict[M_value] = []
-            data_dict[M_value].append(time_value)
+            data_dict[M_value].append(time_value_in_ms)
 
     # List to store the final processed data
     output_data = []
@@ -25,8 +26,9 @@ def process_json(dir_path, output_name_file):
     # Calculate average and standard deviation for each M value
     for M_value, times in data_dict.items():
         avg_time = statistics.mean(times)
+        avg_time = round(avg_time, 6)
         std_dev = statistics.stdev(times) if len(times) > 1 else 0
-        std_dev = int(std_dev)
+        std_dev = round(std_dev, 6)
         output_data.append({"M": M_value, "avg_time": avg_time, "std": std_dev})
 
     # Save the output data to a new JSON file
