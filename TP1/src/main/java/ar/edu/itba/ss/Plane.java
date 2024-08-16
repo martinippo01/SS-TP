@@ -51,7 +51,7 @@ public class Plane {
     private Cell getVirtualCell(Cell cell, double xOffset, double yOffset) {
         Point bottomLeft = new Point(cell.getBottomLeft().getX() + xOffset, cell.getBottomLeft().getY() + yOffset);
         List<Particle> innerParticles = cell.getInnerParticles().stream().map(
-                (particle) -> new Particle(particle.getId(), particle.getX() + xOffset, particle.getY() + yOffset, particle.getRadius())
+                (particle) -> Particle.copy(particle).moveX(xOffset).moveY(yOffset)
         ).collect(Collectors.toList());
         return new Cell(cell.getId(), cell.getLength(), bottomLeft, innerParticles);
     }

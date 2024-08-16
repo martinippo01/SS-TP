@@ -46,7 +46,7 @@ public class OutputData {
     private final boolean pacman;
     private final String outputFilePrefix;
     private final List<Particle> particles;
-    private final Map<Integer, List<Integer>> neighbours = new HashMap<>();
+    private final Map<Long, List<Long>> neighbours = new HashMap<>();
 
     public OutputData(InputData inputData, long time, Plane plane, ParticleNeighbours particleNeighbours) {
         this.l = inputData.getLength();
@@ -60,10 +60,10 @@ public class OutputData {
 
         for (Map.Entry<Particle, List<Particle>> entry : particleNeighbours.getMap().entrySet()) {
             // Extract id from key
-            Integer keyId = entry.getKey().getId();
+            long keyId = entry.getKey().getId();
 
             // Extract ids from the list of Particles
-            List<Integer> valueIds = entry.getValue().stream()
+            List<Long> valueIds = entry.getValue().stream()
                     .map(Particle::getId)
                     .collect(Collectors.toList());
 
@@ -108,7 +108,7 @@ public class OutputData {
         return pacman;
     }
 
-    public Map<Integer, List<Integer>> getNeighbours() {
+    public Map<Long, List<Long>> getNeighbours() {
         return neighbours;
     }
 }

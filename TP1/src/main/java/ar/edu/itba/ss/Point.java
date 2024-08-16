@@ -4,6 +4,7 @@ import java.util.Objects;
 
 public class Point {
 
+    private final static double EPSILON = 1e-5;
     private final double x, y;
 
     public Point(double x, double y) {
@@ -25,7 +26,7 @@ public class Point {
             return false;
         }
         Point otherPoint = (Point) obj;
-        return this.x == otherPoint.x && this.y == otherPoint.y;
+        return Math.abs(this.x - otherPoint.x) < EPSILON && Math.abs(this.y - otherPoint.y) < EPSILON;
     }
 
     @Override

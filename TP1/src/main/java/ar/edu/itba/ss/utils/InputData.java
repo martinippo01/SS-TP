@@ -119,7 +119,7 @@ public class InputData {
         private double r;
 
         private Particle toParticle(int id) {
-            return new Particle(id, x, y, r);
+            return new Particle(x, y, r);
         }
     }
 

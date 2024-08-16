@@ -24,7 +24,7 @@ public class Main {
             double random_x = (length) * r.nextDouble();
             double random_y = (length) * r.nextDouble();
             double random_r = (maxRadius) * r.nextDouble();
-            Particle p = new Particle(i, random_x, random_y, random_r);
+            Particle p = new Particle(random_x, random_y, random_r);
             particles.add(p);
         }
         return particles;

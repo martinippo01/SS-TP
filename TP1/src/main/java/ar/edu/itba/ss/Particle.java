@@ -3,17 +3,37 @@ package ar.edu.itba.ss;
 import java.util.Objects;
 
 public class Particle {
-    private final Point point;
+    private Point point;
     private final double radius;
-    private final int id;
+    private final long id;
 
-    public Particle(int id, double x, double y, double radius) {
+    private static long nextId = 0;
+
+    public Particle(double x, double y, double radius) {
+        this(nextId++, x, y, radius);
+    }
+
+    private Particle(long id, double x, double y, double radius) {
         this.id = id;
         this.radius = radius;
         point = new Point(x,y);
     }
 
-    public int getId() {
+    public static Particle copy(Particle p) {
+        return new Particle(p.getId(), p.getX(), p.getY(), p.getRadius());
+    }
+
+    public Particle moveX(double offset) {
+        point = new Point(point.getX() + offset, point.getY());
+        return this;
+    }
+
+    public Particle moveY(double offset) {
+        point = new Point(point.getX(), point.getY() + offset);
+        return this;
+    }
+
+    public long getId() {
         return id;
     }
 
@@ -34,11 +54,11 @@ public class Particle {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Particle particle = (Particle) o;
-        return Objects.equals(point, particle.point);
+        return this.id == particle.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(point);
+        return Objects.hash(id);
     }
 }
