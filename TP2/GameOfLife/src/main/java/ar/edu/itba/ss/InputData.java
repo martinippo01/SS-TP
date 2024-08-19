@@ -37,7 +37,6 @@ public class InputData {
         private String outputFilePrefix;
         private double initialDomainProportion;
         private double initialLiveCellsProportion;
-        private double inputProportion;
         private long maxIter;
     }
 
@@ -81,9 +80,6 @@ public class InputData {
         return inputData.initialLiveCellsProportion;
     }
 
-    public double getInputProportion() {
-        return inputData.inputProportion;
-    }
 
 
     private static class BorderDeserializer implements JsonDeserializer<Border> {

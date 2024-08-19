@@ -77,7 +77,6 @@ public class LifeGameRunner implements Closeable {
         private final boolean is3D;
         private final double initialDomainProportion;
         private final double initialLiveCellsProportion;
-        private final double inputProportion;
         private final List<Set<Position>> liveCellsForStep;
         private final FinishCondition finishCondition;
 
@@ -90,7 +89,6 @@ public class LifeGameRunner implements Closeable {
             this.is3D = inputData.isIs3D();
             this.initialDomainProportion = inputData.getInitialDomainProportion();
             this.initialLiveCellsProportion = inputData.getInitialLiveCellsProportion();
-            this.inputProportion = inputData.getInputProportion();
             this.liveCellsForStep = liveCellsForStep;
             this.finishCondition = finishCondition;
         }
@@ -109,10 +107,6 @@ public class LifeGameRunner implements Closeable {
 
         public double getInitialLiveCellsProportion() {
             return initialLiveCellsProportion;
-        }
-
-        public double getInputProportion() {
-            return inputProportion;
         }
 
         public List<Set<Position>> getLiveCellsForStep() {
