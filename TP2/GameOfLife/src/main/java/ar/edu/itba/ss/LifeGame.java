@@ -44,7 +44,7 @@ public class LifeGame {
         final Set<Position> deadCellsToRevive = new HashSet<>();
         final Set<Position> liveCellsToDie = new HashSet<>();
         for (Position cell : liveCellsByPosition) {
-            if (!border.isPositionInside(cell)) {
+            if (border.isPositionOutside(cell)) {
                 finishCondition = FinishCondition.BORDER;
                 return true;
             }

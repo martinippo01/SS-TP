@@ -49,7 +49,7 @@ public class Border {
         return zMin;
     }
 
-    public boolean isPositionInside(Position position) {
+    public boolean isPositionOutside(Position position) {
         return position.getX() > xMax || position.getX() < xMin || position.getY() > yMax || position.getY() < yMin || position.getZ() > zMax || position.getZ() < zMin;
     }
 
@@ -73,8 +73,8 @@ public class Border {
                 xCc + rdi,
                 yCc - rdi,
                 yCc + rdi,
-                zCc - rdi,
-                zCc + rdi
+                is3D? zCc - rdi : 0,
+                is3D? zCc + rdi : 0
         );
     }
 
@@ -87,7 +87,7 @@ public class Border {
         Set<Position> positions = new HashSet<>();
         int counter = 0;
         while(counter<amountOfCellsAlive) {
-            Position p = new Position(rand.nextLong(xMin, xMax +1), rand.nextLong(yMin, yMax +1), rand.nextLong(zMin, zMax +1));
+            Position p = new Position(xMin + (long) (Math.random() * (xMax - xMin)),yMin + (long) (Math.random() * (yMax - yMin)), zMin + (long) (Math.random() * (zMax - zMin)));
             if(positions.contains(p))
                 continue;
             positions.add(p);
