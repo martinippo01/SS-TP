@@ -29,10 +29,10 @@ public enum NeighbourhoodCondition {
     public List<Position> getNeighbours(Position center, int range, boolean is3D) {
         List<Position> toReturn = new ArrayList<>();
 
-        for (int x = center.getX() - range; x <= center.getX() + range; x++) {
-            for (int y = center.getY() - range; y <= center.getY() + range; y++) {
+        for (long x = center.getX() - range; x <= center.getX() + range; x++) {
+            for (long y = center.getY() - range; y <= center.getY() + range; y++) {
                 if(is3D) {
-                    for (int z = center.getZ() - range; z <= center.getZ() + range; z++) {
+                    for (long z = center.getZ() - range; z <= center.getZ() + range; z++) {
                         Position other = new Position(x, y, z);
                         if (!center.equals(other) && isNeighbour(center, other, range))
                             toReturn.add(other);

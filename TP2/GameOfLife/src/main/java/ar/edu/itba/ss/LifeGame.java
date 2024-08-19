@@ -14,18 +14,18 @@ public class LifeGame {
     private final boolean is3D;
     private final Border border;
 
-    public LifeGame(Set<Position> liveCellsByPosition, int r, NeighbourhoodCondition condition, Set<Integer> shouldKeepAlive, Set<Integer> shouldRevive, boolean is3D, Border border) {
+    public LifeGame(Set<Position> liveCellsByPosition, InputData inputData) {
         this.liveCellsByPosition = liveCellsByPosition;
-        this.r = r;
-        this.shouldKeepAlive = shouldKeepAlive;
-        this.condition = condition;
-        this.shouldRevive = shouldRevive;
-        this.is3D = is3D;
-        this.border = border;
+        this.r = inputData.getR();
+        this.shouldKeepAlive = inputData.getShouldKeepAlive();
+        this.condition = inputData.getCondition();
+        this.shouldRevive = inputData.getShouldRevive();
+        this.is3D = inputData.isIs3D();
+        this.border = inputData.getBorder();
     }
 
     public Set<Position> getLiveCellsByPosition() {
-        return Set.of(this.liveCellsByPosition.iterator());
+        return Set.copyOf(liveCellsByPosition);
     }
 
     public boolean evolve() {

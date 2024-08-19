@@ -3,31 +3,31 @@ package ar.edu.itba.ss;
 import java.util.Objects;
 
 public class Position {
-    private final int x;
+    private final long x;
 
-    private final int y;
+    private final long y;
 
-    private final int z;
+    private final long z;
 
-    public Position(int x, int y) {
+    public Position(long x, long y) {
         this(x, y, 0);
     }
 
-    public Position(int x, int y, int z) {
+    public Position(long x, long y, long z) {
         this.x=x;
         this.y=y;
         this.z=z;
     }
 
-    public int getX() {
+    public long getX() {
         return x;
     }
 
-    public int getY() {
+    public long getY() {
         return y;
     }
 
-    public int getZ() {
+    public long getZ() {
         return z;
     }
 
@@ -42,29 +42,5 @@ public class Position {
     @Override
     public int hashCode() {
         return Objects.hash(x, y, z);
-    }
-
-    public Position getTop() {
-        return new Position(x, y-1, z);
-    }
-
-    public Position getBottom() {
-        return new Position(x, y+1, z);
-    }
-
-    public Position getLeft() {
-        return new Position(x-1, y, z);
-    }
-
-    public Position getRight() {
-        return new Position(x+1, y, z);
-    }
-
-    public Position getUp() {
-        return new Position(x, y, z+1);
-    }
-
-    public Position getDown() {
-        return new Position(x, y, z-1);
     }
 }
