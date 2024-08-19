@@ -38,7 +38,8 @@ public class LifeGameRunner implements Closeable {
 
     @Override
     public void close() throws IOException {
-        OutputData outputData = new OutputData(inputData, liveCellsForStep);
+        FinishCondition finishCondition = lifeGame.getFinishCondition().orElse(FinishCondition.MAX_ITER);
+        OutputData outputData = new OutputData(inputData, liveCellsForStep, finishCondition);
         Output output = new Output(inputData.getOutputFilePrefix(), outputData);
         output.write();
     }
@@ -78,10 +79,12 @@ public class LifeGameRunner implements Closeable {
         private final double initialLiveCellsProportion;
         private final double inputProportion;
         private final List<Set<Position>> liveCellsForStep;
+        private final FinishCondition finishCondition;
 
         public OutputData(
                 InputData inputData,
-                List<Set<Position>> liveCellsForStep
+                List<Set<Position>> liveCellsForStep,
+                FinishCondition finishCondition
         ) {
             this.border = inputData.getBorder();
             this.is3D = inputData.isIs3D();
@@ -89,6 +92,7 @@ public class LifeGameRunner implements Closeable {
             this.initialLiveCellsProportion = inputData.getInitialLiveCellsProportion();
             this.inputProportion = inputData.getInputProportion();
             this.liveCellsForStep = liveCellsForStep;
+            this.finishCondition = finishCondition;
         }
 
         public Border getBorder() {
@@ -113,6 +117,10 @@ public class LifeGameRunner implements Closeable {
 
         public List<Set<Position>> getLiveCellsForStep() {
             return liveCellsForStep;
+        }
+
+        public FinishCondition getFinishCondition() {
+            return finishCondition;
         }
     }
 
