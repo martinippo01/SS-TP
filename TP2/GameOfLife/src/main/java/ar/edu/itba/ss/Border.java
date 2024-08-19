@@ -8,73 +8,73 @@ import java.util.Set;
 public class Border {
 
     // TODO: Check what does 3D mean
-    private final long x_min;
-    private final long x_max;
-    private final long y_min;
-    private final long y_max;
-    private final long z_min;
-    private final long z_max;
+    private final long xMin;
+    private final long xMax;
+    private final long yMin;
+    private final long yMax;
+    private final long zMin;
+    private final long zMax;
 
 
-    public Border(long x_min, long x_max, long y_min, long y_max, long z_min, long z_max) {
-        this.x_min = x_min;
-        this.x_max = x_max;
-        this.y_min = y_min;
-        this.y_max = y_max;
-        this.z_min = z_min;
-        this.z_max = z_max;
+    public Border(long xMin, long xMax, long yMin, long yMax, long zMin, long zMax) {
+        this.xMin = xMin;
+        this.xMax = xMax;
+        this.yMin = yMin;
+        this.yMax = yMax;
+        this.zMin = zMin;
+        this.zMax = zMax;
     }
 
-    public long getX_min() {
-        return x_min;
+    public long getXMin() {
+        return xMin;
     }
 
-    public long getX_max() {
-        return x_max;
+    public long getXMax() {
+        return xMax;
     }
 
-    public long getY_max() {
-        return y_max;
+    public long getYMax() {
+        return yMax;
     }
 
-    public long getY_min() {
-        return y_min;
+    public long getYMin() {
+        return yMin;
     }
 
-    public long getZ_max() {
-        return z_max;
+    public long getZMax() {
+        return zMax;
     }
 
-    public long getZ_min() {
-        return z_min;
+    public long getZMin() {
+        return zMin;
     }
 
     public boolean isPositionInside(Position position) {
-        return position.getX() > x_max || position.getX() < x_min || position.getY() > y_max || position.getY() < y_min || position.getZ() > z_max || position.getZ() < z_min;
+        return position.getX() > xMax || position.getX() < xMin || position.getY() > yMax || position.getY() < yMin || position.getZ() > zMax || position.getZ() < zMin;
     }
 
     public Border getInnerBorder(boolean is3D, double areaPercentage) {
         if (areaPercentage <= 0 || areaPercentage >= 1) {
             throw new IllegalArgumentException("invalid areaPercentage");
         }
-        long x_dist = x_max - x_min == 0 ? 1 : x_max - x_min;
-        long y_dist = y_max - y_min == 0 ? 1 : y_max - y_min;
-        long z_dist = (!is3D || z_max - z_min == 0) ? 1 : z_max - z_min;
-        long adg = x_dist * y_dist * z_dist;
+        long xDist = xMax - xMin == 0 ? 1 : xMax - xMin;
+        long yDist = yMax - yMin == 0 ? 1 : yMax - yMin;
+        long zDist = (!is3D || zMax - zMin == 0) ? 1 : zMax - zMin;
+        long adg = xDist * yDist * zDist;
         long adi = (long) Math.floor(adg * areaPercentage);
         long rdi = (long) Math.floor(
                 Math.pow(adi, is3D ? 1.0/3 : 1.0/2) / 2
         );
-        long x_cc = x_dist / 2;
-        long y_cc = y_dist / 2;
-        long z_cc = z_dist / 2;
+        long xCc = xDist / 2;
+        long yCc = yDist / 2;
+        long zCc = zDist / 2;
         return new Border(
-                x_cc - rdi,
-                x_cc + rdi,
-                y_cc - rdi,
-                y_cc + rdi,
-                z_cc - rdi,
-                z_cc + rdi
+                xCc - rdi,
+                xCc + rdi,
+                yCc - rdi,
+                yCc + rdi,
+                zCc - rdi,
+                zCc + rdi
         );
     }
 
@@ -87,7 +87,7 @@ public class Border {
         Set<Position> positions = new HashSet<>();
         int counter = 0;
         while(counter<amountOfCellsAlive) {
-            Position p = new Position(rand.nextLong(x_min, x_max+1), rand.nextLong(y_min, y_max+1), rand.nextLong(z_min, z_max+1));
+            Position p = new Position(rand.nextLong(xMin, xMax +1), rand.nextLong(yMin, yMax +1), rand.nextLong(zMin, zMax +1));
             if(positions.contains(p))
                 continue;
             positions.add(p);
@@ -98,7 +98,7 @@ public class Border {
     }
 
     private long getAmountOfCells() {
-        return z_max==0 && z_min == 0 ? (x_max-x_min) * (y_max-y_min) : (z_max-z_min) * (x_max-x_min) * (y_max-y_min);
+        return zMax ==0 && zMin == 0 ? (xMax - xMin) * (yMax - yMin) : (zMax - zMin) * (xMax - xMin) * (yMax - yMin);
     }
 
 

@@ -120,12 +120,12 @@ public class LifeGameRunner implements Closeable {
         @Override
         public JsonElement serialize(Border border, Type type, JsonSerializationContext jsonSerializationContext) {
             JsonObject obj = new JsonObject();
-            obj.addProperty("x.min", border.getX_min());
-            obj.addProperty("x.max", border.getX_max());
-            obj.addProperty("y.min", border.getY_min());
-            obj.addProperty("y.max", border.getY_max());
-            obj.addProperty("z.min", border.getZ_min());
-            obj.addProperty("z.max", border.getZ_max());
+            obj.addProperty("x.min", border.getXMin());
+            obj.addProperty("x.max", border.getXMax());
+            obj.addProperty("y.min", border.getYMin());
+            obj.addProperty("y.max", border.getYMax());
+            obj.addProperty("z.min", border.getZMin());
+            obj.addProperty("z.max", border.getZMax());
             return obj;
         }
     }
