@@ -12,7 +12,7 @@ def load_simulation_data(json_file):
 
 
 # Load simulation data from JSON file
-simulation_data = load_simulation_data('./results/1.json')
+simulation_data = load_simulation_data('./simulation_results/1.json')
 
 # Extract grid boundaries and steps
 min_x, max_x = simulation_data['min_x'], simulation_data['max_x']
