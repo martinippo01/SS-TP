@@ -11,7 +11,7 @@ def size_scalar_analysis(output, observation_step) -> float or None:
     live_cells_for_step = output['liveCellsForStep']
     if len(live_cells_for_step) <= observation_step:
         return None
-    live_cells_for_observable_step = live_cells_for_step[observation_step]
+    live_cells_for_observable_step = live_cells_for_step[observation_step-1]
     return len(live_cells_for_observable_step)
 
 
