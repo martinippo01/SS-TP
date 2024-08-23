@@ -15,8 +15,29 @@ def size_scalar_analysis(output, observation_step) -> float or None:
     return len(live_cells_for_observable_step)
 
 
+def time_scalar_analysis(output, _) -> float or None:
+    finish_condition = output['finishCondition']
+    if finish_condition != 'BORDER':
+        return None
+    live_cells_for_step = output['liveCellsForStep']
+    return len(live_cells_for_step)
+
+
+def slope_scalar_analysis(output, observation_step) -> float or None:
+    live_cells_for_step = output['liveCellsForStep']
+    if len(live_cells_for_step) <= observation_step:
+        return None
+    live_cells_initial_step = live_cells_for_step[0]
+    live_cells_for_observable_step = live_cells_for_step[observation_step-1]
+    y1 = len(live_cells_initial_step)
+    y2 = len(live_cells_for_observable_step)
+    return (y2 - y1) / observation_step
+
+
 mean_and_std_by_scalar_analysis = {
-    'size': size_scalar_analysis
+    'size': size_scalar_analysis,
+    'time': time_scalar_analysis,
+    'slope': slope_scalar_analysis
 }
 
 
@@ -76,7 +97,9 @@ def mean_and_std_fn(config):
 
 
 ylabel_by_scalar_analysis = {
-    'size': lambda observation_step: f'Tamaño de celulas vivas tras {observation_step} pasos (unidades)',
+    'size': lambda observation_step: f'Tamaño de celulas vivas\ntras {observation_step} pasos (unidades)',
+    'time': lambda _: f'Tiempo de ejecución hasta que las células\nvivas alcanzan el borde (pasos)',
+    'slope': lambda observation_step: f'Pendiente de crecimiento de células vivas\ntras {observation_step} pasos (unidades/paso)'
 }
 
 
@@ -111,7 +134,7 @@ def plot_results(config):
             y.append(results_by_input[str(input)]['mean'])
             yerr.append(results_by_input[str(input)]['std'])
 
-    plt.figure()
+    plt.figure(figsize=(10, 5))
     plt.xlabel("Porcentaje de células vivas respecto al dominio inicial (%)")
     plt.ylabel(ylabel_fn(observation_step))
     plt.errorbar(x, y, yerr=yerr, fmt='o-', capsize=5, capthick=2)
