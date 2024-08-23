@@ -21,7 +21,7 @@ public class LifeGameRunner implements Closeable {
         this.inputData = inputData;
         this.lifeGame = new LifeGame(initialLiveCells, inputData);
         this.liveCellsForStep = new ArrayList<>();
-        this.liveCellsForStep.add(initialLiveCells);
+        this.liveCellsForStep.add(Set.copyOf(initialLiveCells));
     }
 
     public void run() {
