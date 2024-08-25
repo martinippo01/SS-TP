@@ -56,12 +56,14 @@ def further_distance_scalar_analysis(output, observation_step) -> float:
     return further_distance_to_center(domain, is_3d, live_cells_for_observable_step)
 
 
-def further_distance_slope_scalar_analysis(output, _) -> float:
+def further_distance_slope_scalar_analysis(output, observation_step) -> float:
     domain = output['border']
     is_3d = output['is3D']
     live_cells_for_step = output['liveCellsForStep']
+    if len(live_cells_for_step) <= observation_step:
+        observation_step = len(live_cells_for_step)
     live_cells_initial_step = live_cells_for_step[0]
-    live_cells_final_step = live_cells_for_step[-1]
+    live_cells_final_step = live_cells_for_step[observation_step-1]
     y1 = further_distance_to_center(domain, is_3d, live_cells_initial_step)
     y2 = further_distance_to_center(domain, is_3d, live_cells_final_step)
     return (y2 - y1) / len(live_cells_for_step)
@@ -132,7 +134,7 @@ ylabel_by_scalar_analysis = {
     'time': lambda _: f'Tiempo de ejecución hasta que las células\nvivas alcanzan el borde (pasos)',
     'size_slope': lambda observation_step: f'Pendiente de crecimiento de células vivas\ntras {observation_step} pasos (unidades/paso)',
     'further_distance': lambda observation_step: f'Distancia más lejana al centro de las células vivas\ntras {observation_step} pasos (unidades)',
-    'further_distance_slope': lambda _: f'Pendiente de crecimiento de la distancia más lejana\nal centro de las células vivas (unidades/paso)'
+    'further_distance_slope': lambda observation_step: f'Pendiente de crecimiento de la distancia más lejana\nal centro de las células vivas tras {observation_step} pasos (unidades/paso)'
 }
 
 
