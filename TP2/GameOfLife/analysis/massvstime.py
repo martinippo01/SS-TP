@@ -2,6 +2,9 @@ import matplotlib.pyplot as plt
 import json
 import sys
 
+
+# Pasarle directamente el result_2024...
+
 with open(sys.argv[1], 'r') as config_file:
     data = json.load(config_file)
 
