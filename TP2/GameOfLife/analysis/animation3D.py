@@ -1,75 +1,146 @@
-import json
+# import matplotlib.pyplot as plt
+# import numpy as np
+# from matplotlib.animation import FuncAnimation
+# import json
+# import datetime
+# import math
+#
+#
+# # Function to load simulation data from JSON
+# def load_json(json_file):
+#     with open(json_file, 'r') as file:
+#         data = json.load(file)
+#     return data
+#
+#
+# def cell_color_by_distance(x, y, z):
+#     distance = math.sqrt((x - center_x) ** 2 + (y - center_y) ** 2 + (z - center_z) ** 2)
+#     return ((distance / max_distance), 1 - (distance / max_distance), 0)
+#
+#
+# # Load animation data
+# animation_data = load_json('./input.json')
+# # Load simulation data from JSON file
+# simulation_data = load_json(animation_data["input_file"])
+#
+# # Extract grid boundaries and steps
+# border = simulation_data["border"]
+# min_x, max_x = border["x.min"], border["x.max"]
+# min_y, max_y = border["y.min"], border["y.max"]
+# min_z, max_z = border["z.min"], border["z.max"]
+# center_x = (max_x - min_x) / 2
+# center_y = (max_y - min_y) / 2
+# center_z = (max_z - min_z) / 2
+# max_distance = math.sqrt((center_x - max_x) ** 2 + (center_y - max_y) ** 2 + (center_z - max_z) ** 2)
+# steps = simulation_data['liveCellsForStep']
+#
+#
+# # Initialize figure and 3D axis
+# fig = plt.figure()
+# ax = fig.add_subplot(projection='3d')
+#
+# # Prepare some initial empty arrays
+# x, y, z = np.indices((max_x - min_x, max_y - min_y, max_z - min_z))
+# colors = np.empty((max_x - min_x, max_y - min_y, max_z - min_z), dtype=object)
+#
+# # Function to update the voxels at each frame
+# def update(frame):
+#     # Clear the previous voxels
+#     ax.clear()
+#
+#     # Reset colors
+#     colors.fill(None)
+#
+#     # Get the current voxel positions from the frame
+#     current_voxels = steps[frame]
+#
+#     # Create a new boolean voxel array and update colors
+#     voxelarray = np.zeros((max_x - min_x, max_y - min_y, max_z - min_z), dtype=bool)
+#     for (x_, y_, z_) in current_voxels:
+#         voxelarray[x_, y_, z_] = True
+#         colors[x_, y_, z_] = cell_color_by_distance(x_, y_, z_)
+#
+#     # Draw the updated voxel array
+#     ax.voxels(voxelarray, facecolors=colors, edgecolor='k')
+#
+#
+# # Create the animation
+# ani = FuncAnimation(fig, update, frames=len(steps), repeat=True)
+# ani.save(filename=animation_data["output_dir"] + "" + datetime.datetime.now().strftime("%Y%m%d%H%M%S") + "/animation.html", writer="html")
+#
+# plt.show()
+import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
-from matplotlib import pyplot as plt
-import matplotlib.animation as animation
-from mpl_toolkits.mplot3d.art3d import Poly3DCollection
+from matplotlib.animation import FuncAnimation
+import json
+import datetime
+import math
 
 
 # Function to load simulation data from JSON
-def load_simulation_data(json_file):
+def load_json(json_file):
     with open(json_file, 'r') as file:
         data = json.load(file)
     return data
 
 
+def cell_color_by_distance(x, y, z):
+    distance = math.sqrt((x - center_x) ** 2 + (y - center_y) ** 2 + (z - center_z) ** 2)
+    return (distance / max_distance, 1 - (distance / max_distance), 0)
+
+
+# Load animation data
+animation_data = load_json('./input.json')
 # Load simulation data from JSON file
-simulation_data = load_simulation_data('./simulation_results/2.json')
+simulation_data = load_json(animation_data["input_file"])
 
-# Extract steps
-steps = simulation_data['steps']
-
-# Prepare the DataFrame
-data = []
-for step in steps:
-    step_num = step['step']
-    for cell in step['live_cells']:
-        data.append({
-            'time': step_num,
-            'x': cell['x'],
-            'y': cell['y'],
-            'z': cell['z']
-        })
-
-df = pd.DataFrame(data)
+# Extract grid boundaries and steps
+border = simulation_data["border"]
+min_x, max_x = border["x.min"], border["x.max"]
+min_y, max_y = border["y.min"], border["y.max"]
+min_z, max_z = border["z.min"], border["z.max"]
+center_x = (max_x - min_x) / 2
+center_y = (max_y - min_y) / 2
+center_z = (max_z - min_z) / 2
+max_distance = math.sqrt((center_x - max_x) ** 2 + (center_y - max_y) ** 2 + (center_z - max_z) ** 2)
+steps = simulation_data['liveCellsForStep']
 
 
-# Function to create a cube (box) at position (x, y, z)
-def create_cube(x, y, z, size=1):
-    r = [-size / 2, size / 2]
-    X, Y = np.meshgrid(r, r)
-    X = X.flatten()
-    Y = Y.flatten()
-    Z = np.array([r[0]] * len(X))
+# Initialize figure and 3D axis
+fig = plt.figure()
+ax = fig.add_subplot(projection='3d')
 
-    # Define the vertices of the cube
-    vertices = np.array([
-        [X[0] + x, Y[0] + y, Z[0] + z],  # Bottom-left-front
-        [X[1] + x, Y[0] + y, Z[0] + z],  # Bottom-right-front
-        [X[1] + x, Y[1] + y, Z[0] + z],  # Top-right-front
-        [X[0] + x, Y[1] + y, Z[0] + z],  # Top-left-front
-        [X[0] + x, Y[0] + y, Z[1] + z],  # Bottom-left-back
-        [X[1] + x, Y[0] + y, Z[1] + z],  # Bottom-right-back
-        [X[1] + x, Y[1] + y, Z[1] + z],  # Top-right-back
-        [X[0] + x, Y[1] + y, Z[1] + z],  # Top-left-back
-    ])
+# Prepare some initial empty arrays
+x, y, z = np.indices((max_x - min_x, max_y - min_y, max_z - min_z))
+colors = np.empty((max_x - min_x, max_y - min_y, max_z - min_z), dtype=object)
 
-    # Define the six faces of the cube
-    faces = [
-        [vertices[0], vertices[1], vertices[2], vertices[3]],  # Front
-        [vertices[4], vertices[5], vertices[6], vertices[7]],  # Back
-        [vertices[0], vertices[1], vertices[5], vertices[4]],  # Bottom
-        [vertices[2], vertices[3], vertices[7], vertices[6]],  # Top
-        [vertices[1], vertices[2], vertices[6], vertices[5]],  # Right
-        [vertices[0], vertices[3], vertices[7], vertices[4]]  # Left
-    ]
+# Function to update the voxels at each frame
+def update(frame):
+    # Clear the previous voxels
+    ax.clear()
 
-    return faces
+    # Reset colors
+    colors.fill(None)
+
+    # Get the current voxel positions from the frame
+    current_voxels = steps[frame]
+
+    # Create a new boolean voxel array and update colors
+    voxelarray = np.zeros((max_x - min_x, max_y - min_y, max_z - min_z), dtype=bool)
+    for cell in current_voxels:
+        x_, y_, z_ = int(cell['x']), int(cell['y']), int(cell['z'])
+
+        # Bounds checking to prevent out-of-range errors
+        if min_x <= x_ < max_x and min_y <= y_ < max_y and min_z <= z_ < max_z:
+            voxelarray[x_ - min_x, y_ - min_y, z_ - min_z] = True
+            colors[x_ - min_x, y_ - min_y, z_ - min_z] = cell_color_by_distance(x_, y_, z_)
+
+    # Draw the updated voxel array
+    ax.voxels(voxelarray, facecolors=colors, edgecolor='k')
 
 
-# Function to initialize the cubes for the current step
-def initialize_cubes(live_cells):
-    ax.clear()  # Clear existing cubes
-    # Add new cubes
-    for cell in live_cells:
-        x = cell['x']
+# Create the animation
+ani = FuncAnimation(fig, update, frames=len(steps), repeat=True)
+ani.save(filename=animation_data["output_dir"] + "" + datetime.datetime.now().strftime("%Y%m%d%H%M%S") + "/animation.html", writer="html")
+
+plt.show()

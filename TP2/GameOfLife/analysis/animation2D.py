@@ -71,7 +71,7 @@ plt.ylim(min_y - 1, max_y + 1)
 # Set grid lines to be at every integer
 # ax.set_xticks(np.arange(min_x - 1, max_x + 2, 1))
 # ax.set_yticks(np.arange(min_y - 1, max_y + 2, 1))
-ax.grid(which='both', linestyle='--', linewidth=0.5)
+# ax.grid(which='both', linestyle='--', linewidth=0.5)
 
 # Add grid, labels, and show plot
 
