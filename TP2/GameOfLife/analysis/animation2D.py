@@ -4,6 +4,7 @@ import json
 import datetime
 import math
 import numpy as np
+import sys
 
 
 # Function to load simulation data from JSON
@@ -13,8 +14,12 @@ def load_json(json_file):
     return data
 
 
+if len(sys.argv) < 2:
+    print("Usage: python3 animation2D.py <input.json>")
+    sys.exit(1)
+
 # Load animation data
-animation_data = load_json('./input.json')
+animation_data = load_json(sys.argv[1])
 # Load simulation data from JSON file
 simulation_data = load_json(animation_data["input_file"])
 
