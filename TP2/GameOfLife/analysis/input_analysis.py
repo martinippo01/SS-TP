@@ -82,7 +82,7 @@ def mean_and_std_fn(config):
     output_file_prefix = config['outputFilePrefix']
     input_directory = config['inputDirectory']
     scalar_analysis = config['scalarAnalysis']
-    # decimal_precision = int(config['decimalPrecision'])
+    decimal_precision = int(config['decimalPrecision'])
     observation_step = int(config['observationStep'])
 
     scalar_analysis_fn = mean_and_std_by_scalar_analysis[scalar_analysis]
@@ -108,11 +108,11 @@ def mean_and_std_fn(config):
 
     for input, scalar_values in scalar_analysis_by_input.items():
         mean = statistics.mean(scalar_values)
-        # real_mean = round(mean, decimal_precision)
+        real_mean = round(mean, decimal_precision)
         std = statistics.stdev(scalar_values) if len(scalar_values) > 1 else 0
-        # real_std = round(std, decimal_precision)
+        real_std = round(std, decimal_precision)
 
-        scalar_mean_and_std_by_input[input] = {'mean': mean, 'std': std}
+        scalar_mean_and_std_by_input[input] = {'mean': real_mean, 'std': real_std}
 
     gmt = time.gmtime()
     timestamp = time.strftime('%Y-%m-%d_%H-%M-%S', gmt)
@@ -133,8 +133,8 @@ ylabel_by_scalar_analysis = {
     'size': lambda observation_step: f'Tamaño de celulas vivas\ntras {observation_step} pasos (unidades)',
     'time': lambda _: f'Tiempo de ejecución hasta que las células\nvivas alcanzan el borde (pasos)',
     'size_slope': lambda observation_step: f'Pendiente de crecimiento de células vivas\ntras {observation_step} pasos (unidades/paso)',
-    'further_distance': lambda observation_step: f'Distancia más lejana al centro de las células vivas\ntras {observation_step} pasos (unidades)',
-    'further_distance_slope': lambda observation_step: f'Pendiente de crecimiento de la distancia más lejana\nal centro de las células vivas tras {observation_step} pasos (unidades/paso)'
+    'further_distance': lambda observation_step: f'Distancia más lejana al centro\ntras {observation_step} pasos (unidades)',
+    'further_distance_slope': lambda observation_step: f'Rapidéz de alejamiento del centro\ntras {observation_step} pasos (unidades/paso)'
 }
 
 

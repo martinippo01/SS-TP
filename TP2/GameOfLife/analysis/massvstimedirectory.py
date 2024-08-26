@@ -23,10 +23,9 @@ for filename in os.listdir(directory):
 
 # Plot the data from each file
 for i, cell_counts in enumerate(all_cell_counts):
-    plt.plot(cell_counts, marker='o', label=f'File {i+1}')
+    plt.plot(cell_counts, marker='o', label=f'Simulación #{i+1}')
 
-plt.title('Number of Live Cells vs. Step')
-plt.xlabel('Step')
-plt.ylabel('Number of Live Cells')
+plt.xlabel('Paso temporal (pasos)')
+plt.ylabel('Células vivas (unidades)')
 plt.legend()
 plt.show()
