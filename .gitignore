@@ -453,3 +453,7 @@ input
 results
 TP1/analisis/output_data/*
 *.lock
+*.png
+*.jpg
+*.jpeg
+*.html
