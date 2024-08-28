@@ -23,12 +23,33 @@ a lo largo de los pasos temporales.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\linewidth]{conway2d/size_i10}
-    \caption{Evolución en el tiempo del sistema de Conway con $initialLiveCellsProportion = 0.1$}
+    \caption{Cantidad de celdas vivas en el tiempo del sistema de Conway con $initialLiveCellsProportion = 0.1$}
     \label{fig:conway2d_i10}
 \end{figure}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\linewidth]{conway2d/size_i90}
-    \caption{Evolución en el tiempo del sistema de Conway con $initialLiveCellsProportion = 0.9$}
+    \caption{Cantidad de celdas vivas en el tiempo del sistema de Conway con $initialLiveCellsProportion = 0.9$}
     \label{fig:conway2d_i90}
 \end{figure}
+
+De igual forma, se ha analizado la distancia de la celda viva más lejana al centro de la matriz en función del
+paso temporal.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{conway2d/distance_i10}
+    \caption{Distancia de la celda viva más lejana al centro en función del tiempo con $initialLiveCellsProportion = 0.1$}
+    \label{fig:conway2d_d10}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{conway2d/distance_i90}
+    \caption{Distancia de la celda viva más lejana al centro en función del tiempo con $initialLiveCellsProportion = 0.9$}
+    \label{fig:conway2d_d90}
+\end{figure}
+
+Como se puede apreciar, el sistema alcanza el equilibrio antes del paso temporal 900, por lo que se hace el análisis
+del observable en el paso temporal mencionado.
+Para este modelo, en función de la densidad de celdas vivas en el dominio inicial, se ha observado la cantidad de celdas vivas,
+la pendiente de crecimiento de la cantidad de celdas vivas
