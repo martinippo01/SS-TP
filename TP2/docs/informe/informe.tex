@@ -4,6 +4,12 @@
 % Packages
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{caption}
+\usepackage{graphicx}
+\usepackage{float}
+
+
+\graphicspath{ {./images/} }
 
 % Document
 \begin{document}
@@ -54,30 +60,62 @@
 
     \subsection{Parámetros de entrada}\label{subsec:parametros-de-entrada}
 
-    Para poder llevar a cabo las simulaciones, se tomó en cuenta un conjunto de parámetros de entrada.
-    Los mismos se pueden categorizar entre fijos y variables, dependiendo de si su valor se mantuvo
+    Para poder llevar a cabo las simulaciones, se toma en cuenta un conjunto de parámetros de entrada.
+    Los mismos se pueden categorizar entre fijos y variables, dependiendo de si su valor se mantiene
     constante a lo largo de todas las ejecuciones de la simulación para un mismo conjunto de reglas, o no.
 
-    Comenzando con los parámetros fijos, tuvimos los límites de la matriz (border),
+    Comenzando con los parámetros fijos, se tiene los límites de la matriz ($border$),
     en el que se indican los valores máximos y mínimos de las coordenadas de las celdas en dos o tres dimensiones.
-    Luego, se definió la condición de vecindad a partir de dos parámetros:
+    Luego, se define la condición de vecindad a partir de dos parámetros:
     la forma en la que se consideran las celdas vecinas a una celda en particular, según los modelos mencionados
-    en~\ref{subsec:definiciones-de-vecindad} (condition), y el alcance de la vecindad (r).
-    Con respecto a las reglas de juego, se contó con dos parámetros que determinan las posibles cantidades de
-    vecinos que debe tener una celda para que se mantenga viva (shouldKeepAlive),
-    y para que una celda muerta se convierta en viva (shouldRevive); ambos eran listas de enteros.
-    Por último, se determinó el dominio inicial de celdas vivas (initialDomainProportion), el
-    cual representaba una proporción del área, si era un simulación en dos dimensiones, o del volumen,
-    si era en tres dimensiones, total de la matriz.
-    Es decir, siendo $A$ el área o volumen total de la matriz, el dominio inicial era $A \times initialDomainProportion$.
+    en~\ref{subsec:definiciones-de-vecindad} ($condition$), y el alcance de la vecindad ($r$).
+    Con respecto a las reglas de juego, se cuenta con dos parámetros que determinan las posibles cantidades de
+    vecinos que debe tener una celda para que se mantenga viva ($shouldKeepAlive$),
+    y para que una celda muerta se convierta en viva ($shouldRevive$); ambos son listas de enteros.
+    Por último, se determinó el dominio inicial ($initialDomainProportion$), el
+    cual representa una proporción del área, si es un simulación en dos dimensiones, o del volumen,
+    si es en tres dimensiones, total de la matriz donde se generan las celdas vivas en el paso temporal 0.
+    Es decir, siendo $A$ el área o volumen total de la matriz, el dominio inicial es $A \times initialDomainProportion$.
 
-    Por otro lado, los parámetros que se variaron a lo largo de las simulaciones fueron la cantidad de pasos temporales
-    máximos (maxIter), y la proporción de densidad de celdas vivas en el dominio inicial (initialLiveCellsProportion),
+    Por otro lado, los parámetros que se varían a lo largo de las simulaciones son la cantidad de pasos temporales
+    máximos ($maxIter$), y la proporción de densidad de celdas vivas en el dominio inicial ($initialLiveCellsProportion$),
     siendo este último un valor entre 0 y 1.
 
 
     \section{Resultados}\label{sec:resultados}
+    A continuación, se presentan los casos de estudio que se han realizado para diferentes simulaciones del juego
+    de la vida en dos y tres dimensiones, y sus respectivos resultados.
+    Para cada caso, se detallan los parámetros de entrada fijos utilizados, seguido de una o más figuras en el que
+    se muestra la evolución del sistema en cada paso temporal en valores extremos, y finalmente, un análisis del
+    observable en función de la densidad de celdas vivas en el dominio inicial.
 
+    \subsection{Conway en 2D}\label{subsec:conway-en-2d}
+
+    Como primer modelo, se ha estudiado el reconocido juego de la vida de Conway en dos dimensiones.
+    Para ello, se fija los siguientes parámetros de entrada:
+
+    \begin{itemize}
+        \item $border = (0, 0) \times (100, 100)$
+        \item $condition = MOORE$
+        \item $r = 1$
+        \item $shouldKeepAlive = [2, 3]$
+        \item $shouldRevive = [3]$
+        \item $initialDomainProportion = 0.16$
+    \end{itemize}
+    Variando el parámetro $initialLiveCellsProportion$ entre 0.1 y 0.9, se ha analizado la cantidad de celdas vivas
+    a lo largo de los pasos temporales.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\linewidth]{conway2d/size_i10}
+        \caption{Evolución en el tiempo del sistema de Conway con $initialLiveCellsProportion = 0.1$}
+        \label{fig:conway2d_i10}
+    \end{figure}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\linewidth]{conway2d/size_i90}
+        \caption{Evolución en el tiempo del sistema de Conway con $initialLiveCellsProportion = 0.9$}
+        \label{fig:conway2d_i90}
+    \end{figure}
 
     \section{Conclusiones}\label{sec:conclusiones}
 
