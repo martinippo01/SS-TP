@@ -1,0 +1,24 @@
+\section{Simulaciones}\label{sec:simulaciones}
+
+\subsection{Parámetros de entrada}\label{subsec:parametros-de-entrada}
+
+Para poder llevar a cabo las simulaciones, se toma en cuenta un conjunto de parámetros de entrada.
+Los mismos se pueden categorizar entre fijos y variables, dependiendo de si su valor se mantiene
+constante a lo largo de todas las ejecuciones de la simulación para un mismo conjunto de reglas, o no.
+
+Comenzando con los parámetros fijos, se tiene los límites de la matriz ($border$),
+en el que se indican los valores máximos y mínimos de las coordenadas de las celdas en dos o tres dimensiones.
+Luego, se define la condición de vecindad a partir de dos parámetros:
+la forma en la que se consideran las celdas vecinas a una celda en particular, según los modelos mencionados
+en~\ref{subsec:definiciones-de-vecindad} ($condition$), y el alcance de la vecindad ($r$).
+Con respecto a las reglas de juego, se cuenta con dos parámetros que determinan las posibles cantidades de
+vecinos que debe tener una celda para que se mantenga viva ($shouldKeepAlive$),
+y para que una celda muerta se convierta en viva ($shouldRevive$); ambos son listas de enteros.
+Por último, se determinó el dominio inicial ($initialDomainProportion$), el
+cual representa una proporción del área, si es un simulación en dos dimensiones, o del volumen,
+si es en tres dimensiones, total de la matriz donde se generan las celdas vivas en el paso temporal 0.
+Es decir, siendo $A$ el área o volumen total de la matriz, el dominio inicial es $A \times initialDomainProportion$.
+
+Por otro lado, los parámetros que se varían a lo largo de las simulaciones son la cantidad de pasos temporales
+máximos ($maxIter$), y la proporción de densidad de celdas vivas en el dominio inicial ($initialLiveCellsProportion$),
+siendo este último un valor entre 0 y 1.

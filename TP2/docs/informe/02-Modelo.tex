@@ -1,0 +1,38 @@
+\section{Modelo}\label{sec:modelo}
+
+\subsection{Automatas celulares}\label{subsec:automatas-celulares}
+
+Un automata celular modela un sistema dinamico el cual evoluciona en pasos discretos mediantes reglas o heuristicas,
+las cuales determinan la transicion entre dos estados.
+
+El sistema se compone de una matriz de celdas que poseen un numero finito de estados discretos y estos se iran actualizando
+de manera sincronica en cada paso temporal.
+
+Las reglas se caracterizan por ser deterministicas y uniformes en tiempo y espacio. Es decir, que las reglas para la evolucion
+de una celda solamente depende de un vecindario. Donde este vecindario sera definido segun la implementacion y las reglas.
+
+En una transicion de estados, se define un alcance r, el cual determina el grupo de celdas cercanas que son tenidas
+en cuenta para la regla de transicion. Como es utilizado el valor r varia en funcion de la cantidad de dimensiones de
+la matriz y como se define el vecindario.
+
+\subsection{Definiciones de vecindad}\label{subsec:definiciones-de-vecindad}
+Como se ha mencionado, el alcance es un parametro que describe a un sistema en particualar. Sin embargo, debe tambien
+tenerse en cuenta bajo que definicion de vecindario se trabaja. Se han contemplado los siguietnes.
+
+En primer lugar el vecindario \textbf{Von Neumann} considera como vecina a aquellas celdas que se encuentran dentro del rango r
+considerando la distancia Manhattan. De forma mas precisa, el conjunto de vecinas se define de la siguiente manera
+$N_{i,j}^{vN}:=\{(k,l) \in L\ |\ |k-i|+ |l - j| \leq r\}$
+
+Por otro lado, el vecindario \textbf{Moore} considera una celda como vecina si toda las componentes de su posicion se encuentran
+a distancia menor a r. De forma mas precisa el conjunto de celdas vecinas es
+$N_{i,j}^{M}:=\{(k,l) \in L\ |\ |k-i|\leq r\ and\ |l - j| \leq r \}$.
+
+
+\subsection{Juego de la vida}\label{subsec:juego-de-la-vida}
+Propuesto por John Horton Conway en 1970, el juego de la vida es un automata celular en dos dimensiones con las sigueintes reglas
+\begin{itemize}
+    \item Se considera 8 vecinos (Vecindad de Moore, r = 1).
+    \item Cada celda tiene dos estados posibles “Viva” o “Muerta” ($k=2$).
+    \item Las Celdas Vivas, permanecerán vivas en el siguiente paso temporal si tiene 2 o 3 vecinos vivos, de lo contrario morirá.
+    \item Las Celdas Muertas se transformarán en Vivas solamente si tiene exactamente 3 vecinos vivos.
+\end{itemize}
