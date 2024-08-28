@@ -4,6 +4,7 @@
 % Packages
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{hyperref}
 \usepackage{caption}
 \usepackage{graphicx}
 \usepackage{float}
@@ -19,7 +20,7 @@
 
     \section{Introduccion}\label{sec:introduccion}
     El siguiente trabajo presenta el desarrollo de la implementacion, simulaciones realizadas y analisis de resultados de
-    automatas celulares, en particular el juego de la vida, propuesto por John Horton Conway en 1970, y alteraciones del mismo.
+    automatas celulares, en particular el juego de la vida y alteraciones del mismo.
 
     Con fines de producir diversas simulaciones con el objetivo de detectar comportamientos y patrones, se ha realizado
     simulaciones tanto en dos y tres dimensiones, modificando a su vez parametros de entrada.
@@ -45,12 +46,26 @@
     Como se ha mencionado, el alcance es un parametro que describe a un sistema en particualar. Sin embargo, debe tambien
     tenerse en cuenta bajo que definicion de vecindario se trabaja. Se han contemplado los siguietnes.
 
-    En primer lugar el vecindario Von Neumann considera como vecina a aquellas celdas que se encuentran dentro del rango r
+    En primer lugar el vecindario \textbf{Von Neumann} considera como vecina a aquellas celdas que se encuentran dentro del rango r
     considerando la distancia Manhattan. De forma mas precisa, el conjunto de vecinas se define de la siguiente manera
     $N_{i,j}^{vN}:=\{(k,l) \in L\ |\ |k-i|+ |l - j| \leq r\}$
 
+    Por otro lado, el vecindario \textbf{Moore} considera una celda como vecina si toda las componentes de su posicion se encuentran
+    a distancia menor a r. De forma mas precisa el conjunto de celdas vecinas es
+    $N_{i,j}^{M}:=\{(k,l) \in L\ |\ |k-i|\leq r\ and\ |l - j| \leq r \}$.
+
+
+    \subsection{Juego de la vida}
+     Propuesto por John Horton Conway en 1970, el juego de la vida es un automata celular en dos dimensiones con las sigueintes reglas
+    \begin{itemize}
+        \item Se considera 8 vecinos (Vecindad de Moore, r = 1).
+        \item Cada celda tiene dos estados posibles “Viva” o “Muerta” ($k=2$).
+        \item Las Celdas Vivas, permanecerán vivas en el siguiente paso temporal si tiene 2 o 3 vecinos vivos, de lo contrario morirá.
+        \item Las Celdas Muertas se transformarán en Vivas solamente si tiene exactamente 3 vecinos vivos.
+    \end{itemize}
 
     \subsection{Juego de la vida}\label{subsec:juego-de-la-vida}
+
 
 
     \section{Implementacion}\label{sec:implementacion}
