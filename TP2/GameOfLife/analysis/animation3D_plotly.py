@@ -3,6 +3,7 @@ import numpy as np
 import json
 import datetime
 import math
+import sys
 
 
 # Function to load simulation data from JSON
@@ -18,8 +19,12 @@ def cell_color_by_distance(x, y, z):
     return f'rgb({int(normalized_distance * 255)}, {int((1 - normalized_distance) * 255)}, 0)'
 
 
-# Load animation configuration and simulation data
-animation_data = load_json('./input.json')
+if len(sys.argv) < 2:
+    print("Usage: python3 animation2D.py <input.json>")
+    sys.exit(1)
+
+# Load animation data
+animation_data = load_json(sys.argv[1])
 simulation_data = load_json(animation_data["input_file"])
 
 # Extract grid boundaries and steps
