@@ -12,16 +12,16 @@
     \tableofcontents
 
 
-    \section{Introduccion}
+    \section{Introduccion}\label{sec:introduccion}
     El siguiente trabajo presenta el desarrollo de la implementacion, simulaciones realizadas y analisis de resultados de
     automatas celulares, en particular el juego de la vida y alteraciones del mismo.
 
     Con fines de producir diversas simulaciones con el objetivo de detectar comportamientos y patrones, se ha realizado
     simulaciones tanto en dos y tres dimensiones, modificando a su vez parametros de entrada.
 
-    \section{Modelo}
+    \section{Modelo}\label{sec:modelo}
 
-    \subsection{Automatas celulares}
+    \subsection{Automatas celulares}\label{subsec:automatas-celulares}
 
     Un automata celular modela un sistema dinamico el cual evoluciona en pasos discretos mediantes reglas o heuristicas,
      las cuales determinan la transicion entre dos estados.
@@ -36,7 +36,7 @@
     en cuenta para la regla de transicion. Como es utilizado el valor r varia en funcion de la cantidad de dimensiones de
     la matriz y como se define el vecindario.
 
-    \subsection{Definiciones de vecindad}
+    \subsection{Definiciones de vecindad}\label{subsec:definiciones-de-vecindad}
     Como se ha mencionado, el alcance es un parametro que describe a un sistema en particualar. Sin embargo, debe tambien
     tenerse en cuenta bajo que definicion de vecindario se trabaja. Se han contemplado los siguietnes.
 
@@ -48,6 +48,7 @@
     a distancia menor a r. De forma mas precisa el conjunto de celdas vecinas es
     $N_{i,j}^{M}:=\{(k,l) \in L\ |\ |k-i|\leq r\ and\ |l - j| \leq r \}$.
 
+
     \subsection{Juego de la vida}
      Propuesto por John Horton Conway en 1970, el juego de la vida es un automata celular en dos dimensiones con las sigueintes reglas
     \begin{itemize}
@@ -57,17 +58,43 @@
         \item Las Celdas Muertas se transformarán en Vivas solamente si tiene exactamente 3 vecinos vivos.
     \end{itemize}
 
-
-    \section{Implementacion}
-
-
-    \section{Simulaciones}
+    \subsection{Juego de la vida}\label{subsec:juego-de-la-vida}
 
 
-    \section{Resultados}
+
+    \section{Implementacion}\label{sec:implementacion}
 
 
-    \section{Conclusiones}
+    \section{Simulaciones}\label{sec:simulaciones}
 
-    lhh
+    \subsection{Parámetros de entrada}\label{subsec:parametros-de-entrada}
+
+    Para poder llevar a cabo las simulaciones, se tomó en cuenta un conjunto de parámetros de entrada.
+    Los mismos se pueden categorizar entre fijos y variables, dependiendo de si su valor se mantuvo
+    constante a lo largo de todas las ejecuciones de la simulación para un mismo conjunto de reglas, o no.
+
+    Comenzando con los parámetros fijos, tuvimos los límites de la matriz (border),
+    en el que se indican los valores máximos y mínimos de las coordenadas de las celdas en dos o tres dimensiones.
+    Luego, se definió la condición de vecindad a partir de dos parámetros:
+    la forma en la que se consideran las celdas vecinas a una celda en particular, según los modelos mencionados
+    en~\ref{subsec:definiciones-de-vecindad} (condition), y el alcance de la vecindad (r).
+    Con respecto a las reglas de juego, se contó con dos parámetros que determinan las posibles cantidades de
+    vecinos que debe tener una celda para que se mantenga viva (shouldKeepAlive),
+    y para que una celda muerta se convierta en viva (shouldRevive); ambos eran listas de enteros.
+    Por último, se determinó el dominio inicial de celdas vivas (initialDomainProportion), el
+    cual representaba una proporción del área, si era un simulación en dos dimensiones, o del volumen,
+    si era en tres dimensiones, total de la matriz.
+    Es decir, siendo $A$ el área o volumen total de la matriz, el dominio inicial era $A \times initialDomainProportion$.
+
+    Por otro lado, los parámetros que se variaron a lo largo de las simulaciones fueron la cantidad de pasos temporales
+    máximos (maxIter), y la proporción de densidad de celdas vivas en el dominio inicial (initialLiveCellsProportion),
+    siendo este último un valor entre 0 y 1.
+
+
+    \section{Resultados}\label{sec:resultados}
+
+
+    \section{Conclusiones}\label{sec:conclusiones}
+
+
 \end{document}
