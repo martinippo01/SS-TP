@@ -19,6 +19,15 @@ Para ello, se fija los siguientes parámetros de entrada:
     \item $initialDomainProportion = 0.16$
 \end{itemize}
 
+A continuación, se puede observar una animación característica del sistema.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{conway2d/thumbnail_i60}
+    \caption{Fotograma de la animación de Conway con $initialLiveCellsProportion = 0.6$. Enlace a la animación completa: https://youtu.be/1HHKAB-ZeT4}
+    \label{fig:thumbnailconway2d_i60}
+\end{figure}
+
 Variando el parámetro $initialLiveCellsProportion$ entre 0.1 y 0.9, se ha analizado la cantidad de celdas vivas
 a lo largo de los pasos temporales.
 
@@ -114,16 +123,14 @@ se utilizaron los siguientes parámetros:
     \item $initialDomainProportion = 0.16$
 \end{itemize}
 
-A continuación se puede observar una animación característica del sistema con un input de 0.5:
+A continuación, se puede observar una animación característica del sistema.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{cuarentena2d/thumbnail_i50}
-    \caption{Fotograma de la animación de Cuarentena con $initialLiveCellsProportion = 0.5$}
+    \caption{Fotograma de la animación de Cuarentena con $initialLiveCellsProportion = 0.5$. Enlace a la animación completa: https://youtu.be/PfXn3qFnXwE}
     \label{fig:thumbnailcuarentena2d_i50}
 \end{figure}
-
-Enlace a la animación completa: https://youtu.be/hAECaws6P90
 
 A diferencia de los otros sistemas, en este no solo se varió el parámetro $initialLiveCellsProportion$ entre 0.1 y 0.9 con un paso de 0.1, 
 sino que además se agregaron corridas con el parámetro valiendo 0.05 y 0.15.
@@ -154,7 +161,7 @@ La distancia de la celda viva más lejana al centro en función del tiempo es pr
 Lo interesante de este sistema no es la cantidad de celdas vivas en el momento de equilibrio debido a que si utilizamos $initialLiveCellsProportion$
 por lo que hacemos hincapie en el crecimiento de cantidad de células vivas.
 
-A continuación observamos el análisis del observable
+A continuación, observamos el análisis del observable
 
 \begin{figure}[H]
     \centering
@@ -162,11 +169,6 @@ A continuación observamos el análisis del observable
     \caption{Pendiente de crecimiento de cantidad de celdas vivas en función del input para el sistema Cuarentena 2D}
     \label{fig:cuarentena2d_observable}
 \end{figure}
-
-
-
-
-
 
 
 \subsection{Expansión Circular en 2D}\label{subsec:expansion-circular-2D}
@@ -182,16 +184,14 @@ El objetivo de este sistema es obtener un crecimiento similar en todas las direc
     \item $initialDomainProportion = 0.16$
 \end{itemize}
 
-A continuación se puede observar una animación característica del sistema con un input de 0.6:
+A continuación, se puede observar una animación característica del sistema.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{circular2d/thumbnail}
-    \caption{Fotograma de la animación de Expansión Circular con $initialLiveCellsProportion = 0.6$}
+    \caption{Fotograma de la animación de Expansión Circular con $initialLiveCellsProportion = 0.6$. Enlace a la animación completa: https://youtu.be/BShT8UAhHek}
     \label{fig:thumbnailcircular2d_i60}
 \end{figure}
-
-Enlace a la animación completa: https://youtu.be/AIikxHN6VO4
 
 Variando el parámetro $initialLiveCellsProportion$ entre 0.1 y 0.9 con un step de 0.1, se ha analizado la cantidad de celdas vivas en función
 del tiempo.
@@ -226,10 +226,6 @@ grafica este mismo en función del valor de $initialLiveCellsProportion$
 \end{figure}
 
 
-
-
-
-
 \subsection{Expansión Cúbica}\label{subsec:cubito-3D}
 
 El objetivo de este sistema es crecer en cada paso 1 posición más alejada del centro, pero sin que la cantidad de celdas vivas crezca en todos los pasos.
@@ -244,17 +240,14 @@ El objetivo de este sistema es crecer en cada paso 1 posición más alejada del 
 \end{itemize}
 
 
-A continuación se puede observar una animación característica del sistema con un input de 0.9:
+A continuación, se puede observar una animación característica del sistema.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{cubo3d/thumbnail}
-    \caption{Fotograma de la animación de Expansión Cúbica con $initialLiveCellsProportion = 0.9$}
+    \caption{Fotograma de la animación de Expansión Cúbica con $initialLiveCellsProportion = 0.9$. Enlace a la animación completa: https://youtu.be/Zu9bqnto0ak}
     \label{fig:thumbnailcubo3d_i90}
 \end{figure}
-
-Enlace a la animación completa: https://youtu.be/Zu9bqnto0ak
-
 
 Variando el parámetro $initialLiveCellsProportion$ entre 0.1 y 0.9 con un step de 0.1, se ha analizado la cantidad de celdas vivas en función
 del tiempo.
@@ -302,6 +295,15 @@ Para ello, se fijan los siguientes parámetros de entrada:
     \item $shouldRevive = [3]$
     \item $initialDomainProportion = 0.064$
 \end{itemize}
+
+A continuación, se puede observar una animación característica del sistema.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{conway3d/thumbnail_i50}
+    \caption{Fotograma de la animación de Conway 3D con $initialLiveCellsProportion = 0.5$. Enlace a la animación completa: https://youtu.be/HlUXy0G1ep0}
+    \label{fig:thumbnailconway3d_i50}
+\end{figure}
 
 Variando el parámetro $initialLiveCellsProportion$ entre 0.1 y 0.9, se ha analizado la cantidad de celdas vivas
 a lo largo de los pasos temporales.
@@ -404,6 +406,15 @@ Por lo tanto, se fijan los siguientes parámetros de entrada:
     \item $shouldRevive = [2]$
     \item $initialDomainProportion = 0.064$
 \end{itemize}
+
+A continuación, se puede observar una animación característica del sistema.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{collapse3d/thumbnail_i30}
+    \caption{Fotograma de la animación de Colapso Cúbico con $initialLiveCellsProportion = 0.3$. Enlace a la animación completa: https://youtu.be/UeXUv7qMRoU}
+    \label{fig:thumbnailcolapso3d_i50}
+\end{figure}
 
 Variando el parámetro $initialLiveCellsProportion$ entre 0.1 y 0.9, se ha analizado la cantidad de celdas vivas
 a lo largo de los pasos temporales.
