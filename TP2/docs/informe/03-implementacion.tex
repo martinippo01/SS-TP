@@ -1,4 +1,4 @@
-\section{Implementacion}\label{sec:implementacion}
+\section{Implementación}\label{sec:implementacion}
 
 \begin{wrapfigure}{r}{0.5\textwidth}
     \centering
@@ -7,15 +7,15 @@
     \label{fig:UML-Simulacion}
 \end{wrapfigure}
 
-\subsection{Simulacion}\label{label:simulacion}
-    La clase $LifeGame$ modela una instancia de la simulacion del sistema. Por defecto las reglas son las del juego de la vida,
-    pero es posible modificar las condicones para poder simular sistemas alternativos. Esta clase es el nucleo de la
-    simulacion (Ver diagrama UML~\ref{fig:UML-Simulacion}), debido a que posee todos los componentes necesarios
+\subsection{simulación}\label{label:simulacion}
+    La clase $LifeGame$ modela una instancia de la simulación del sistema. Por defecto las reglas son las del juego de la vida,
+    pero es posible modificar las condiciones para poder simular sistemas alternativos. Esta clase es el nucleo de la
+    simulación (Ver diagrama UML~\ref{fig:UML-Simulacion}), debido a que posee todos los componentes necesarios
     para representar una instancia particular del sistema. $LifeGameRunner$ controlara el flujo y evolucion del sistema,
     siendo invocado por $App$ que es el punto de entrada al codigo.
 
 \subsection{Matriz de celdas}\label{subsec:matriz de celdas}
-    En lo que refiere a la simulacion del modelo, este ha sido diseñado para trabajar con automatas celulares de tres
+    En lo que refiere a la simulación del modelo, este ha sido diseñado para trabajar con automatas celulares de tres
     dimensiones, ya que toda posicion comprende las componentes x, y, z (Ver $Position$ en diagrama UML~\ref{fig:UML-Simulacion}).
     En caso de ser bidimensional, toda posicion tendra $z = 0$.
 
@@ -25,22 +25,22 @@
     el conjunto implica que la celda está muerta.
 
 \subsection{Condiciones de corte}\label{label:condiciones_de_corte}
-    La simulacion puede finalizar por cuatro razones diferentes. Representadas como una enumeracion de JAVA, estas son:
+    La simulación puede finalizar por cuatro razones diferentes. Representadas como una enumeracion de JAVA, estas son:
     \begin{itemize}
         \item $BORDER$: Ocurre cuando se alcanza un paso donde existe una celda aledaña a un borde de la matriz.
         \item $ALL\_DEAD$: Ocurre en el caso de que se alcanza un paso que no tenga celdas vivas.
-        \item $MAX\_ITER$: Al alcanzar una cantidad maxima de iteraciones en la simulacion. Esta cantidad es parametro de
-            entrada de la simulacion.
+        \item $MAX\_ITER$: Al alcanzar una cantidad maxima de iteraciones en la simulación. Esta cantidad es parametro de
+            entrada de la simulación.
         \item $NO\_CHANGE$: Cuando no hay variacion de la matriz de celdas entre dos pasos consecutivos.
     \end{itemize}
 
-\subsection{Codigo auxiliar}\label{label:codigo_aux}
-    Se implementan diversas clases y metodos para tareas auxiliares. En el caso de $InputData$ se provisionan metodos
-    para la lectura y escritura de archivos JSON para poder parametrizar la simulacion en funcion a un archivo de entrada.
-    La salida en un archivo JSON es utilizada para registrar los resultados de la simulacion.
+\subsection{Código auxiliar}\label{label:codigo_aux}
+    Se implementan diversas clases y métodos para tareas auxiliares. En el caso de $InputData$ se provisionan métodos
+    para la lectura y escritura de archivos JSON para poder parametrizar la simulación en función a un archivo de entrada.
+    La salida en un archivo JSON es utilizada para registrar los resultados de la simulación.
 
-    Adicionalmente, las clases $Border$, $Position$ y $NeighbourhoodCondition$ modelan el comportamieno de la matriz de
-    celdas. En primer lugar $Border$ simplemente modela las dimesiones de la matriz de celdas de la instancia particular
-    del sistema a modelar. Por otro lado $Position$ es la representacion de una celda dentro de la matriz. Por ultimo,
-    NeighbourhoodCondition es una enumeracion de JAVA que implementa un meteodo que retorna, para un determinado rango
-    $r$, las celdas vecinas de una celda central segun el tipo de vencidario.
+    Adicionalmente, las clases $Border$, $Position$ y $NeighbourhoodCondition$ modelan el comportamiento de la matriz de
+    celdas. En primer lugar $Border$ simplemente modela las dimensiones de la matriz de celdas de la instancia particular
+    del sistema a modelar. Por otro lado $Position$ es la representación de una celda dentro de la matriz.Por ultimo,
+    NeighbourhoodCondition es una enumeración de JAVA que implementa un método que retorna, para un determinado rango
+    $r$, las celdas vecinas de una celda central segun el tipo de vecindario.
