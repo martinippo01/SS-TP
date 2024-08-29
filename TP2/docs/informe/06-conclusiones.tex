@@ -4,13 +4,15 @@
 
 \subsection{Cuarentena en 2D}\label{subsec:cuarentena-2D-conc}
 
-Si se necesitan más de 3 vecinos existe una imposiblidad de crecer más allá de su rango inicial (más o menos en realidad).
+Si se necesitan más de 3 vecinos para que una celda reviva, entonces existe una imposiblidad de crecer más allá de la posición más lejana
+de alguna celda viva inicial. Esto se debe a que ninguna celda que se encuentre por fuera de la sección inicial podrá contar con más de
+3 celdas aledañas vivas.
 
 \subsection{Expansión Circular en 2D}\label{subsec:expansion-circular-2D-conc}
 
-Something something para tener un crecimiento constante hacia todos lados no es siempre necesario que todas las celdas revivan por cualquier
-cantidad de vecinos.
+Para tener un crecimiento constante hacia todos lados no es siempre necesario que todas las celdas revivan por cualquier cantidad de vecinos.
 
-\subsection{Expansión Cúbica}\label{subsec:cubito-3D-conc}
+\subsection{Expansión Cúbica en 3D}\label{subsec:cubito-3D-conc}
 
-Something something si es fácil que se muera con muchos vecinos quizás es mejor tener una densidad baja si se pretende crecer rápidamente.
+Es posible generar sistemas en los cuales la distancia de la celda más lejana al centro crezca todos los pasos sin tener un aumento en la
+cantidad de celdas estrictamente creciente en función del tiempo.
