@@ -23,5 +23,73 @@ Por otro lado, los parámetros que se varían a lo largo de las simulaciones son
 máximos ($maxIter$), y la proporción de densidad de celdas vivas en el dominio inicial ($initialLiveCellsProportion$),
 siendo este último un valor entre 0 y 1.
 
+
 \subsection{Definición de Observables}\label{subsec:observables-posibles}
+
+A continuación, se definen el conjunto de observables, utilizados en la sección \ref{sec:resultados},
+para analizar los resultados obtenidos en el equilibrio de las simulaciones realizadas, en función
+de la densidad de celdas vivas en el dominio inicial.
+
+\subsubsection{Cantidad de celdas vivas}\label{subsubsec:cantidad-de-celdas-vivas}
+Este observable calcula la cantidad de celdas vivas en la matriz en un paso temporal de equilibrio.
+Se define como:
+\begin{equation}
+    \text{Q} = \sum_{i=1}^{x} \sum_{j=1}^{y} \sum_{k=1}^{z} \mathbbm{1}_{\text{viva}}
+    \label{eq:cantidad-celdas-vivas}
+\end{equation}
+donde $Q$ es la cantidad de celdas vivas, $x$, $y$ y $z$ son las dimensiones de la matriz, y $\mathbbm{1}_{\text{viva}}$
+es una función indicadora que toma el valor de 1 si la celda en la posición $(i, j, k)$ está viva, y 0 en caso contrario.
+
+\subsubsection{Pendiente de crecimiento de cantidad de celdas vivas}\label{subsubsec:pendiente-de-crecimiento-de-cantidad-de-celdas-vivas}
+Este observable calcula la pendiente de cantidad de celdas vivas en la matriz, entre el paso temporal
+inicial y el paso temporal de equilibrio.
+Se define como:
+\begin{equation}
+    \text{P}_{\text{Q}} = \frac{Q_{\text{eq}} - Q_{0}}{t_{\text{eq}} - t_{0}}
+    \label{eq:pendiente-crecimiento-celdas-vivas}
+\end{equation}
+donde $P_{Q}$ es la pendiente de crecimiento de cantidad de celdas vivas, $Q_{eq}$ es la
+cantidad de celdas vivas en el paso temporal de equilibrio, $Q_{0}$ es la cantidad de celdas
+vivas en el paso temporal inicial, $t_{eq}$ es el paso temporal de equilibrio, y $t_{0}$ es el paso temporal inicial.
+
+\subsubsection{Tiempo de convergencia al equilibrio}\label{subsubsec:tiempo-de-convergencia-al-equilibrio}
+Este observable calcula la cantidad de pasos temporales que tarda la simulación en converger al equilibrio.
+Se define como:
+\begin{equation}
+    \text{T} = t_{\text{eq}} - t_{0}
+    \label{eq:tiempo-convergencia-equilibrio}
+\end{equation}
+donde $T$ es el tiempo de convergencia al equilibrio, $t_{eq}$ es el paso temporal de equilibrio,
+y $t_{0}$ es el paso temporal inicial.
+
+\subsubsection{Distancia de la celda viva más alejada al centro}\label{subsubsec:distancia-de-la-celda-viva-mas-alejada-al-centro}
+Este observable calcula la distancia de la celda viva más alejada al centro de la matriz
+en el paso temporal de equilibrio.
+Se define como:
+\begin{equation}
+    \text{D} = \max_{i, j, k} \left( \sqrt{(i - x/2)^2 + (j - y/2)^2 + (k - z/2)^2} \right)
+    \label{eq:distancia-celda-viva-mas-alejada-al-centro}
+\end{equation}
+donde $D$ es la distancia de la celda viva más alejada al centro, $x$, $y$ y $z$ son las dimensiones de la matriz,
+y $i$, $j$ y $k$ son las coordenadas de la celda en la posición $(i, j, k)$.
+
+\subsubsection{Rapidez de alejamiento de la celda viva más alejada al centro}\label{subsubsec:rapidez-de-alejamiento-de-la-celda-viva-mas-alejada-al-centro}
+Este observable calcula la pendiente de la distancia de la celda viva más alejada al centro de la matriz,
+entre el paso temporal inicial y el paso temporal de equilibrio.
+Se define como:
+\begin{equation}
+    \text{P}_{\text{D}} = \frac{D_{\text{eq}} - D_{0}}{t_{\text{eq}} - t_{0}}
+    \label{eq:rapidez-alejamiento-celda-viva-mas-alejada-al-centro}
+\end{equation}
+donde $P_{D}$ es la rapidez de alejamiento de la celda viva más alejada al centro, $D_{eq}$ es la
+distancia de la celda viva más alejada al centro en el paso temporal de equilibrio, $D_{0}$ es la
+distancia de la celda viva más alejada al centro en el paso temporal inicial, $t_{eq}$ es el paso
+temporal de equilibrio, y $t_{0}$ es el paso temporal inicial.
+
+
+
+
+
+
+
 

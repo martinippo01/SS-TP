@@ -38,7 +38,7 @@ a lo largo de los pasos temporales.
 Como se puede apreciar en las figs. \ref{fig:conway2d_i10} y \ref{fig:conway2d_i90}, el sistema alcanza el equilibrio
 antes del paso temporal 900, por lo que se hace el análisis del observable en el paso temporal mencionado.
 En base a las figuras anteriores, se ha observado la cantidad de celdas vivas en función de la densidad de celdas
-vivas en el dominio inicial.
+vivas en el dominio inicial, utilizando la eq. \ref{eq:cantidad-celdas-vivas}.
 
 \begin{figure}[H]
     \centering
@@ -47,13 +47,11 @@ vivas en el dominio inicial.
     \label{fig:conway2d_size_vs_input}
 \end{figure}
 
-A partir de la fig. \ref{fig:conway2d_size_vs_input}, se puede analizar que a medida que aumenta la densidad inicial de
+A partir de la fig. \ref{fig:conway2d_size_vs_input}, se puede analizar que, a medida que aumenta la densidad inicial de
 celdas vivas, aunque con algunas oscilaciones, la cantidad de celdas vivas en el equilibrio también.
-También se ha estudiado la pendiente de crecimiento de la cantidad de celdas vivas en función del input.
-Este se calcula como la variación de la cantidad de celdas vivas entre el paso temporal inicial y el paso temporal
-de equilibrio dividido por la cantidad de pasos temporales; es decir, si $m_{s}$ es la pendiente, $n_{0}$ es la
-cantidad de celdas vivas en el paso temporal inicial y $n_{eq}$ es la cantidad de celdas vivas en el equilibrio,
-entonces $m_{s} = \frac{n_{eq} - n_0}{t_{eq} - t_{0}}$.
+
+Además, se ha estudiado la pendiente de crecimiento de la cantidad de celdas vivas en función del input,
+utilizando la eq. \ref{eq:pendiente-crecimiento-celdas-vivas}.
 
 \begin{figure}[H]
     \centering
@@ -83,9 +81,8 @@ paso temporal.
 \end{figure}
 
 Con estos resultados, dado que, en la mayoría de los casos, la simulación finaliza porque una celda viva llega al borde de la matriz,
-se ha analizado el tiempo de finalización y la rapidez con la que se aleja la celda viva más lejana al centro, en función de la densidad de celdas vivas en el dominio inicial.
-Con respecto al último observable, se ha calculado la pendiente de la distancia de la celda viva más lejana al centro en función del paso temporal;
-es decir, si $m_{d}$ es la pendiente, $d_{0}$ es la distancia de la celda viva más lejana al centro en el paso temporal inicial y $d_{eq}$ en el equilibrio, entonces $m_{d} = \frac{d_{eq} - d_0}{t_{eq} - t_{0}}$.
+se ha analizado el tiempo de finalización (eq. \ref{eq:tiempo-convergencia-equilibrio}) y la rapidez con la que se aleja la celda viva
+más lejana al centro (eq. \ref{eq:rapidez-alejamiento-celda-viva-mas-alejada-al-centro}) en función de la densidad de celdas vivas en el dominio inicial.
 
 \begin{figure}[H]
     \centering
@@ -117,11 +114,6 @@ se utilizaron los siguientes parámetros:
     \item $initialDomainProportion = 0.16$
 \end{itemize}
 
-2.4.1 Para cada input o parámetro a estudiar, primero mostrar una animación característica del 
-sistema (pueden ser dos, con dos valores extremos del input para ver ejemplos de distintos 
-comportamientos). La idea de esto es ilustrar la dinámica del sistema para situar el contexto de los 
-resultados a mostrar. Acuerdense de poner un fotograma representativo y después el link a youtube 
-
 A continuación se puede observar una animación característica del sistema con un input de 0.5:
 
 \begin{figure}[H]
@@ -132,14 +124,6 @@ A continuación se puede observar una animación característica del sistema con
 \end{figure}
 
 Enlace a la animación completa: https://youtu.be/hAECaws6P90
-
-2.4.2 Luego mostrar una figura del observable o métrica (que se calcula a partir de los outputs 
-directos de la simulación) en función del tiempo. Explicar entonces cual será el escalar que 
-caracteriza ese proceso (por ejemplo el promedio de la evolución temporal en el estado 
-estacionario, la tasa de crecimiento, etc.). Solo mostrar evoluciones típicas, de valores extremos 
-del rango de parámetros, para validar las definiciones de los observables. Las evoluciones en sí 
-no son los resultados definitivos, por lo tanto no deben ser extenso lo que se muestre de las 
-mismas solo para justificar el observable (escalar) que se calculará a partir de estas.
 
 A diferencia de los otros sistemas, en este no solo se varió el parámetro $initialLiveCellsProportion$ entre 0.1 y 0.9 con un paso de 0.1, 
 sino que además se agregaron corridas con el parámetro valiendo 0.05 y 0.15.
@@ -170,12 +154,6 @@ La distancia de la celda viva más lejana al centro en función del tiempo es pr
 Lo interesante de este sistema no es la cantidad de celdas vivas en el momento de equilibrio debido a que si utilizamos $initialLiveCellsProportion$
 por lo que hacemos hincapie en el crecimiento de cantidad de células vivas.
 
-SUPONGO QUE HAY QUE HABLAR ACERCA DE CÓMO SE HIZO EL CÁLCULO DE CRECIMIENTO 
-
-
-2.4.3 Después presentar la figura del input vs. observable, con promedio y barras de error o tablas 
-con promedio y error. 
-
 A continuación observamos el análisis del observable
 
 \begin{figure}[H]
@@ -204,11 +182,6 @@ El objetivo de este sistema es obtener un crecimiento similar en todas las direc
     \item $initialDomainProportion = 0.16$
 \end{itemize}
 
-2.4.1 Para cada input o parámetro a estudiar, primero mostrar una animación característica del 
-sistema (pueden ser dos, con dos valores extremos del input para ver ejemplos de distintos 
-comportamientos). La idea de esto es ilustrar la dinámica del sistema para situar el contexto de los 
-resultados a mostrar. Acuerdense de poner un fotograma representativo y después el link a youtube 
-
 A continuación se puede observar una animación característica del sistema con un input de 0.6:
 
 \begin{figure}[H]
@@ -219,15 +192,6 @@ A continuación se puede observar una animación característica del sistema con
 \end{figure}
 
 Enlace a la animación completa: https://youtu.be/AIikxHN6VO4
-
-2.4.2 Luego mostrar una figura del observable o métrica (que se calcula a partir de los outputs 
-directos de la simulación) en función del tiempo. Explicar entonces cual será el escalar que 
-caracteriza ese proceso (por ejemplo el promedio de la evolución temporal en el estado 
-estacionario, la tasa de crecimiento, etc.). Solo mostrar evoluciones típicas, de valores extremos 
-del rango de parámetros, para validar las definiciones de los observables. Las evoluciones en sí 
-no son los resultados definitivos, por lo tanto no deben ser extenso lo que se muestre de las 
-mismas solo para justificar el observable (escalar) que se calculará a partir de estas.
-
 
 Variando el parámetro $initialLiveCellsProportion$ entre 0.1 y 0.9 con un step de 0.1, se ha analizado la cantidad de celdas vivas en función
 del tiempo.
@@ -252,9 +216,6 @@ crece de manera lineal sin importar el valor de $initialLiveCellsProportion$.
 
 Por otro lado, sí es interesante utilizar como observable la cantidad de celdas vivas en el instante final de la simulación, a continuación se
 grafica este mismo en función del valor de $initialLiveCellsProportion$
-
-2.4.3 Después presentar la figura del input vs. observable, con promedio y barras de error o tablas 
-con promedio y error. 
 
 
 \begin{figure}[H]
@@ -295,15 +256,6 @@ A continuación se puede observar una animación característica del sistema con
 Enlace a la animación completa: https://youtu.be/Zu9bqnto0ak
 
 
-2.4.2 Luego mostrar una figura del observable o métrica (que se calcula a partir de los outputs 
-directos de la simulación) en función del tiempo. Explicar entonces cual será el escalar que 
-caracteriza ese proceso (por ejemplo el promedio de la evolución temporal en el estado 
-estacionario, la tasa de crecimiento, etc.). Solo mostrar evoluciones típicas, de valores extremos 
-del rango de parámetros, para validar las definiciones de los observables. Las evoluciones en sí 
-no son los resultados definitivos, por lo tanto no deben ser extenso lo que se muestre de las 
-mismas solo para justificar el observable (escalar) que se calculará a partir de estas.
-
-
 Variando el parámetro $initialLiveCellsProportion$ entre 0.1 y 0.9 con un step de 0.1, se ha analizado la cantidad de celdas vivas en función
 del tiempo.
 
@@ -326,9 +278,6 @@ siempre termina por haber llegado al borde. Por lo cual no es de interés analiz
 crece de manera lineal sin importar el valor de $initialLiveCellsProportion$.
 
 Debido a la naturaleza del crecimiento resulta interesante analizar la pendiente de crecimiento en función del input.
-
-2.4.3 Después presentar la figura del input vs. observable, con promedio y barras de error o tablas 
-con promedio y error. 
 
 
 \begin{figure}[H]
@@ -370,10 +319,10 @@ a lo largo de los pasos temporales.
     \label{fig:conway3d_i90}
 \end{figure}
 
-Como se puede apreciar en las figs. \ref{fig:conway3d_i10} y \ref{fig:conway3d_i90}, el sistema alcanza el equilibrio
+Como se puede observar en las figs. \ref{fig:conway3d_i10} y \ref{fig:conway3d_i90}, el sistema alcanza el equilibrio
 antes del paso temporal 30, por lo que se hace el análisis del observable en el paso temporal mencionado.
-En base a las figuras anteriores, se ha observado la cantidad de celdas vivas en función de la densidad de celdas
-vivas en el dominio inicial.
+En base a las figuras anteriores, se ha analizado la cantidad de celdas vivas en función de la densidad de celdas
+vivas en el dominio inicial, a partir de la eq. \ref{eq:cantidad-celdas-vivas}.
 
 \begin{figure}[H]
     \centering
@@ -385,7 +334,8 @@ vivas en el dominio inicial.
 A partir de la fig. \ref{fig:conway3d_size_vs_input}, se puede analizar que la cantidad
 de celdas vivas en el equilibrio alcanza un máximo cuando $initialLiveCellsProportion = 0.5$, y luego
 disminuye a medida que aumenta la densidad inicial de celdas vivas.
-También se ha estudiado la pendiente de crecimiento de la cantidad de celdas vivas en función del input.
+También se ha estudiado la pendiente de crecimiento de la cantidad de celdas vivas en función de la densidad
+de celdas vivas en el dominio inicial, utilizando la eq. \ref{eq:pendiente-crecimiento-celdas-vivas}.
 
 \begin{figure}[H]
     \centering
@@ -416,8 +366,10 @@ paso temporal.
 
 Según las figs. \ref{fig:conway3d_d10} y \ref{fig:conway3d_d90}, para cualquier valor de $initialLiveCellsProportion$,
 la simulación finaliza porque una celda viva llega al borde de la matriz.
-Por lo tanto, se ha analizado el tiempo de finalización y la rapidez con la que se aleja la celda viva más lejana
-al centro, en función de la densidad de celdas vivas en el dominio inicial.
+Por lo tanto, se ha analizado el tiempo de finalización (eq. \ref{eq:tiempo-convergencia-equilibrio}) y la
+rapidez con la que se aleja la celda viva más lejana al centro
+(eq. \ref{eq:rapidez-alejamiento-celda-viva-mas-alejada-al-centro}), en función de la densidad de celdas vivas
+en el dominio inicial.
 
 \begin{figure}[H]
     \centering
@@ -475,12 +427,13 @@ a lo largo de los pasos temporales.
     \label{fig:colapso3d_i90}
 \end{figure}
 
-Como se puede apreciar en la fig. \ref{fig:colapso3d_i30}, el sistema alcanza el equilibrio
+Como se puede observar en la fig. \ref{fig:colapso3d_i30}, el sistema alcanza el equilibrio
 antes del paso temporal 4000, por lo que se hace el análisis del observable en el paso temporal mencionado.
 Analizando las figs. \ref{fig:colapso3d_i10} y \ref{fig:colapso3d_i90}, se
-puede notar las tres órdenes de magnitud de diferencia en la cantidad de pasos temporales necesarios para
+puede comprobar que hay una diferencia de tres órdenes de magnitud en la cantidad de pasos temporales necesarios para
 alcanzar el equilibrio.
-Es por ello que se decidió estudiar la cantidad de celdas vivas en el equilibrio y su pendiente de crecimiento,
+Es por ello que se decidió estudiar la cantidad de celdas vivas en el equilibrio (eq. \ref{eq:cantidad-celdas-vivas})
+y su pendiente de crecimiento (eq. \ref{eq:pendiente-crecimiento-celdas-vivas}),
 en función de la densidad de celdas vivas en el dominio inicial.
 
 \begin{figure}[H]
@@ -496,9 +449,10 @@ en función de la densidad de celdas vivas en el dominio inicial.
     \label{fig:colapso3d_size_slope_vs_input}
 \end{figure}
 
-Se puede comprar en la fig. \ref{fig:colapso3d_size_vs_input} que la cantidad de celdas vivas en el equilibrio
+Se puede comprobar en la fig. \ref{fig:colapso3d_size_vs_input} que la cantidad de celdas vivas en el equilibrio
 resulta diezmada para cualquier valor de $initialLiveCellsProportion$, alcanzando un valor máximo de aproximadamente
-60 celdas vivas, lo cual resulta casi nulo para una matriz de $50 \times 50 \times 50$ ya que representa una densidad
+60 celdas vivas.
+Esto resulta insignificante para una matriz de $50 \times 50 \times 50$ ya que representa una densidad
 de $60/(50 \times 50 \times 50) \times 100 = 0.048\%$.
 Por otra parte, se puede observar en la fig. \ref{fig:colapso3d_size_slope_vs_input} que la pendiente de
 crecimiento es negativa para cualquier valor de $initialLiveCellsProportion$, y su módulo aumenta
@@ -528,3 +482,23 @@ paso temporal.
     \label{fig:colapso3d_d90}
 \end{figure}
 
+En base a los resultados obtenidos en las figs. \ref{fig:colapso3d_d10}, \ref{fig:colapso3d_d30} y \ref{fig:colapso3d_d90},
+y para otros valores de $initialLiveCellsProportion$, se ha analizado la rapidez de alejamiento de la celda viva más lejana
+al centro en función de la densidad de celdas vivas en el dominio inicial.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{collapse3d/distance_slope_vs_input}
+    \caption{Raidez de alejamiento de la celda viva más lejana al centro en función del input para el sistema de Colapso Cúbico}
+    \label{fig:colapso3d_distance_slope_vs_input}
+\end{figure}
+
+Se puede observar en la fig. \ref{fig:colapso3d_distance_slope_vs_input} que la pendiente es negativa
+para cualquier valor de $initialLiveCellsProportion$, y su módulo aumenta considerablemente
+a medida que crece la densidad inicial de celdas vivas.
+
+
+
+
+De esta manera, se puede concluir que el sistema de Colapso Cúbico es un sistema que tiende a
+colapsar en el centro del dominio inicial, independientemente de la densidad inicial de celdas vivas.
