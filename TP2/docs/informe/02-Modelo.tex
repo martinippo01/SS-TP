@@ -3,7 +3,7 @@
 \subsection{Automatas celulares}\label{subsec:automatas-celulares}
 
 Un automata celular modela un sistema dinamico el cual evoluciona en pasos discretos mediantes reglas o heuristicas,
-las cuales determinan la transicion entre dos estados.
+las que determinan la transicion entre dos estados.
 
 El sistema se compone de una matriz de celdas que poseen un numero finito de estados discretos y estos se iran actualizando
 de manera sincronica en cada paso temporal.
@@ -12,20 +12,26 @@ Las reglas se caracterizan por ser deterministicas y uniformes en tiempo y espac
 de una celda solamente depende de un vecindario. Donde este vecindario sera definido segun la implementacion y las reglas.
 
 En una transicion de estados, se define un alcance r, el cual determina el grupo de celdas cercanas que son tenidas
-en cuenta para la regla de transicion. Como es utilizado el valor r varia en funcion de la cantidad de dimensiones de
-la matriz y como se define el vecindario.
+en cuenta para la regla de transicion. El conjunto de celdas vecinas tambien varia en funcion de la definicion de vecindario.
 
 \subsection{Definiciones de vecindad}\label{subsec:definiciones-de-vecindad}
 Como se ha mencionado, el alcance es un parametro que describe a un sistema en particualar. Sin embargo, debe tambien
 tenerse en cuenta bajo que definicion de vecindario se trabaja. Se han contemplado los siguietnes.
 
-En primer lugar el vecindario \textbf{Von Neumann} considera como vecina a aquellas celdas que se encuentran dentro del rango r
-considerando la distancia Manhattan. De forma mas precisa, el conjunto de vecinas se define de la siguiente manera
-$N_{i,j}^{vN}:=\{(k,l) \in L\ |\ |k-i|+ |l - j| \leq r\}$
+En primer lugar el vecindario \textbf{Von Neumann} considera como vecina aquellas celdas que se encuentran dentro del rango r
+considerando la distancia Manhattan. De forma mas precisa, el conjunto de vecinas se define de la siguiente manera:
+\begin{itemize}
+    \item Bidimensional: $N_{i,j}^{(vN)}:=\{(a,b) \in L\ |\ |a - i| + |b - j| \leq r\}$.
+    \item Tridimensional: $N_{i,j, k}^{(vN)}:=\{(a,b,c) \in L\ |\ |a-i| + |b - j| + |c + k| \leq r\}$.
+\end{itemize}
+
 
 Por otro lado, el vecindario \textbf{Moore} considera una celda como vecina si toda las componentes de su posicion se encuentran
-a distancia menor a r. De forma mas precisa el conjunto de celdas vecinas es
-$N_{i,j}^{M}:=\{(k,l) \in L\ |\ |k-i|\leq r\ and\ |l - j| \leq r \}$.
+a distancia menor a r. De forma mas precisa el conjunto de celdas vecinas es $N_{i,j}^{(M)}:=\{(k,l) \in L\ |\ |k-i|\leq r\ and\ |l - j| \leq r \}$.
+\begin{itemize}
+    \item Bidimensional: $N_{i,j}^{(M)}:=\{(a,b) \in L\ |\ |a-i|\leq r\ and\ |b - j| \leq r \}$
+    \item Tridimensional: $N_{i,j,k}^{(M)}:=\{(a, b, c) \in L\ |\ |a-i|\leq r\ and\ |b - j|  \leq r\ and\ |c - k|  \leq r\}$
+\end{itemize}
 
 
 \subsection{Juego de la vida}\label{subsec:juego-de-la-vida}
