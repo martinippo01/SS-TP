@@ -29,15 +29,24 @@
 \begin{frame}{Observables}
 
     \begin{block}{Cantidad de celdas vivias}
-
+        \begin{equation}
+            \text{Q} = \sum_{i=1}^{x} \sum_{j=1}^{y} \sum_{k=1}^{z} \mathbbm{1}_{\text{viva}}
+            \label{eq:cantidad-celdas-vivas}
+        \end{equation}
     \end{block}
 
     \begin{block}{Variación de la cantidad de celdas vivas}
-
+        \begin{equation}
+            \text{P}_{\text{Q}} = \frac{Q_{\text{eq}} - Q_{0}}{t_{\text{eq}} - t_{0}}
+            \label{eq:pendiente-crecimiento-celdas-vivas}
+        \end{equation}
     \end{block}
 
     \begin{block}{Tiempo de convergencia al equilibrio}
-
+        \begin{equation}
+            \text{T} = t_{\text{eq}} - t_{0}
+            \label{eq:tiempo-convergencia-equilibrio}
+        \end{equation}
     \end{block}
 
 
@@ -46,11 +55,17 @@
 \begin{frame}{Observables}
 
     \begin{block}{Distancia de la celda viva más alejada al centro}
-
+        \begin{equation}
+            \text{D} = \max_{i, j, k | (i, j, k) \in \text{Viva}} \left( \sqrt{(i - x/2)^2 + (j - y/2)^2 + (k - z/2)^2} \right)
+            \label{eq:distancia-celda-viva-mas-alejada-al-centro}
+        \end{equation}
     \end{block}
 
     \begin{block}{Rapidez de alejamiento de la celda viva más alejada al centro}
-
+        \begin{equation}
+            \text{P}_{\text{D}} = \frac{D_{\text{eq}} - D_{0}}{t_{\text{eq}} - t_{0}}
+            \label{eq:rapidez-alejamiento-celda-viva-mas-alejada-al-centro}
+        \end{equation}
     \end{block}
 
 
