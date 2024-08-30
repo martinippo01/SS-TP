@@ -10,28 +10,29 @@ Comenzando con los parámetros fijos, se tiene los límites de la matriz ($borde
 en el que se indican los valores máximos y mínimos de las coordenadas de las celdas en dos o tres dimensiones.
 Luego, se define la condición de vecindad a partir de dos parámetros:
 la forma en la que se consideran las celdas vecinas a una celda en particular, según los modelos mencionados
-en~\ref{subsec:definiciones-de-vecindad} ($condition$), y el alcance de la vecindad ($r$).
+en la sección ~\ref{subsec:definiciones-de-vecindad} ($condition$), y el alcance de la vecindad ($r$).
 Con respecto a las reglas de juego, se cuenta con dos parámetros que determinan las posibles cantidades de
 vecinos que debe tener una celda para que se mantenga viva ($shouldKeepAlive$),
 y para que una celda muerta se convierta en viva ($shouldRevive$); ambos son listas de enteros.
 Por último, se determinó el dominio inicial ($initialDomainProportion$), el
-cual representa una proporción del área, si es un simulación en dos dimensiones, o del volumen,
-si es en tres dimensiones, total de la matriz donde se generan las celdas vivas en el paso temporal 0.
+cual representa una proporción entre $0$ y $1$ del área, si es un simulación en dos dimensiones, o del volumen,
+si es en tres dimensiones, total de la matriz. 
 Es decir, siendo $A$ el área o volumen total de la matriz, el dominio inicial es $A \times initialDomainProportion$.
+La misma se ubica en el centro de la matriz, y es donde se generan las celdas vivas en el paso temporal inicial.
 
 Por otro lado, los parámetros que se varían a lo largo de las simulaciones son la cantidad de pasos temporales
 máximos ($maxIter$), y la proporción de densidad de celdas vivas en el dominio inicial ($initialLiveCellsProportion$),
 siendo este último un valor entre 0 y 1.
 
 
-\subsection{Definición de Observables}\label{subsec:observables-posibles}
+\subsection{Definición de observables}\label{subsec:observables-posibles}
 
-A continuación, se definen el conjunto de observables, utilizados en la sección \ref{sec:resultados},
-para analizar los resultados obtenidos en el equilibrio de las simulaciones realizadas, en función
-de la densidad de celdas vivas en el dominio inicial.
+A continuación, se definen el conjunto de observables, mencionados en la sección \ref{sec:resultados}.
+Los mismos se utilizan para analizar los resultados obtenidos en el equilibrio de las simulaciones
+realizadas, en función de la densidad de celdas vivas en el dominio inicial.
 
 \subsubsection{Cantidad de celdas vivas}\label{subsubsec:cantidad-de-celdas-vivas}
-Este observable calcula la cantidad de celdas vivas en la matriz en un paso temporal de equilibrio.
+Este observable calcula la cantidad de celdas vivas en la matriz en el paso temporal de equilibrio.
 Se define como:
 \begin{equation}
     \text{Q} = \sum_{i=1}^{x} \sum_{j=1}^{y} \sum_{k=1}^{z} \mathbbm{1}_{\text{viva}}
@@ -40,7 +41,7 @@ Se define como:
 donde $Q$ es la cantidad de celdas vivas, $x$, $y$ y $z$ son las dimensiones de la matriz, y $\mathbbm{1}_{\text{viva}}$
 es una función indicadora que toma el valor de 1 si la celda en la posición $(i, j, k)$ está viva, y 0 en caso contrario.
 
-\subsubsection{Pendiente de crecimiento de cantidad de celdas vivas}\label{subsubsec:pendiente-de-crecimiento-de-cantidad-de-celdas-vivas}
+\subsubsection{Variación de la cantidad de celdas vivas}\label{subsubsec:pendiente-de-crecimiento-de-cantidad-de-celdas-vivas}
 Este observable calcula la pendiente de cantidad de celdas vivas en la matriz, entre el paso temporal
 inicial y el paso temporal de equilibrio.
 Se define como:
@@ -48,7 +49,7 @@ Se define como:
     \text{P}_{\text{Q}} = \frac{Q_{\text{eq}} - Q_{0}}{t_{\text{eq}} - t_{0}}
     \label{eq:pendiente-crecimiento-celdas-vivas}
 \end{equation}
-donde $P_{Q}$ es la pendiente de crecimiento de cantidad de celdas vivas, $Q_{eq}$ es la
+donde $P_{Q}$ es la variación de la cantidad de celdas vivas, $Q_{eq}$ es la
 cantidad de celdas vivas en el paso temporal de equilibrio, $Q_{0}$ es la cantidad de celdas
 vivas en el paso temporal inicial, $t_{eq}$ es el paso temporal de equilibrio, y $t_{0}$ es el paso temporal inicial.
 
@@ -67,7 +68,7 @@ Este observable calcula la distancia de la celda viva más alejada al centro de 
 en el paso temporal de equilibrio.
 Se define como:
 \begin{equation}
-    \text{D} = \max_{i, j, k} \left( \sqrt{(i - x/2)^2 + (j - y/2)^2 + (k - z/2)^2} \right)
+    \text{D} = \max_{i, j, k | (i, j, k) \in \text{viva}} \left( \sqrt{(i - x/2)^2 + (j - y/2)^2 + (k - z/2)^2} \right)
     \label{eq:distancia-celda-viva-mas-alejada-al-centro}
 \end{equation}
 donde $D$ es la distancia de la celda viva más alejada al centro, $x$, $y$ y $z$ son las dimensiones de la matriz,

@@ -50,24 +50,24 @@ vivas en el dominio inicial, utilizando la eq. \ref{eq:cantidad-celdas-vivas}.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{conway2d/size_vs_input}
-    \caption{Cantidad de celdas vivas en función del input para el sistema de Conway 2D}
+    \caption{Cantidad de celdas vivas en función de la densidad inicial de celdas vivas para el sistema de Conway 2D}
     \label{fig:conway2d_size_vs_input}
 \end{figure}
 
 A partir de la fig. \ref{fig:conway2d_size_vs_input}, se puede analizar que, a medida que aumenta la densidad inicial de
 celdas vivas, aunque con algunas oscilaciones, la cantidad de celdas vivas en el equilibrio también.
 
-Además, se ha estudiado la pendiente de crecimiento de la cantidad de celdas vivas en función del input,
+Además, se ha estudiado la variación de la cantidad de celdas vivas en función de la densidad inicial de celdas vivas,
 utilizando la eq. \ref{eq:pendiente-crecimiento-celdas-vivas}.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{conway2d/size_slope_vs_input}
-    \caption{Pendiente de crecimiento de cantidad de celdas vivas en función del input para el sistema de Conway 2D}
+    \caption{Variación de la cantidad de celdas vivas en función de la densidad inicial de celdas vivas para el sistema de Conway 2D}
     \label{fig:conway2d_size_slope_vs_input}
 \end{figure}
 
-Se puede comprobar en la fig. \ref{fig:conway2d_size_slope_vs_input} que la pendiente de crecimiento es negativa
+Se puede comprobar en la fig. \ref{fig:conway2d_size_slope_vs_input} que la variación de la cantidad de celdas vivas es negativa
 para cualquier valor de $initialLiveCellsProportion$, y su tendencia es más pronunciada a medida que aumenta la
 densidad inicial de celdas vivas.
 
@@ -94,13 +94,13 @@ más lejana al centro (eq. \ref{eq:rapidez-alejamiento-celda-viva-mas-alejada-al
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{conway2d/time_vs_input}
-    \caption{Tiempo de finalización en función del input para el sistema de Conway 2D}
+    \caption{Tiempo de finalización en función de la densidad inicial de celdas vivas para el sistema de Conway 2D}
     \label{fig:conway2d_time_vs_input}
 \end{figure}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{conway2d/distance_slope_vs_input}
-    \caption{Pendiente de alejamiento de la celda viva más lejana al centro en función del input para el sistema de Conway 2D}
+    \caption{Rapidez de alejamiento de la celda viva más lejana al centro en función de la densidad inicial de celdas vivas para el sistema de Conway 2D}
     \label{fig:conway2d_distance_slope_vs_input}
 \end{figure}
 
@@ -129,9 +129,9 @@ se utilizaron los siguientes parámetros:
 \end{itemize}
 
 A diferencia de los otros sistemas, en este no solo se varió el parámetro $initialLiveCellsProportion$ entre 0.1 y 0.9 con un paso de 0.1, 
-sino que además se agregaron corridas con el parámetro valiendo 0.05 y 0.15.
+sino que también se agregaron corridas con el parámetro valiendo 0.05 y 0.15.
 
-A continuación podemos observar cómo evoluciona la cantidad de celdas vidas en función del tiempo para disitntos valores del parámetro $initialLiveCellsProportion$
+A continuación, podemos observar cómo evoluciona la cantidad de celdas vidas en función del tiempo para distintos valores del parámetro $initialLiveCellsProportion$.
 
 \begin{figure}[H]
     \centering
@@ -154,25 +154,28 @@ A continuación podemos observar cómo evoluciona la cantidad de celdas vidas en
 
 La distancia de la celda viva más lejana al centro en función del tiempo es prácticamente idéntica para todos los inputs utilizados.
 
-Lo interesante de este sistema no es la cantidad de celdas vivas en el momento de equilibrio debido a que si utilizamos $initialLiveCellsProportion$
-por lo que hacemos hincapie en el crecimiento de cantidad de células vivas.
+La parte interesante de este sistema no radica en la cantidad de celdas vivas en el momento de equilibrio debido a que si utilizamos
+$initialLiveCellsProportion > 0.15$ obtendremos siempre la misma cantidad. Es por esto que hacemos hincapie en el crecimiento de cantidad de células vivas.
 
-A continuación, observamos el análisis del observable
+A continuación, visualizamos el análisis del observable
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{cuarentena2d/observable}
-    \caption{Pendiente de crecimiento de cantidad de celdas vivas en función del input para el sistema Cuarentena 2D}
+    \caption{Variación de la cantidad de celdas vivas en función de la densidad inicial de celdas vivas para el sistema Cuarentena 2D}
     \label{fig:cuarentena2d_observable}
 \end{figure}
 
+Se puede observar en la fig. \ref{fig:cuarentena2d_observable} que se alcanza un máximo en la pendiente de 
+crecimiento cuando $initialLiveCellsProportion = 0.6$ 
 
-\subsection{Expansión Circular en 2D}\label{subsec:expansion-circular-2D}
+
+\subsection{Expansión circular en 2D}\label{subsec:expansion-circular-2D}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{circular2d/thumbnail}
-    \caption{Fotograma de la animación de Expansión Circular con $initialLiveCellsProportion = 0.6$. Link al video, ver \ref{subsubsec:expansion-circular-2d-link}}
+    \caption{Fotograma de la animación de Expansión circular con $initialLiveCellsProportion = 0.6$. Link al video, ver \ref{subsubsec:expansion-circular-2d-link}}
     \label{fig:thumbnailcircular2d_i60}
 \end{figure}
 
@@ -188,90 +191,95 @@ Para ello se utilizaron los siguientes parámetros:
     \item $initialDomainProportion = 0.16$
 \end{itemize}
 
-Variando el parámetro $initialLiveCellsProportion$ entre 0.1 y 0.9 con un step de 0.1, se ha analizado la cantidad de celdas vivas en función
+Variando el parámetro $initialLiveCellsProportion$ entre 0.1 y 0.9 con un paso de 0.1, se ha analizado la cantidad de celdas vivas en función
 del tiempo.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{circular2d/size_i10}
-    \caption{Cantidad de celdas vivas en el tiempo del sistema de Expansión Circular con $initialLiveCellsProportion = 0.1$}
+    \caption{Cantidad de celdas vivas en el tiempo del sistema de Expansión circular en 2D con $initialLiveCellsProportion = 0.1$}
     \label{fig:circular2d_i10}
 \end{figure}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{circular2d/size_i80}
-    \caption{Cantidad de celdas vivas en el tiempo del sistema de Expansión Circular con $initialLiveCellsProportion = 0.8$}
+    \caption{Cantidad de celdas vivas en el tiempo del sistema de Expansión circular en 2D con $initialLiveCellsProportion = 0.8$}
     \label{fig:circular2d_i80}
 \end{figure}
 
 
-Es posible visualizar que con ambos parámetros la simulación termina después de 33 pasos, esto se debe a que con este sistema, la simulación
+Es posible visualizar que con ambos parámetros la simulación termina después de 33 pasos. Esto se debe a que con este sistema, la simulación
 siempre termina por haber llegado al borde. Por lo cual no es de interés analizar la distancia al centro de la celda viva más lejana, ya que
 crece de manera lineal sin importar el valor de $initialLiveCellsProportion$.
 
-Por otro lado, sí es interesante utilizar como observable la cantidad de celdas vivas en el instante final de la simulación, a continuación se
-grafica este mismo en función del valor de $initialLiveCellsProportion$
+Por otro lado, sí es interesante utilizar como observable la cantidad de celdas vivas en el instante final de la simulación. 
+A continuación se grafica este mismo en función del valor de $initialLiveCellsProportion$.
 
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{circular2d/observable}
-    \caption{Cantidad de celdas vivas en función del input para el sistema Expansión Circular}
+    \caption{Cantidad de celdas vivas en función de la densidad inicial de celdas vivas para el sistema Expansión circular en 2D}
     \label{fig:circular2d_observable}
 \end{figure}
 
+Se puede observar en la fig. \ref{fig:circular2d_observable} que la cantidad de celdas vivas aumenta, a
+medida que lo hace la densidad inicial de celdas vivas.
 
-\subsection{Expansión Cúbica}\label{subsec:cubito-3D}
+
+\subsection{Expansión cúbica en 3D}\label{subsec:cubito-3D}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{cubo3d/thumbnail}
-    \caption{Fotograma de la animación de Expansión Cúbica con $initialLiveCellsProportion = 0.9$. Link al video, ver \ref{subsubsec:cubito-3d-link}}
+    \caption{Fotograma de la animación de Expansión cúbica en 3D con $initialLiveCellsProportion = 0.9$. Link al video, ver \ref{subsubsec:cubito-3d-link}}
     \label{fig:thumbnailcubo3d_i90}
 \end{figure}
 
-El objetivo de este sistema es crecer en cada paso 1 posición más alejada del centro, pero sin que la cantidad de celdas vivas crezca en todos los pasos.
+El objetivo de este sistema es crecer en cada paso una posición más alejada del centro, pero con la limitación de que la cantidad de celdas vivas no crezca en todos los pasos.
 
 \begin{itemize}
-    \item $border = (0, 0) \times (100, 100)$
+    \item $border = (0, 0, 0) \times (50, 50, 50)$
     \item $condition = MOORE$
     \item $r = 1$
-    \item $shouldKeepAlive = [1, 2, 3, 4, 5, 6, 7, 8]$
-    \item $shouldRevive = [4, 5, 6, 7, 8]$
-    \item $initialDomainProportion = 0.16$
+    \item $shouldKeepAlive = [0, 1, 2, 3, 4, 5, 6, 7, 8]$
+    \item $shouldRevive = [1, 2, 3]$
+    \item $initialDomainProportion = 0.064$
 \end{itemize}
 
-Variando el parámetro $initialLiveCellsProportion$ entre 0.1 y 0.9 con un step de 0.1, se ha analizado la cantidad de celdas vivas en función
+Variando el parámetro $initialLiveCellsProportion$ entre 0.1 y 0.9 con un paso de 0.1, se ha analizado la cantidad de celdas vivas en función
 del tiempo.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{cubo3d/size_i10}
-    \caption{Cantidad de celdas vivas en el tiempo del sistema de Expansión Cúbica con $initialLiveCellsProportion = 0.1$}
+    \caption{Cantidad de celdas vivas en el tiempo del sistema de Expansión cúbica en 3D con $initialLiveCellsProportion = 0.1$}
     \label{fig:cubo3d_i10}
 \end{figure}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{cubo3d/size_i80}
-    \caption{Cantidad de celdas vivas en el tiempo del sistema de Expansión Cúbica con $initialLiveCellsProportion = 0.8$}
+    \caption{Cantidad de celdas vivas en el tiempo del sistema de Expansión cúbica en 3D con $initialLiveCellsProportion = 0.8$}
     \label{fig:cubo3d_i80}
 \end{figure}
 
 
-Es posible visualizar que con ambos parámetros la simulación termina después de 19 pasos, esto se debe a que con este sistema, la simulación
+Es posible visualizar que con ambos parámetros la simulación termina después de 19 pasos. Esto se debe a que con este sistema, la simulación
 siempre termina por haber llegado al borde. Por lo cual no es de interés analizar la distancia al centro de la celda viva más lejana, ya que
 crece de manera lineal sin importar el valor de $initialLiveCellsProportion$.
 
-Debido a la naturaleza del crecimiento resulta interesante analizar la pendiente de crecimiento en función del input.
+Debido a la naturaleza del crecimiento resulta interesante analizar la variación en la cantidad de celdas vivas en función de la densidad inicial de celdas vivas.
 
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{cubo3d/observable}
-    \caption{Pendiente de crecimiento de cantidad de celdas vivas en función del input para el sistema Expansión Circular}
+    \caption{Variación de la cantidad de celdas vivas en función de la densidad inicial de celdas vivas para el sistema Expansión circular en 2D}
     \label{fig:cubo3d_observable}
 \end{figure}
 
+Se puede observar en la fig. \ref{fig:cubo3d_observable} que la pendiente de crecimiento es positiva, 
+pero decrementa a medida que se aumenta la densidad inicial de celdas vivas.
 
 \subsection{Conway en 3D}\label{subsec:conway-en-3d}
 
@@ -319,24 +327,24 @@ vivas en el dominio inicial, a partir de la eq. \ref{eq:cantidad-celdas-vivas}.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{conway3d/size_vs_input}
-    \caption{Cantidad de celdas vivas en función del input para el sistema de Conway 3D}
+    \caption{Cantidad de celdas vivas en función de la densidad inicial de celdas vivas para el sistema de Conway 3D}
     \label{fig:conway3d_size_vs_input}
 \end{figure}
 
 A partir de la fig. \ref{fig:conway3d_size_vs_input}, se puede analizar que la cantidad
 de celdas vivas en el equilibrio alcanza un máximo cuando $initialLiveCellsProportion = 0.5$, y luego
 disminuye a medida que aumenta la densidad inicial de celdas vivas.
-También se ha estudiado la pendiente de crecimiento de la cantidad de celdas vivas en función de la densidad
+También se ha estudiado la variación de la cantidad de celdas vivas en función de la densidad
 de celdas vivas en el dominio inicial, utilizando la eq. \ref{eq:pendiente-crecimiento-celdas-vivas}.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{conway3d/size_slope_vs_input}
-    \caption{Pendiente de crecimiento de cantidad de celdas vivas en función del input para el sistema de Conway 3D}
+    \caption{Variación de la cantidad de celdas vivas en función de la densidad inicial de celdas vivas para el sistema de Conway 3D}
     \label{fig:conway3d_size_slope_vs_input}
 \end{figure}
 
-Se puede comprobar en la fig. \ref{fig:conway3d_size_slope_vs_input} que la pendiente de crecimiento es positiva
+Se puede comprobar en la fig. \ref{fig:conway3d_size_slope_vs_input} que la variación en la cantidad de celdas vivas es positiva
 para cualquier valor de $initialLiveCellsProportion$, pero su tendencia alcanza un máximo cuando
 $initialLiveCellsProportion = 0.2$ y luego disminuye a medida que aumenta la densidad inicial de celdas vivas.
 
@@ -366,19 +374,19 @@ en el dominio inicial.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{conway3d/time_vs_input}
-    \caption{Tiempo de finalización en función del input para el sistema de Conway 3D}
+    \caption{Tiempo de finalización en función de la densidad inicial de celdas vivas para el sistema de Conway 3D}
     \label{fig:conway3d_time_vs_input}
 \end{figure}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{conway3d/distance_slope_vs_input}
-    \caption{Pendiente de alejamiento de la celda viva más lejana al centro en función del input para el sistema de Conway 3D}
+    \caption{Rapidez de alejamiento de la celda viva más lejana al centro en función de la densidad inicial de celdas vivas para el sistema de Conway 3D}
     \label{fig:conway3d_distance_slope_vs_input}
 \end{figure}
 
 Como se puede observar en la fig. \ref{fig:conway3d_time_vs_input}, el tiempo de finalización es
 aproximadamente constante para cualquier valor de $initialLiveCellsProportion$, siendo 19 pasos temporales en promedio.
-Por otro lado, en la fig. \ref{fig:conway3d_distance_slope_vs_input}, se puede comprobar que la pendiente de alejamiento
+Por otro lado, en la fig. \ref{fig:conway3d_distance_slope_vs_input}, se puede comprobar que la rapidez de alejamiento
 de la celda viva más lejana al centro aumenta a medida que crece la densidad inicial de celdas vivas.
 
 
@@ -430,22 +438,23 @@ a lo largo de los pasos temporales.
 Como se puede observar en la fig. \ref{fig:colapso3d_i30}, el sistema alcanza el equilibrio
 antes del paso temporal 4000, por lo que se hace el análisis del observable en el paso temporal mencionado.
 Analizando las figs. \ref{fig:colapso3d_i10} y \ref{fig:colapso3d_i90}, se
-puede comprobar que hay una diferencia de tres órdenes de magnitud en la cantidad de pasos temporales necesarios para
-alcanzar el equilibrio.
+puede comprobar que la cantidad de celdas vivas es casi nula en el equilibrio, y existe una diferencia de tres
+órdenes de magnitud en la cantidad de pasos temporales necesarios para
+alcanzar el equilibrio entre ambos.
 Es por ello que se decidió estudiar la cantidad de celdas vivas en el equilibrio (eq. \ref{eq:cantidad-celdas-vivas})
-y su pendiente de crecimiento (eq. \ref{eq:pendiente-crecimiento-celdas-vivas}),
+y su variación en la cantidad de celdas vivas (eq. \ref{eq:pendiente-crecimiento-celdas-vivas}),
 en función de la densidad de celdas vivas en el dominio inicial.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{collapse3d/size_vs_input}
-    \caption{Cantidad de celdas vivas en función del input para el sistema de Colapso Cúbico}
+    \caption{Cantidad de celdas vivas en función de la densidad inicial de celdas vivas para el sistema de Colapso Cúbico}
     \label{fig:colapso3d_size_vs_input}
 \end{figure}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{collapse3d/size_slope_vs_input}
-    \caption{Pendiente de crecimiento de cantidad de celdas vivas en función del input para el sistema de Colapso Cúbico}
+    \caption{Variación de la cantidad de celdas vivas en función de la densidad inicial de celdas vivas para el sistema de Colapso Cúbico}
     \label{fig:colapso3d_size_slope_vs_input}
 \end{figure}
 
@@ -453,7 +462,7 @@ Se puede comprobar en la fig. \ref{fig:colapso3d_size_vs_input} que la cantidad 
 resulta diezmada para cualquier valor de $initialLiveCellsProportion$, alcanzando un valor máximo de aproximadamente
 60 celdas vivas.
 Esto resulta insignificante para una matriz de $50 \times 50 \times 50$ ya que representa una densidad
-de $60/(50 \times 50 \times 50) \times 100 = 0.048\%$.
+de $\frac{60}{50 \times 50 \times 50} \times 100 = 0.048\%$.
 Por otra parte, se puede observar en la fig. \ref{fig:colapso3d_size_slope_vs_input} que la pendiente de
 crecimiento es negativa para cualquier valor de $initialLiveCellsProportion$, y su módulo aumenta
 considerablemente a medida que crece la densidad inicial de celdas vivas.
@@ -490,7 +499,7 @@ al centro en función de la densidad de celdas vivas en el dominio inicial.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{collapse3d/distance_slope_vs_input}
-    \caption{Raidez de alejamiento de la celda viva más lejana al centro en función del input para el sistema de Colapso Cúbico}
+    \caption{Rapidez de alejamiento de la celda viva más lejana al centro en función de la densidad inicial de celdas vivas para el sistema de Colapso Cúbico}
     \label{fig:colapso3d_distance_slope_vs_input}
 \end{figure}
 

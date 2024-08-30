@@ -1,22 +1,19 @@
 \section{Conclusiones}\label{sec:conclusiones}
 
-A continuación, se enuncian las conclusiones a las que se han llegado a partir de los resultados obtenidos
+A continuación, se enuncian las conclusiones a las que se ha llegado a partir de los resultados obtenidos
 en los distintos modelos simulados.
 
 \subsection{Conway en 2D}\label{subsec:conway-en-2d-conc}
-A partir del resultado que se ha obtenido en la fig. \ref{fig:conway2d_size_slope_vs_input}, se puede concluir
-que la población de celdas vivas disminuye respecto de su población en el paso inicial, independientemente de
+La población de celdas vivas disminuye respecto de su población en el paso inicial, independientemente de
 la densidad inicial de celdas vivas.
 Por lo tanto, Conway en dos dimensiones es un modelo de población decreciente.
 
-Además, si se considera la fig. \ref{fig:conway2d_size_vs_input}, se llega a la conclusión de que, si bien
-a medida que aumenta la densidad inicial de celdas vivas, la cantidad de celdas vivas en el paso de equilibrio también,
+Además, si bien a medida que aumenta la densidad inicial de celdas vivas, la cantidad de celdas vivas en el paso de equilibrio también,
 el decrecimiento se vuelve más pronunciado.
 Esto se puede deber a que, ante una mayor densidad de celdas vivas, se vuelve más probable que una celda viva
-tenga más de 3 celdas vecinas vivas, lo que la llevaría a morir.
+tenga más de 3 celdas vecinas vivas, lo cual conlleva a su muerte.
 
-Por último, en base a lo obtenido en las figs. \ref{fig:conway2d_time_vs_input} y \ref{fig:conway2d_distance_slope_vs_input},
-se concluye que la rapidez de alejamiento de la celda viva más alejada al centro resulta óptima cuando
+Por último, la rapidez de alejamiento de la celda viva más alejada al centro resulta óptima cuando
 $initialLiveCellsProportion = 0.6$.
 Aunque se puede argumentar que resulta una coincidencia de la muestra considerada, la baja amplitud en el
 desvío estándar otorga una mayor solidez a la afirmación.
@@ -27,57 +24,49 @@ Si se necesitan más de 3 vecinos para que una celda reviva, entonces existe una
 de alguna celda viva inicial. Esto se debe a que ninguna celda que se encuentre por fuera de la sección inicial podrá contar con más de
 3 celdas aledañas vivas.
 
-\subsection{Expansión Circular en 2D}\label{subsec:expansion-circular-2D-conc}
+\subsection{Expansión circular en 2D}\label{subsec:expansion-circular-2D-conc}
 
 Para tener un crecimiento constante hacia todos lados no es siempre necesario que todas las celdas revivan por cualquier cantidad de vecinos.
 
-\subsection{Expansión Cúbica en 3D}\label{subsec:cubito-3D-conc}
+\subsection{Expansión cúbica en 3D}\label{subsec:cubito-3D-conc}
 
 Es posible generar sistemas en los cuales la distancia de la celda más lejana al centro crezca todos los pasos sin tener un aumento en la
 cantidad de celdas estrictamente creciente en función del tiempo.
 
 \subsection{Conway en 3D}\label{subsec:conway-en-3D-conc}
 
-A partir de la fig. \ref{fig:conway3d_size_vs_input}, se puede concluir que se alcanza la densidad máxima de
-celdas vivas en el equilibrio cuando $initialLiveCellsProportion = 0.5$.
+Se alcanza la densidad máxima de celdas vivas en el equilibrio cuando $initialLiveCellsProportion = 0.5$.
 
-En base a lo obtenido en la fig. \ref{fig:conway3d_size_slope_vs_input}, la expansión de la población
-alcanza un máximo cuando la densidad inicial de celdas vivas es del $20\%$.
+La expansión de la población alcanza un máximo cuando la densidad inicial de celdas vivas es del $20\%$.
 
-Si se analiza el tiempo de convergencia al equilibrio, según la fig. \ref{fig:conway3d_time_vs_input},
-se puede concluir que el tiempo de convergencia es aproximadamente constante para todas las densidades iniciales,
-siendo de 19 pasos temporales.
-No así la rapidez de alejamiento de la celda viva más alejada al centro, ya que a partir de
-la fig. \ref{fig:conway3d_distance_slope_vs_input} se concluye que la misma aumenta a medida que lo
-hace la densidad inicial.
+El tiempo de convergencia es aproximadamente constante para todas las densidades iniciales,
+resultando alrededor de 19 pasos temporales.
+No así la rapidez de alejamiento de la celda viva más alejada al centro, ya que la misma aumenta a medida
+que lo hace la densidad inicial.
 
 \subsubsection{Conway 2D vs 3D}\label{subsubsec:conway-2D-vs-3D-conc}
 Si se comparan los modelos de Conway en dos y tres dimensiones, se puede concluir que el comportamiento
 varía significativamente con solo agregar una dimensión.
 
-En primer lugar, analizando las figs. \ref{fig:conway2d_size_slope_vs_input} y \ref{fig:conway3d_size_slope_vs_input},
-si bien en ambos modelos la pendiente de crecimiento de la cantidad de celdas vivas
-decrementa a medida que aumenta la densidad inicial de celdas vivas,
-en el modelo de dos dimensiones la pendiente es negativa, mientras que en el de tres dimensiones es positiva.
-Por lo tanto, al agregar una dimensión, el modelo de Conway transiciona de uno que reduce la población de celdas vivas
-a uno que la incrementa.
+En primer lugar, si bien en ambos modelos la variación de la cantidad de celdas vivas decrementa a medida que aumenta
+la densidad inicial de celdas vivas, en el modelo de dos dimensiones la pendiente es negativa, mientras
+que en el de tres dimensiones es positiva.
+Por lo tanto, al agregar una dimensión, el modelo de Conway transiciona de uno que reduce la población
+de celdas vivas a uno que la incrementa.
 
-En segundo lugar, si se consideran las figs. \ref{fig:conway2d_time_vs_input} y \ref{fig:conway3d_time_vs_input},
-el tiempo de convergencia al equilibrio en el modelo de dos dimensiones varía considerablemente en función
-de la densidad inicial de celdas vivas, mientras que en el de tres dimensiones es aproximadamente constante.
+En segundo lugar, el tiempo de convergencia al equilibrio en el modelo de dos dimensiones varía
+considerablemente en función de la densidad inicial de celdas vivas, mientras que en el de tres
+dimensiones es aproximadamente constante.
 
-Por último, en base a las figs. \ref{fig:conway2d_distance_slope_vs_input} y \ref{fig:conway3d_distance_slope_vs_input},
-la rapidez de alejamiento de la celda viva más alejada al centro en el modelo de dos dimensiones se encuentra en el
-rango $[0.00, 0.20]$, mientras que en el de tres dimensiones se encuentra en el rango $[0.65, 0.75]$.
+Por último, la rapidez de alejamiento de la celda viva más alejada al centro en el modelo de dos dimensiones
+se encuentra en el rango $[0.00, 0.20]$, mientras que en el de tres dimensiones se encuentra en el rango
+$[0.65, 0.75]$.
 Por lo tanto, al agregar una dimensión, este observable incrementa entre tres y cuatro veces.
 
 \subsection{Colapso cúbico}\label{subsec:colapso-cubico-conc}
-En base a los resultados obtenidos en la fig. \ref{fig:colapso3d_size_vs_input}, se puede concluir que
-la cantidad de celdas vivas en el equilibrio es prácticamente nulo, alcanzando una densidad máxima del
+La cantidad de celdas vivas en el equilibrio es prácticamente nulo, alcanzando una densidad máxima del
 $0.048\%$ cuando $initialLiveCellsProportion = 0.6$.
-Además, si se considera la fig. \ref{fig:colapso3d_size_slope_vs_input}, se llega a la conclusión de que
-la pendiente de crecimiento de la cantidad de celdas vivas es negativa, independientemente de la densidad inicial,
+Además, la variación de la cantidad de celdas vivas es negativa, independientemente de la densidad inicial,
 y decrece considerablemente a medida que aumenta dicha densidad.
 
-Por último, si agregamos la fig. \ref{fig:colapso3d_distance_slope_vs_input} a la discusión, se puede concluir que
-el sistema es uno que tiende a colapsar en el centro del dominio inicial, independientemente de la densidad inicial de celdas vivas.
+Finalmente, el sistema es uno que tiende a colapsar en el centro del dominio inicial, independientemente de la densidad inicial de celdas vivas.
