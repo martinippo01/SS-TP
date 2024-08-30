@@ -9,7 +9,8 @@
 
 \documentclass[serif, aspectratio=169]{beamer}
 %\documentclass[serif]{beamer}  % for 4:3 ratio
-\usepackage[T1]{fontenc} 
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
 \usepackage{fourier} % see "http://faq.ktug.org/wiki/uploads/MathFonts.pdf" for other options
 \usepackage{hyperref}
 \usepackage{latexsym,amsmath,xcolor,multicol,booktabs,calligra}
@@ -28,6 +29,7 @@
 \date{\small \today}
 \usepackage{HKUSTstyle}
 \usepackage{blkarray}
+\usepackage{caption}
 
 % defs
 \def\cmd#1{\texttt{\color{red}\footnotesize $\backslash$#1}}
@@ -70,7 +72,7 @@ subsubsectionstyle=show/shaded/hide]
 
 % Content --- --- --- --- --- --- --- --- --- --- --- ---
 \include{01-introduccion}
-\include{02-modelo}
+%\include{02-modelo}    YA SE INCLUYEN EN 01-INTRODUCION
 \include{03-implementacion}
 \include{04-simulaciones}
 \include{05-resultados}
@@ -81,11 +83,8 @@ subsubsectionstyle=show/shaded/hide]
 % --- Thank you slide ---
 \begin{frame}
 \begin{center}
-{ Thank you for listening !}
-\vspace{1cm}
-
-Your Name \\[1em]
-@connect.hkust-gz.edu.cn 
+\LARGE
+{ ¡Muchas gracias por escuchar! }
 \end{center}
 \end{frame}
 

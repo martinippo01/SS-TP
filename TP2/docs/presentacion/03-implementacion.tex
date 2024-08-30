@@ -1,24 +1,35 @@
 \section{Implementación}
-\begin{frame}{Background and Motivation}
-    \frametitle<presentation>{Background and Motivation}
-    \begin{block}{Why to give a presentation:}
-        \begin{itemize}
-            \item show the main arguments and results of your work
-            \item produce interest to read the full paper/report
-            \item goal: be educational and also entertaining
-        \end{itemize}
-    \end{block}
-    \begin{block}{Advantages of using \LaTeX ~with the beamer package:}
-        \begin{itemize}
-            \item very easy if the report is already written in \LaTeX
-            \item different themes which are usable in practice
-            \item possibility to create handouts using \emph{beamerarticle}
-        \end{itemize}
-    \end{block}
+\begin{frame}{Diagrama UML}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\linewidth]{pic/03-implementacion/UML}
+    \end{figure}
 \end{frame}
 
-\begin{frame}{Research question}
+\begin{frame}{Motor de simulacion}
 
-    this is a Research question.
 
+    \begin{minipage}[t]{0.55\linewidth}
+        \begin{block}{Detalles de implementacion:}
+            \begin{itemize}
+                \item $GameOfLife$ y $GameOfLifeRunner$
+                \item Matriz de celdas como una coleccion $SET$
+                \item Condicion de corte:
+                    \begin{itemize}
+                        \item Borde
+                        \item Ninguna viva
+                        \item Limite de iteraciones
+                        \item Sin cambio entre estados
+                    \end{itemize}
+                \item Código auxiliar: Borde, posicion y condicion de vecindario.
+            \end{itemize}
+        \end{block}
+    \end{minipage}%
+    \hfill%
+    \begin{minipage}[t]{0.4\linewidth}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.9\linewidth]{pic/03-implementacion/UML_side}
+        \end{figure}
+    \end{minipage}
 \end{frame}
