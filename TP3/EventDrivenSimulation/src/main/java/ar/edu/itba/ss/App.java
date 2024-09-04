@@ -6,8 +6,16 @@ package ar.edu.itba.ss;
  */
 public class App 
 {
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
+    public static void main(String[] args) {
+        // Get program properties
+        final String inputFileName = System.getProperty("input");
+
+        // Read input data
+        final InputData iD = new InputData(inputFileName);
+
+
+        Simulation s = new Simulation(iD.getN(), iD.getPlane());
+        s.prepare(iD.getMass(), iD.getRadious(), iD.getSpeed(), iD.getObstacles());
+        s.run();
     }
 }
