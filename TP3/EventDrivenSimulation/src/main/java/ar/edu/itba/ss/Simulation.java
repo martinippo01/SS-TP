@@ -14,17 +14,17 @@ public class Simulation {
     private final PriorityQueue<Event> events;
     private final long n;
     private double tcAbsolute;
-    private final long maxCollisions;
+    private final double maxTime;
     private final BiConsumer<Simulation, Event> onEvent;
     private final Consumer<Simulation> onEnd;
     private final OutputData outputData;
 
-    public Simulation(Plane plane, long n, long maxCollisions, BiConsumer<Simulation, Event> onEvent, Consumer<Simulation> onEnd, OutputData outputData) {
+    public Simulation(Plane plane, long n, double maxTime, BiConsumer<Simulation, Event> onEvent, Consumer<Simulation> onEnd, OutputData outputData) {
         this.tcAbsolute = 0;
         this.n = n;
         this.events = new PriorityQueue<>();
         this.plane = plane;
-        this.maxCollisions = maxCollisions;
+        this.maxTime = maxTime;
         this.onEvent = onEvent;
         this.onEnd = onEnd;
         this.outputData = outputData;
@@ -72,15 +72,20 @@ public class Simulation {
                     .ifPresent(events::add);
         }
 
-        for(long i = 0; i < maxCollisions; i++) {
+        while(true) {
             // Step 3: Get the next event
             Event nextEvent = events.poll();
             if (nextEvent == null) {
                 break;
             }
 
+            double tc = nextEvent.getTc();
+            if (tc > maxTime) {
+                break;
+            }
+
             // Step 4: Advance all particles to the time of the event
-            double relativeTime = nextEvent.getTc() - tcAbsolute;
+            double relativeTime = tc - tcAbsolute;
             for(Particle p : ps) {
                 p.advance(relativeTime);
             }

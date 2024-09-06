@@ -42,7 +42,7 @@ public class InputData {
         private List<Obstacle> obstacles;
         private List<Particle> particles;
         private Plane plane;
-        private long maxCollisions;
+        private double maxTime;
         private String outputDir;
         private boolean prettyOutput;
     }
@@ -69,8 +69,8 @@ public class InputData {
 
     public List<Obstacle> getObstacles() { return inputData.obstacles;}
 
-    public long getMaxCollisions() {
-        return inputData.maxCollisions;
+    public double getMaxTime() {
+        return inputData.maxTime;
     }
 
     public String getOutputDir(){
