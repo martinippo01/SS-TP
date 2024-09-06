@@ -1,5 +1,7 @@
 package ar.edu.itba.ss;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public abstract class Plane {
@@ -7,11 +9,14 @@ public abstract class Plane {
     protected List<Particle> particles;
     protected List<Obstacle> obstacles;
 
-    abstract boolean generateParticle(Velocity v0, double mass, double r);
-    abstract boolean generateParticle(Velocity v0, double mass, double r, Position p);
-    abstract Velocity getParticleVelocityAfterCrash(Particle p);
+    public Plane(double l) {
+        this.l = l;
+        this.particles = new ArrayList<>();
+        this.obstacles = new ArrayList<>();
+    }
 
-    
+    abstract boolean generateParticle(double v0, double mass, double r);
+    abstract boolean generateParticle(double v0, double mass, double r, Position p);
 
     void setObstacles(List<Obstacle> obstacles) {
         this.obstacles = obstacles;
@@ -25,5 +30,6 @@ public abstract class Plane {
         return obstacles;
     }
 
+    public List<Event> getCrashEventWithBorders(Particle p) { return Collections.emptyList();}
 
 }

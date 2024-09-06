@@ -1,7 +1,7 @@
 package ar.edu.itba.ss;
 
 public class Event implements Comparable<Event>{
-    private final double tc;
+    private double tc;
     private final Crash crash;
 
     public Event(double tc, Crash crash) {
@@ -16,7 +16,19 @@ public class Event implements Comparable<Event>{
 
     public EventOutput toJSON(){
         // TODO
+        return null;
     }
 
+    public void setTc(double tc) {
+        this.tc = tc;
+    }
+
+    public double getTc() {
+        return this.tc;
+    }
+
+    public Crash getCrash() {
+        return crash;
+    }
 }
 

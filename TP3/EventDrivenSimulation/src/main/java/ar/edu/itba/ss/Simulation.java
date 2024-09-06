@@ -1,52 +1,111 @@
 package ar.edu.itba.ss;
 
+import ar.edu.itba.ss.utils.OutputData;
+
 import java.util.List;
+import java.util.Optional;
 import java.util.PriorityQueue;
-import java.util.Random;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 public class Simulation {
 
-    private final int MAX_ITER = 1000;
-    private Plane plane;
-
-    private PriorityQueue<Event> events;
-
-    private long n;
-
+    private final Plane plane;
+    private final PriorityQueue<Event> events;
+    private final long n;
     private double tcAbsolute;
+    private final long maxCollisions;
+    private final BiConsumer<Simulation, Event> onEvent;
+    private final Consumer<Simulation> onEnd;
+    private final OutputData outputData;
 
-    public Simulation(long n, String p) {
-        this.tcAbsolute=0;
+    public Simulation(Plane plane, long n, long maxCollisions, BiConsumer<Simulation, Event> onEvent, Consumer<Simulation> onEnd, OutputData outputData) {
+        this.tcAbsolute = 0;
         this.n = n;
         this.events = new PriorityQueue<>();
-        this.plane = "circular".equals(p)? new CircularPlane() : new RectangularPlane();
+        this.plane = plane;
+        this.maxCollisions = maxCollisions;
+        this.onEvent = onEvent;
+        this.onEnd = onEnd;
+        this.outputData = outputData;
     }
 
-    public void prepare(double mass, double radious, double speed, List<Obstacle> obstacles){
+    public void prepare(double mass, double radius, double speed, List<Obstacle> obstacles){
         plane.setObstacles(obstacles);
-        Random rand = new Random();
 
         int i = 0;
+        // Step 1: Generate n particles
         while(i < n) {
-            double vx = rand.nextDouble(-speed, speed);
-            Velocity v = new Velocity(vx, Math.sqrt(1-vx));
-            if(plane.generateParticle(v, mass, radious))
+            if(plane.generateParticle(speed, mass, radius)) {
                 i++;
+            }
         }
     }
 
-    public void run(){
+    private Optional<Event> getNextEventForParticle(Particle p, int particleIndexStart){
+        PriorityQueue<Event> pEvents = new PriorityQueue<>();
+        plane.getCrashEventWithBorders(p).stream()
+                .peek(event -> event.setTc(event.getTc()+tcAbsolute))
+                .forEach(pEvents::add);
+        BiConsumer<Double, Crash> eventAdder = (tc, c) -> pEvents.add(new Event(tc + tcAbsolute, c));
+        for (Obstacle o : plane.getObstacles()) {
+            p.calculateTimeForCrash(o)
+                    .ifPresent(tc -> eventAdder.accept(tc, new ObstacleCrash(p, o)));
+        }
+        for (int t = particleIndexStart; t < plane.getParticles().size(); t++) {
+            Particle p2 = plane.getParticles().get(t);
+            if (p.equals(p2)) {
+                continue;
+            }
+            p.calculateTimeForCrash(p2)
+                    .ifPresent(tc -> eventAdder.accept(tc, new ParticlesCrash(p, p2)));
+        }
+        return Optional.ofNullable(pEvents.poll());
+    }
+
+    public void run() {
         List<Particle> ps = plane.getParticles();
-        List<Obstacle> os = plane.getObstacles();
 
-        int i = 0;
-        while(i<MAX_ITER) {
-
-
-            i++;
+        // Step 2: Generate the first events for each particle
+        for(int j = 0; j<ps.size() ; j++) {
+            getNextEventForParticle(ps.get(j), j+1)
+                    .ifPresent(events::add);
         }
+
+        for(long i = 0; i < maxCollisions; i++) {
+            // Step 3: Get the next event
+            Event nextEvent = events.poll();
+            if (nextEvent == null) {
+                break;
+            }
+
+            // Step 4: Advance all particles to the time of the event
+            double relativeTime = nextEvent.getTc() - tcAbsolute;
+            for(Particle p : ps) {
+                p.advance(relativeTime);
+            }
+
+            // Step 5: Execute the event
+            Crash nextCrash = nextEvent.getCrash();
+            nextCrash.execute();
+
+            // Step 6: Output the event
+            onEvent.accept(this, nextEvent);
+
+            // Step 7: Remove all events involving the particles that crashed
+            List<Particle> particlesInvolved = nextCrash.getCrashedParticles();
+            events.removeIf(
+                    e -> e.getCrash().getCrashedParticles().stream().anyMatch(particlesInvolved::contains)
+            );
+
+            // Step 8: Generate new events for the particles that crashed
+            tcAbsolute = nextEvent.getTc();
+            for(Particle p : particlesInvolved) {
+                getNextEventForParticle(p, 0)
+                        .ifPresent(events::add);
+            }
+        }
+        onEnd.accept(this);
     }
-
-
 
 }
