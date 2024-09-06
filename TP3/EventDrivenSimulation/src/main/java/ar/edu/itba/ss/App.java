@@ -12,7 +12,7 @@ public class App {
 
         // Read input data
         final InputData inputData = new InputData(inputFileName);
-        final OutputData outputData;
+        OutputData outputData = null;
         try{
             outputData =  new OutputData(inputData.getOutputDir(), inputData, inputData.getPretty());
         }catch (IOException e){
@@ -22,7 +22,7 @@ public class App {
         Simulation s = new Simulation(
                 inputData.getPlane(),
                 inputData.getN(),
-                inputData.getMaxCollisions(),
+                inputData.getMaxTime(),
                 (sim, e) -> {},
                 (sim) -> {},
                 outputData

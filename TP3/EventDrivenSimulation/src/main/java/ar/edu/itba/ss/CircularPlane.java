@@ -1,5 +1,7 @@
 package ar.edu.itba.ss;
 
+import ar.edu.itba.ss.utils.WallCrashType;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -32,7 +34,16 @@ public class CircularPlane extends Plane {
         return Math.pow(p.getX(), 2) + Math.pow(p.getY(), 2) <= Math.pow(radius - rad, 2);
     }
 
+    // Cuadrática resuelta en Excalidraw
     @Override
-    public List<Event> getCrashEventWithBorders(Particle p) { return Collections.emptyList();}
+    public List<Event> getCrashEventWithBorders(Particle p) {
+        // magic shit
+        double vx = p.getVx(), vy = p.getVy(), x = p.getX(), y = p.getY(), rp = p.getRadius();
+        double a = vy*vy + vx*vx;
+        double b = 2*vx*x + 2*vy*y;
+        double c = x*x + y*y - (radius-rp)*(radius-rp);
+        Event event = new Event((-b+Math.sqrt(b*b-4*a*c))/(2*a), new WallCrash(p, WallCrashType.CIRCULAR));
+        return Collections.singletonList(event);
+    }
 
 }
