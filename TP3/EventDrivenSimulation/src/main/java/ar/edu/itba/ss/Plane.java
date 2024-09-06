@@ -16,7 +16,22 @@ public abstract class Plane {
     }
 
     abstract boolean generateParticle(double v0, double mass, double r);
-    abstract boolean generateParticle(double v0, double mass, double r, Position p);
+    abstract boolean isInside(Position p);
+
+    boolean generateParticle(double v0, double mass, double r, Position p) {
+        if (!isInside(p)) {
+            return false;
+        }
+        Velocity v = new Velocity(v0);
+        Particle newP = new Particle(p, r, v, mass);
+        for (Particle particle: particles) {
+            if (newP.isOverlappedWith(particle)) {
+                return false;
+            }
+        }
+        this.particles.add(newP);
+        return true;
+    }
 
     void setObstacles(List<Obstacle> obstacles) {
         this.obstacles = obstacles;
