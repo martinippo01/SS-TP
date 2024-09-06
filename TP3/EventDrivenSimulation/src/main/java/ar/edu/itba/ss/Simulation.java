@@ -2,6 +2,7 @@ package ar.edu.itba.ss;
 
 import ar.edu.itba.ss.utils.OutputData;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.PriorityQueue;
@@ -97,6 +98,13 @@ public class Simulation {
             events.removeIf(
                     e -> e.getCrash().getCrashedParticles().stream().anyMatch(particlesInvolved::contains)
             );
+
+            // Save event to JSON
+            try {
+                outputData.writeEvent(new EventOutput(nextCrash, particlesInvolved, ps, nextEvent.getTc()));
+            }catch (IOException e){
+                e.printStackTrace();
+            }
 
             // Step 8: Generate new events for the particles that crashed
             tcAbsolute = nextEvent.getTc();
