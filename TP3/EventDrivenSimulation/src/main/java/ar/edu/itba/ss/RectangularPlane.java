@@ -3,12 +3,12 @@ package ar.edu.itba.ss;
 import ar.edu.itba.ss.utils.WallCrashType;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
 public class RectangularPlane extends Plane {
 
+    // (0,0) is the bottom left corner
     public RectangularPlane(double l) {
         super(l);
     }
@@ -16,23 +16,16 @@ public class RectangularPlane extends Plane {
     @Override
     public boolean generateParticle(double v0, double mass, double r) {
         Random rand = new Random();
-        double x = rand.nextDouble() * l;
-        double y = rand.nextDouble() * l;
+        double x = rand.nextDouble() * (l - 2 * r) + r;
+        double y = rand.nextDouble() * (l - 2 * r) + r;
         Position p = new Position(x, y);
         return generateParticle(v0, mass, r, p);
     }
 
     @Override
-    public boolean generateParticle(double v0, double mass, double r, Position p) {
-        Velocity v = new Velocity(v0);
-        Particle newP = new Particle(p, r, v, mass);
-        for (Particle particle: particles) {
-            if (newP.isOverlappedWith(particle)) {
-                return false;
-            }
-        }
-        this.particles.add(newP);
-        return true;
+    boolean isInside(Particle p) {
+        double rad = p.getRadius();
+        return p.getX() >= rad && p.getX() <= l - rad && p.getY() >= rad && p.getY() <= l - rad;
     }
 
     @Override

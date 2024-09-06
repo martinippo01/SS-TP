@@ -1,7 +1,5 @@
 package ar.edu.itba.ss;
 
-import ar.edu.itba.ss.utils.WallCrashType;
-
 import java.util.Objects;
 import java.util.Optional;
 
