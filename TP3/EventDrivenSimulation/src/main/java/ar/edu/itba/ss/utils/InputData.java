@@ -105,8 +105,8 @@ public class InputData {
             Position position = new Position(x, y);
 
             JsonObject velocityObject = jsonObject.getAsJsonObject("v");
-            double vx = velocityObject.get("vx").getAsDouble();
-            double vy = velocityObject.get("vy").getAsDouble();
+            double vx = velocityObject.get("x").getAsDouble();
+            double vy = velocityObject.get("y").getAsDouble();
             Velocity velocity = new Velocity(vx, vy);
 
             double radius = jsonObject.get("r").getAsDouble();
