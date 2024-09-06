@@ -16,15 +16,16 @@ public class RectangularPlane extends Plane {
     @Override
     public boolean generateParticle(double v0, double mass, double r) {
         Random rand = new Random();
-        double x = rand.nextDouble() * l;
-        double y = rand.nextDouble() * l;
+        double x = rand.nextDouble() * (l - 2 * r) + r;
+        double y = rand.nextDouble() * (l - 2 * r) + r;
         Position p = new Position(x, y);
         return generateParticle(v0, mass, r, p);
     }
 
     @Override
-    boolean isInside(Position p) {
-        return p.getX() >= 0 && p.getX() <= l && p.getY() >= 0 && p.getY() <= l;
+    boolean isInside(Particle p) {
+        double rad = p.getRadius();
+        return p.getX() >= rad && p.getX() <= l - rad && p.getY() >= rad && p.getY() <= l - rad;
     }
 
     @Override

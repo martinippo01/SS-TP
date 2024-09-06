@@ -16,14 +16,14 @@ public abstract class Plane {
     }
 
     abstract boolean generateParticle(double v0, double mass, double r);
-    abstract boolean isInside(Position p);
+    abstract boolean isInside(Particle p);
 
     boolean generateParticle(double v0, double mass, double r, Position p) {
-        if (!isInside(p)) {
-            return false;
-        }
         Velocity v = new Velocity(v0);
         Particle newP = new Particle(p, r, v, mass);
+        if (!isInside(newP)) {
+            return false;
+        }
         for (Particle particle: particles) {
             if (newP.isOverlappedWith(particle)) {
                 return false;

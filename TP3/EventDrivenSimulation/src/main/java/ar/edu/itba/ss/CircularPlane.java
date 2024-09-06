@@ -18,7 +18,7 @@ public class CircularPlane extends Plane {
     @Override
     public boolean generateParticle(double v0, double mass, double r) {
         Random rand = new Random();
-        double rad = radius * Math.sqrt(rand.nextDouble());
+        double rad = (radius - r) * Math.sqrt(rand.nextDouble());
         double angle = 2 * Math.PI * rand.nextDouble();
         double x = rad * Math.cos(angle);
         double y = rad * Math.sin(angle);
@@ -27,8 +27,9 @@ public class CircularPlane extends Plane {
     }
 
     @Override
-    boolean isInside(Position p) {
-        return Math.pow(p.getX(), 2) + Math.pow(p.getY(), 2) <= Math.pow(radius, 2);
+    boolean isInside(Particle p) {
+        double rad = p.getRadius();
+        return Math.pow(p.getX(), 2) + Math.pow(p.getY(), 2) <= Math.pow(radius - rad, 2);
     }
 
     @Override
