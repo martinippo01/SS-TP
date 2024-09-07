@@ -12,6 +12,7 @@ public class OutputData {
     private final FileWriter fileWriter;
     private final Gson gson;
     private final boolean pretty;
+    private boolean first = true;
 
     // Constructor to open the file and initialize GSON
     public OutputData(String filePath, InputData inputData, boolean pretty) throws IOException {
@@ -26,10 +27,15 @@ public class OutputData {
             this.gson = new GsonBuilder().setPrettyPrinting().create(); // For readable JSON
         else
             this.gson = new GsonBuilder().create(); // For NOT readable JSON
+        fileWriter.write("{\n \t \"events\": [ ");
     }
 
     // Method to write an event to the file
     public void writeEvent(EventOutput eventOutput) throws IOException {
+        if(!first) {
+            fileWriter.write(",");
+        }
+        first = false;
         String json = gson.toJson(eventOutput); // Convert EventOutput to JSON string
         fileWriter.write(json);
         if(pretty)
@@ -39,6 +45,7 @@ public class OutputData {
     // Method to close the file writer
     public void closeFile() throws IOException {
         if (fileWriter != null) {
+            fileWriter.write("]}");
             fileWriter.close();
         }
     }

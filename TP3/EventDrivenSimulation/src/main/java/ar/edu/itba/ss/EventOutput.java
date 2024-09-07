@@ -4,16 +4,16 @@ import java.util.List;
 
 public class EventOutput {
 
-    private Crash crash;
-    private List<Particle> particlesCrashed;
+    private String crashName;
+    private List<Long> particlesCrashed;
     private List<Particle> particles;
     private double tc;
     private Particle bigParticle;
 
     // Constructor with bigParticle
     public EventOutput(Crash crash, List<Particle> particlesCrashed, List<Particle> particles, double tc, Particle bigParticle) {
-        this.crash = crash;
-        this.particlesCrashed = particlesCrashed;
+        this.crashName = crash.getName();
+        this.particlesCrashed = particlesCrashed.stream().map(Particle::getId).toList();
         this.particles = particles;
         this.tc = tc;
         this.bigParticle = bigParticle;
@@ -21,27 +21,16 @@ public class EventOutput {
 
     // Constructor with NO bigParticle
     public EventOutput(Crash crash, List<Particle> particlesCrashed, List<Particle> particles, double tc) {
-        this.crash = crash;
-        this.particlesCrashed = particlesCrashed;
-        this.particles = particles;
-        this.tc = tc;
+        this(crash, particlesCrashed, particles, tc, null);
     }
 
     // Getters and Setters
-    public Crash getCrash() {
-        return crash;
+    public String getCrash() {
+        return crashName;
     }
 
-    public void setCrash(Crash crash) {
-        this.crash = crash;
-    }
-
-    public List<Particle> getParticlesCrashed() {
+    public List<Long> getParticlesCrashed() {
         return particlesCrashed;
-    }
-
-    public void setParticlesCrashed(List<Particle> particlesCrashed) {
-        this.particlesCrashed = particlesCrashed;
     }
 
     public List<Particle> getParticles() {
@@ -68,27 +57,3 @@ public class EventOutput {
         this.bigParticle = bigParticle;
     }
 }
-
-//
-//{
-//        events: [{
-//        crashType: "WALL",
-//        particlesCrashed: [],
-//        tc: 20,
-//        particles: [{
-//        x: ,
-//        y: ,
-//        vx: ,
-//        vy: ,
-//        id:
-//        }, ...],
-//        bigParticle: {
-//        x: ,
-//        y: ,
-//        vx: ,
-//        vy: ,
-//        }
-//        }, ...]
-//        }
-//
-//
