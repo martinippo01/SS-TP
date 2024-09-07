@@ -18,9 +18,8 @@ public class Simulation {
     private final double maxTime;
     private final BiConsumer<Simulation, Event> onEvent;
     private final Consumer<Simulation> onEnd;
-    private final OutputData outputData;
 
-    public Simulation(Plane plane, long n, double maxTime, BiConsumer<Simulation, Event> onEvent, Consumer<Simulation> onEnd, OutputData outputData) {
+    public Simulation(Plane plane, long n, long maxTime, BiConsumer<Simulation, Event> onEvent, Consumer<Simulation> onEnd) {
         this.tcAbsolute = 0;
         this.n = n;
         this.events = new PriorityQueue<>();
@@ -28,7 +27,6 @@ public class Simulation {
         this.maxTime = maxTime;
         this.onEvent = onEvent;
         this.onEnd = onEnd;
-        this.outputData = outputData;
     }
 
     public void prepare(double mass, double radius, double speed, List<Obstacle> obstacles){
@@ -104,13 +102,6 @@ public class Simulation {
                     e -> e.getCrash().getCrashedParticles().stream().anyMatch(particlesInvolved::contains)
             );
 
-            // Save event to JSON
-            try {
-                outputData.writeEvent(new EventOutput(nextCrash, particlesInvolved, ps, nextEvent.getTc()));
-            }catch (IOException e){
-                e.printStackTrace();
-            }
-
             // Step 8: Generate new events for the particles that crashed
             tcAbsolute = nextEvent.getTc();
             for(Particle p : particlesInvolved) {
@@ -119,6 +110,30 @@ public class Simulation {
             }
         }
         onEnd.accept(this);
+    }
+
+    public Plane getPlane() {
+        return plane;
+    }
+
+    public PriorityQueue<Event> getEvents() {
+        return events;
+    }
+
+    public long getN() {
+        return n;
+    }
+
+    public double getTcAbsolute() {
+        return tcAbsolute;
+    }
+
+    public BiConsumer<Simulation, Event> getOnEvent() {
+        return onEvent;
+    }
+
+    public Consumer<Simulation> getOnEnd() {
+        return onEnd;
     }
 
 }
