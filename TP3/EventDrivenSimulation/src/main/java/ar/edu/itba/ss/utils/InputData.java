@@ -20,7 +20,6 @@ public class InputData {
         try(JsonReader fileReader = new JsonReader(new FileReader(inputFileName))){
             Gson gson = new GsonBuilder()
                     .registerTypeAdapter(Obstacle.class, new ObstacleDeserializer())
-                    .registerTypeAdapter(Plane.class, new PlaneDeserializer())
                     .registerTypeAdapter(Particle.class, new ParticleDeserializer())
                     .create();
 
@@ -41,7 +40,6 @@ public class InputData {
         private SimulationType simulationType;
         private List<Obstacle> obstacles;
         private List<Particle> particles;
-        private Plane plane;
         private double maxTime;
         private String outputDir;
         private boolean prettyOutput;
@@ -63,8 +61,8 @@ public class InputData {
         return inputData.n;
     }
 
-    public Plane getPlane() {
-        return inputData.plane;
+    public Plane getPlane(){
+        return inputData.planeType.createPlane(inputData.L);
     }
 
     public List<Obstacle> getObstacles() { return inputData.obstacles;}
@@ -80,19 +78,6 @@ public class InputData {
      public boolean getPretty(){
         return inputData.prettyOutput;
      }
-
-
-    private static class PlaneDeserializer implements JsonDeserializer<Plane> {
-        @Override
-        public Plane deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            JsonObject jsonObject = json.getAsJsonObject();
-
-            String type = jsonObject.get("planeType").getAsString();
-            PlaneType planeType = PlaneType.valueOf(type.toUpperCase());
-            double l = jsonObject.get("L").getAsDouble();
-            return planeType.createPlane(l);
-        }
-    }
 
     private static class ParticleDeserializer implements JsonDeserializer<Particle> {
         @Override

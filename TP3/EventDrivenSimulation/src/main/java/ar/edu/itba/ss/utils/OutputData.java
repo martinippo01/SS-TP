@@ -22,7 +22,7 @@ public class OutputData {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.fileWriter = new FileWriter(filePath);
+        this.fileWriter = new FileWriter(filePath + "dynamic.json");
         if(pretty)
             this.gson = new GsonBuilder().setPrettyPrinting().create(); // For readable JSON
         else

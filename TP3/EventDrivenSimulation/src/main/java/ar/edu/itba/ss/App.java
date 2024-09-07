@@ -7,12 +7,13 @@ import java.io.IOException;
 import java.util.function.BiConsumer;
 
 public class App {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // Get program properties
         final String inputFileName = System.getProperty("input");
 
         // Read input data
         final InputData inputData = new InputData(inputFileName);
+
         final OutputData outputData;
         //
         final BiConsumer<Simulation, Event> writeEventToJSON;
@@ -49,5 +50,6 @@ public class App {
         );
         s.prepare(inputData.getM(), inputData.getR(), inputData.getV0(), inputData.getObstacles());
         s.run();
+        outputData.closeFile();
     }
 }

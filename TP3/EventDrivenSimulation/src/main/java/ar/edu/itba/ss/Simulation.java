@@ -19,7 +19,7 @@ public class Simulation {
     private final BiConsumer<Simulation, Event> onEvent;
     private final Consumer<Simulation> onEnd;
 
-    public Simulation(Plane plane, long n, long maxTime, BiConsumer<Simulation, Event> onEvent, Consumer<Simulation> onEnd) {
+    public Simulation(Plane plane, long n, double maxTime, BiConsumer<Simulation, Event> onEvent, Consumer<Simulation> onEnd) {
         this.tcAbsolute = 0;
         this.n = n;
         this.events = new PriorityQueue<>();
