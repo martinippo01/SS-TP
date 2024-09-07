@@ -35,11 +35,12 @@ public class OutputData {
         if(!first) {
             fileWriter.write(",");
         }
+        if(!first && pretty) {
+            fileWriter.write("\n"); // Adds a newline after each event for readability
+        }
         first = false;
         String json = gson.toJson(eventOutput); // Convert EventOutput to JSON string
         fileWriter.write(json);
-        if(pretty)
-            fileWriter.write("\n"); // Adds a newline after each event for readability
     }
 
     // Method to close the file writer
