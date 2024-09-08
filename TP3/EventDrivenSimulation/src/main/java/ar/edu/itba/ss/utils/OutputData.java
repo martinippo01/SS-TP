@@ -17,17 +17,21 @@ public class OutputData {
     // Constructor to open the file and initialize GSON
     public OutputData(String filePath, InputData inputData, boolean pretty) throws IOException {
         this.pretty = pretty;
-        try (FileWriter writer = new FileWriter(inputData.getOutputDir() + "static.json")) {
+        String timeStamp = Long.toString(System.currentTimeMillis());
+        try (FileWriter writer = new FileWriter(inputData.getOutputDir() + timeStamp + "_static.json")) {
             (new GsonBuilder().create()).toJson(inputData, writer);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.fileWriter = new FileWriter(filePath + "dynamic.json");
-        if(pretty)
+        this.fileWriter = new FileWriter(filePath + timeStamp + "_dynamic.json");
+        if(pretty) {
             this.gson = new GsonBuilder().setPrettyPrinting().create(); // For readable JSON
-        else
+            fileWriter.write("{\n\"events\": [ \n");
+        }
+        else {
             this.gson = new GsonBuilder().create(); // For NOT readable JSON
-        fileWriter.write("{\n \t \"events\": [ ");
+            fileWriter.write("{\"events\":[");
+        }
     }
 
     // Method to write an event to the file

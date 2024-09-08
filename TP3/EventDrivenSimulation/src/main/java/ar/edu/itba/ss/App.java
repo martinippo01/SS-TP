@@ -10,6 +10,10 @@ public class App {
     public static void main(String[] args) throws IOException {
         // Get program properties
         final String inputFileName = System.getProperty("input");
+        if(inputFileName == null) {
+            System.err.println("input file not indicated");
+            return;
+        }
 
         // Read input data
         final InputData inputData = new InputData(inputFileName);
