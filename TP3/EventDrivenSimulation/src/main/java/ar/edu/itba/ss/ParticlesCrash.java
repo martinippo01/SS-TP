@@ -21,9 +21,9 @@ public class ParticlesCrash extends Crash {
         double deltaX = p2.getX() - p1.getX();
         double deltaY = p2.getY() - p1.getY();
         double deltaVDotDeltaR = deltaVx * deltaX + deltaVy * deltaY;
-        double J = 2 * p1.getMass() * p2.getMass() * deltaVDotDeltaR / (sigma * (p1.getMass() + p2.getMass()));
-        double Jx = J * deltaX / sigma;
-        double Jy = J * deltaY / sigma;
+        double J = (2 * p1.getMass() * p2.getMass() * deltaVDotDeltaR) / (sigma * (p1.getMass() + p2.getMass()));
+        double Jx = (J * deltaX) / sigma;
+        double Jy = (J * deltaY) / sigma;
         p1.setVelocity(new Velocity(
                 p1.getVx() + Jx / p1.getMass(),
                 p1.getVy() + Jy / p1.getMass()

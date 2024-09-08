@@ -37,7 +37,6 @@ public class CircularPlane extends Plane {
     // Cuadrática resuelta en Excalidraw
     @Override
     public List<Event> getCrashEventWithBorders(Particle p) {
-        // magic shit
         double vx = p.getVx(), vy = p.getVy(), x = p.getX(), y = p.getY(), rp = p.getRadius();
         double a = vy*vy + vx*vx;
         double b = 2*vx*x + 2*vy*y;

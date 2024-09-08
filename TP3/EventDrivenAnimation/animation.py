@@ -2,10 +2,10 @@ import json
 import plotly.graph_objs as go
 
 # Load the JSON data
-with open('input/1725755086592_dynamic.json', 'r') as file:
+with open('../EventDrivenSimulation/output/1725834037000_dynamic.json', 'r') as file:
     dynamic_data = json.load(file)
 
-with open('input/1725755086592_static.json', 'r') as file:
+with open('../EventDrivenSimulation/output/1725834037000_static.json', 'r') as file:
     static_data = json.load(file)
 
 # Extract simulation parameters
@@ -17,17 +17,19 @@ obstacle_x = obstacle['position']['x']
 obstacle_y = obstacle['position']['y']
 obstacle_radius = obstacle['radius']
 
-# Initial particle positions from the first event
+# Initial particle positions and IDs from the first event
 particles = dynamic_data['events'][0]['particles']
 x_positions = [p['position']['x'] for p in particles]
 y_positions = [p['position']['y'] for p in particles]
+particle_ids = [p['id'] for p in particles]
 
 # Create the figure
 fig = go.Figure()
 
-# Add the scatter plot for particles
-fig.add_trace(go.Scatter(x=x_positions, y=y_positions, mode='markers',
-                         marker=dict(size=10, color='blue'), name="Particles"))
+# Add the scatter plot for particles with labels (IDs)
+fig.add_trace(go.Scatter(x=x_positions, y=y_positions, mode='markers+text',
+                         marker=dict(size=10, color='blue'), name="Particles",
+                         text=particle_ids, textposition='top center'))
 
 # Add the obstacle as a shape
 fig.add_shape(type="circle",
@@ -40,7 +42,8 @@ frames = []
 for i, event in enumerate(dynamic_data['events']):
     x_positions = [p['position']['x'] for p in event['particles']]
     y_positions = [p['position']['y'] for p in event['particles']]
-    frames.append(go.Frame(data=[go.Scatter(x=x_positions, y=y_positions)],
+    particle_ids = [p['id'] for p in event['particles']]
+    frames.append(go.Frame(data=[go.Scatter(x=x_positions, y=y_positions, text=particle_ids)],
                            name=f"Frame {i+1}"))
 
 # Update the layout with play/pause buttons
