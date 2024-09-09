@@ -2,10 +2,10 @@ import json
 import plotly.graph_objs as go
 
 # Load the JSON data
-with open('../EventDrivenSimulation/output/1725834037000_dynamic.json', 'r') as file:
+with open('../EventDrivenSimulation/output/1725893335342_dynamic.json', 'r') as file:
     dynamic_data = json.load(file)
 
-with open('../EventDrivenSimulation/output/1725834037000_static.json', 'r') as file:
+with open('../EventDrivenSimulation/output/1725893335342_static.json', 'r') as file:
     static_data = json.load(file)
 
 # Extract simulation parameters

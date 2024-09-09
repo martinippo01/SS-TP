@@ -31,7 +31,7 @@ public class CircularPlane extends Plane {
     @Override
     boolean isInside(Particle p) {
         double rad = p.getRadius();
-        return Math.pow(p.getX(), 2) + Math.pow(p.getY(), 2) <= Math.pow(radius - rad, 2);
+        return Double.compare(Math.pow(p.getX(), 2) + Math.pow(p.getY(), 2),  Math.pow(radius - rad, 2)) <= 0;
     }
 
     // Cuadrática resuelta en Excalidraw

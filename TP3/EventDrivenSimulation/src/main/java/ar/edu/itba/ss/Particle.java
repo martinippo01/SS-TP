@@ -100,7 +100,7 @@ public class Particle {
             return Optional.empty();
         }
 
-        return Optional.of((-deltaVdeltaR+Math.sqrt(d))/deltaVdeltaV);
+        return Optional.of(-(deltaVdeltaR+Math.sqrt(d))/deltaVdeltaV);
     }
 
 

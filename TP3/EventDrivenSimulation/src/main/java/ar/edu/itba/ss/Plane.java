@@ -29,6 +29,10 @@ public abstract class Plane {
                 return false;
             }
         }
+        for (Obstacle obs : obstacles) {
+            if (newP.isOverlappedWith(obs))
+                return false;
+        }
         this.particles.add(newP);
         return true;
     }

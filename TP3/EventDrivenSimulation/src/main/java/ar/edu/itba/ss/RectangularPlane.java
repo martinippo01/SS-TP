@@ -25,7 +25,7 @@ public class RectangularPlane extends Plane {
     @Override
     boolean isInside(Particle p) {
         double rad = p.getRadius();
-        return p.getX() >= rad && p.getX() <= l - rad && p.getY() >= rad && p.getY() <= l - rad;
+        return Double.compare(p.getX(), rad) >= 0 && Double.compare(p.getX(),(l - rad)) <= 0  &&  Double.compare(p.getY(), rad) >= 0 && Double.compare(p.getY(),(l - rad)) <= 0;
     }
 
     @Override

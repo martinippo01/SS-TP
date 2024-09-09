@@ -1,8 +1,6 @@
 package ar.edu.itba.ss;
 
-import ar.edu.itba.ss.utils.OutputData;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.PriorityQueue;
@@ -41,7 +39,7 @@ public class Simulation {
         }
     }
 
-    private Optional<Event> getNextEventForParticle(Particle p, int particleIndexStart){
+    private List<Event> getNextEventForParticle(Particle p, int particleIndexStart){
         PriorityQueue<Event> pEvents = new PriorityQueue<>();
         plane.getCrashEventWithBorders(p).stream()
                 .peek(event -> event.setTc(event.getTc()+tcAbsolute))
@@ -59,7 +57,7 @@ public class Simulation {
             p.calculateTimeForCrash(p2)
                     .ifPresent(tc -> eventAdder.accept(tc, new ParticlesCrash(p, p2)));
         }
-        return Optional.ofNullable(pEvents.poll());
+        return pEvents.stream().toList();
     }
 
     public void run() {
@@ -67,8 +65,7 @@ public class Simulation {
 
         // Step 2: Generate the first events for each particle
         for(int j = 0; j<ps.size() ; j++) {
-            getNextEventForParticle(ps.get(j), j+1)
-                    .ifPresent(events::add);
+            events.addAll(getNextEventForParticle(ps.get(j), j+1));
         }
 
         while(true) {
@@ -105,8 +102,7 @@ public class Simulation {
             // Step 8: Generate new events for the particles that crashed
             tcAbsolute = nextEvent.getTc();
             for(Particle p : particlesInvolved) {
-                getNextEventForParticle(p, 0)
-                        .ifPresent(events::add);
+                events.addAll(getNextEventForParticle(p, 0));
             }
         }
         onEnd.accept(this);
