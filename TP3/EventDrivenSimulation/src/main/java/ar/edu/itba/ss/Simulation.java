@@ -2,34 +2,29 @@ package ar.edu.itba.ss;
 
 
 import java.util.List;
-import java.util.Optional;
 import java.util.PriorityQueue;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-public class Simulation {
+public abstract class Simulation {
 
     private final Plane plane;
     private final PriorityQueue<Event> events;
     private final long n;
     private double tcAbsolute;
     private final double maxTime;
-    private final BiConsumer<Simulation, Event> onEvent;
-    private final Consumer<Simulation> onEnd;
 
-    public Simulation(Plane plane, long n, double maxTime, BiConsumer<Simulation, Event> onEvent, Consumer<Simulation> onEnd) {
+    public Simulation(Plane plane, long n, double maxTime) {
         this.tcAbsolute = 0;
         this.n = n;
         this.events = new PriorityQueue<>();
         this.plane = plane;
         this.maxTime = maxTime;
-        this.onEvent = onEvent;
-        this.onEnd = onEnd;
     }
 
-    public void prepare(double mass, double radius, double speed, List<Obstacle> obstacles){
-        plane.setObstacles(obstacles);
+    public abstract EventOutput getEventOutput(Event event);
 
+    public void prepare(double mass, double radius, double speed){
         int i = 0;
         // Step 1: Generate n particles
         while(i < n) {
@@ -60,13 +55,15 @@ public class Simulation {
         return pEvents.stream().toList();
     }
 
-    public void run() {
+    public void run(Consumer<Simulation> onStart, Consumer<EventOutput> onEvent) {
         List<Particle> ps = plane.getParticles();
 
         // Step 2: Generate the first events for each particle
         for(int j = 0; j<ps.size() ; j++) {
             events.addAll(getNextEventForParticle(ps.get(j), j+1));
         }
+
+        onStart.accept(this);
 
         while(true) {
             // Step 3: Get the next event
@@ -91,7 +88,7 @@ public class Simulation {
             nextCrash.execute();
 
             // Step 6: Output the event
-            onEvent.accept(this, nextEvent);
+            onEvent.accept(getEventOutput(nextEvent));
 
             // Step 7: Remove all events involving the particles that crashed
             List<Particle> particlesInvolved = nextCrash.getCrashedParticles();
@@ -105,7 +102,6 @@ public class Simulation {
                 events.addAll(getNextEventForParticle(p, 0));
             }
         }
-        onEnd.accept(this);
     }
 
     public Plane getPlane() {
@@ -119,17 +115,4 @@ public class Simulation {
     public long getN() {
         return n;
     }
-
-    public double getTcAbsolute() {
-        return tcAbsolute;
-    }
-
-    public BiConsumer<Simulation, Event> getOnEvent() {
-        return onEvent;
-    }
-
-    public Consumer<Simulation> getOnEnd() {
-        return onEnd;
-    }
-
 }

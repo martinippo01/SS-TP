@@ -4,29 +4,39 @@ import java.util.List;
 
 public class EventOutput {
 
-    private String crashName;
+    private String event;
     private List<Long> particlesCrashed;
     private List<Particle> particles;
     private double tc;
     private Particle bigParticle;
 
-    // Constructor with bigParticle
-    public EventOutput(Crash crash, List<Particle> particlesCrashed, List<Particle> particles, double tc, Particle bigParticle) {
-        this.crashName = crash.getName();
-        this.particlesCrashed = particlesCrashed.stream().map(Particle::getId).toList();
-        this.particles = particles;
+    public EventOutput(double tc, List<Particle> particles, String event) {
+        this(tc, particles, event, null, null);
+    }
+
+    public EventOutput(double tc, List<Particle> particles, Crash crash) {
+        this(tc, particles, crash, null);
+    }
+
+    public EventOutput(double tc, List<Particle> particles, Crash crash, Particle bigParticle) {
+        this(tc, particles, crash.getName(), crash.getCrashedParticles().stream().map(Particle::getId).toList(), bigParticle);
+    }
+
+    public EventOutput(double tc, List<Particle> particles, String event, List<Long> particlesCrashed, Particle bigParticle) {
         this.tc = tc;
+        this.particles = particles;
+        this.event = event;
+        this.particlesCrashed = particlesCrashed;
         this.bigParticle = bigParticle;
     }
 
-    // Constructor with NO bigParticle
-    public EventOutput(Crash crash, List<Particle> particlesCrashed, List<Particle> particles, double tc) {
-        this(crash, particlesCrashed, particles, tc, null);
+    // Getters and Setters
+    public String getEvent() {
+        return event;
     }
 
-    // Getters and Setters
-    public String getCrash() {
-        return crashName;
+    public void setEvent(String event) {
+        this.event = event;
     }
 
     public List<Long> getParticlesCrashed() {

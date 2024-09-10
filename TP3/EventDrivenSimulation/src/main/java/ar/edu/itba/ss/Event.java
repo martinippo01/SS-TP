@@ -14,11 +14,6 @@ public class Event implements Comparable<Event>{
         return Double.compare(tc, other.tc);
     }
 
-    public EventOutput toJSON(){
-        // TODO
-        return null;
-    }
-
     public void setTc(double tc) {
         this.tc = tc;
     }

@@ -37,8 +37,12 @@ public abstract class Plane {
         return true;
     }
 
-    void setObstacles(List<Obstacle> obstacles) {
-        this.obstacles = obstacles;
+    void addParticles(List<Particle> particles) {
+        this.particles.addAll(particles);
+    }
+
+    void addObstacles(List<Obstacle> obstacles) {
+        this.obstacles.addAll(obstacles);
     }
 
     public List<Particle> getParticles() {

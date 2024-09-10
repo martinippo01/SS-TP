@@ -67,6 +67,8 @@ public class InputData {
 
     public List<Obstacle> getObstacles() { return inputData.obstacles;}
 
+    public List<Particle> getParticles() { return inputData.particles;}
+
     public double getMaxTime() {
         return inputData.maxTime;
     }
@@ -75,9 +77,13 @@ public class InputData {
         return inputData.outputDir;
     }
 
-     public boolean getPretty(){
+    public boolean getPretty(){
         return inputData.prettyOutput;
      }
+
+    public SimulationType getSimulationType() {
+        return inputData.simulationType;
+    }
 
     private static class ParticleDeserializer implements JsonDeserializer<Particle> {
         @Override

@@ -2,58 +2,40 @@ package ar.edu.itba.ss;
 
 import ar.edu.itba.ss.utils.InputData;
 import ar.edu.itba.ss.utils.OutputData;
+import ar.edu.itba.ss.utils.SimulationType;
 
 import java.io.IOException;
-import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 public class App {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         // Get program properties
         final String inputFileName = System.getProperty("input");
         if(inputFileName == null) {
-            System.err.println("input file not indicated");
-            return;
+            throw new IllegalArgumentException("Input file not found");
         }
 
         // Read input data
-        final InputData inputData = new InputData(inputFileName);
+        InputData inputData = new InputData(inputFileName);
 
-        final OutputData outputData;
-        //
-        final BiConsumer<Simulation, Event> writeEventToJSON;
-        try{
-            outputData =  new OutputData(inputData.getOutputDir(), inputData, inputData.getPretty());
-            writeEventToJSON = (sim, ev) -> {
-                // Save event to JSON
-                try {
-                    outputData.writeEvent(
-                            new EventOutput(
-                                    ev.getCrash(),
-                                    ev.getCrash().getCrashedParticles(),
-                                    sim.getPlane().getParticles(),
-                                    ev.getTc()
-                            )
-                    );
-                }catch (IOException e){
-                    e.printStackTrace();
-                }
+        try(OutputData outputData = new OutputData(inputData)) {
+            // Write static file
+            outputData.writeStaticFile();
+
+            // Open dynamic file
+            outputData.openDynamicFile();
+
+            Consumer<EventOutput> onEvent = outputData::writeEvent;
+            Consumer<Simulation> onStart = (simulation) -> {
+                outputData.writeEvent(new EventOutput(0, simulation.getPlane().getParticles(), "START"));
             };
-        }catch (IOException e){
-            System.err.println("Error while trying to create output files: " + e.getMessage());
-            return;
+
+            SimulationType simType = inputData.getSimulationType();
+            Simulation s = simType.createSimulation(inputData);
+            s.prepare(inputData.getM(), inputData.getR(), inputData.getV0());
+            s.run(onStart, onEvent);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-
-
-
-        Simulation s = new Simulation(
-                inputData.getPlane(),
-                inputData.getN(),
-                inputData.getMaxTime(),
-                writeEventToJSON,
-                (sim) -> {}
-        );
-        s.prepare(inputData.getM(), inputData.getR(), inputData.getV0(), inputData.getObstacles());
-        s.run();
-        outputData.closeFile();
     }
 }
