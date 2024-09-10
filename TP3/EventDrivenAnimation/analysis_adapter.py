@@ -21,7 +21,9 @@ def adapt_iteration(input_dir: str, period: str, output_dir: str, timestamp: str
         for event in events:
             tc = event['tc']
             if tc >= next_time:
-                adapted_events.append(event)
+                adapted_event = event
+                adapted_event['tc'] = next_time
+                adapted_events.append(adapted_event)
                 next_time += period
 
     adapted_dynamic_data = {
