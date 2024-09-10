@@ -37,6 +37,14 @@
                     <target>21</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.4.1</version>
+                <configuration>
+                    <mainClass>ar.edu.itba.ss.App</mainClass>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
