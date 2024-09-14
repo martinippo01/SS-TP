@@ -74,6 +74,7 @@ ax = plt.gca()
 ax.yaxis.get_offset_text().set_fontsize(font_size)
 ax.xaxis.get_offset_text().set_fontsize(font_size)
 plt.plot(best_c, min_error, 'ro')
-ax.annotate("{:.2f}".format(best_c*c_format_multiplier), (best_c, min_error), textcoords="offset points", xytext=(0, 10), ha='center')
+plt.axvline(best_c, color='r', linestyle='--', ymax=min_error / max(graph_y))
+plt.xticks(numpy.arange(c_min, c_max, c_step * 2))
 plt.show()
 

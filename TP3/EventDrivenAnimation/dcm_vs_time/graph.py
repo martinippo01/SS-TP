@@ -57,7 +57,7 @@ plt.errorbar(x, y, yerr=yerr, fmt='o', capsize=5, capthick=2)
 
 if slope['show']:
     plot_slope(plt, x, float(slope['D']))
+    plt.legend(fontsize=font_size)
 
-plt.legend(fontsize=font_size)
 plt.show()
 
