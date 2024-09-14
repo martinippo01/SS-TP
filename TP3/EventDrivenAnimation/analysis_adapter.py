@@ -46,6 +46,10 @@ with open(sys.argv[1], 'r') as input:
     output_dir = data['outputDir']
 
     iteration_dirs = [f for f in os.listdir(input_dir) if os.path.isdir(os.path.join(input_dir, f))]
+    length = len(iteration_dirs)
+    i = 1
     for iteration_dir in iteration_dirs:
         timestamp = iteration_dir.split('/')[-1]
         adapt_iteration(input_dir, period, output_dir, timestamp)
+        print(f"[{i}/{length}] iterations adapted")
+        i += 1
