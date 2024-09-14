@@ -22,7 +22,9 @@ public abstract class Simulation {
         this.maxTime = maxTime;
     }
 
-    public abstract EventOutput getEventOutput(Event event);
+    public EventOutput getEventOutput(Event event) {
+        return new EventOutput(event.getTc(), plane.getParticles(), event.getCrash());
+    }
 
     public void prepare(double mass, double radius, double speed){
         int i = 0;

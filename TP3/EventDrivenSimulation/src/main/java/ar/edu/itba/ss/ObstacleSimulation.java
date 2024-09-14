@@ -1,8 +1,6 @@
 package ar.edu.itba.ss;
 
 import java.util.List;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 public class ObstacleSimulation extends Simulation {
 
@@ -18,10 +16,5 @@ public class ObstacleSimulation extends Simulation {
         Plane plane = getPlane();
         plane.addObstacles(obstacles);
         super.prepare(mass, radius, speed);
-    }
-
-    @Override
-    public EventOutput getEventOutput(Event event) {
-        return new EventOutput(event.getTc(), getPlane().getParticles(), event.getCrash());
     }
 }

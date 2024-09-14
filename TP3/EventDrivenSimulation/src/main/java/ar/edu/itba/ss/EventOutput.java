@@ -8,26 +8,20 @@ public class EventOutput {
     private List<Long> particlesCrashed;
     private List<Particle> particles;
     private double tc;
-    private Particle bigParticle;
 
     public EventOutput(double tc, List<Particle> particles, String event) {
-        this(tc, particles, event, null, null);
+        this(tc, particles, event, null);
     }
 
     public EventOutput(double tc, List<Particle> particles, Crash crash) {
-        this(tc, particles, crash, null);
+        this(tc, particles, crash.getName(), crash.getCrashedParticles().stream().map(Particle::getId).toList());
     }
 
-    public EventOutput(double tc, List<Particle> particles, Crash crash, Particle bigParticle) {
-        this(tc, particles, crash.getName(), crash.getCrashedParticles().stream().map(Particle::getId).toList(), bigParticle);
-    }
-
-    public EventOutput(double tc, List<Particle> particles, String event, List<Long> particlesCrashed, Particle bigParticle) {
+    public EventOutput(double tc, List<Particle> particles, String event, List<Long> particlesCrashed) {
         this.tc = tc;
         this.particles = particles;
         this.event = event;
         this.particlesCrashed = particlesCrashed;
-        this.bigParticle = bigParticle;
     }
 
     // Getters and Setters
@@ -57,13 +51,5 @@ public class EventOutput {
 
     public void setTc(double tc) {
         this.tc = tc;
-    }
-
-    public Particle getBigParticle() {
-        return bigParticle;
-    }
-
-    public void setBigParticle(Particle bigParticle) {
-        this.bigParticle = bigParticle;
     }
 }
