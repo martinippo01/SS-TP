@@ -53,7 +53,7 @@ with open(sys.argv[1], 'r') as json_file:
 
 plt.figure(figsize=(10, 7))
 plt.xlabel('$t\ (s)$', fontsize=font_size)
-plt.ylabel('$z\ (m^2)$', fontsize=font_size)
+plt.ylabel('$z^2\ (m^2)$', fontsize=font_size)
 plt.xticks(fontsize=font_size)
 plt.yticks(fontsize=font_size)
 plt.ticklabel_format(axis='y', style='sci', scilimits=(0,0), useMathText=True)
