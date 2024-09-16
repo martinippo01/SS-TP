@@ -1,11 +1,13 @@
 package ar.edu.itba.ss;
 
+import ar.edu.itba.ss.utils.InputData;
+
 import java.util.List;
 
 public class EventOutput {
 
     private String event;
-    private List<Long> particlesCrashed;
+    private List<Particle> particlesCrashed;
     private List<Particle> particles;
     private double tc;
 
@@ -13,11 +15,11 @@ public class EventOutput {
         this(tc, particles, event, null);
     }
 
-    public EventOutput(double tc, List<Particle> particles, Crash crash) {
-        this(tc, particles, crash.getName(), crash.getCrashedParticles().stream().map(Particle::getId).toList());
+    public EventOutput(double tc, List<Particle> particles, Crash crash, InputData inputData) {
+        this(tc, (inputData.getShowParticles()) ? particles : null, crash.getName(), (inputData.getShowParticlesCrashed()) ? crash.getCrashedParticles() : null);
     }
 
-    public EventOutput(double tc, List<Particle> particles, String event, List<Long> particlesCrashed) {
+    public EventOutput(double tc, List<Particle> particles, String event, List<Particle> particlesCrashed) {
         this.tc = tc;
         this.particles = particles;
         this.event = event;
@@ -33,7 +35,7 @@ public class EventOutput {
         this.event = event;
     }
 
-    public List<Long> getParticlesCrashed() {
+    public List<Particle> getParticlesCrashed() {
         return particlesCrashed;
     }
 

@@ -1,6 +1,8 @@
 package ar.edu.itba.ss;
 
 
+import ar.edu.itba.ss.utils.InputData;
+
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.function.BiConsumer;
@@ -13,17 +15,19 @@ public abstract class Simulation {
     private final long n;
     private double tcAbsolute;
     private final double maxTime;
+    private final InputData inputData;
 
-    public Simulation(Plane plane, long n, double maxTime) {
+    public Simulation(Plane plane, long n, double maxTime, InputData inputData) {
         this.tcAbsolute = 0;
         this.n = n;
         this.events = new PriorityQueue<>();
         this.plane = plane;
         this.maxTime = maxTime;
+        this.inputData = inputData;
     }
 
     public EventOutput getEventOutput(Event event) {
-        return new EventOutput(event.getTc(), plane.getParticles(), event.getCrash());
+        return new EventOutput(event.getTc(), plane.getParticles(), event.getCrash(), inputData);
     }
 
     public void prepare(double mass, double radius, double speed){
