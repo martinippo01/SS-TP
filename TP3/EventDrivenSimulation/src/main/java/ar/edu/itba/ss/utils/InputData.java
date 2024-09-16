@@ -43,6 +43,8 @@ public class InputData {
         private double maxTime;
         private String outputDir;
         private boolean prettyOutput;
+        private boolean showParticlesCrashed;
+        private boolean showParticles;
     }
 
     public double getM() {
@@ -84,6 +86,10 @@ public class InputData {
     public SimulationType getSimulationType() {
         return inputData.simulationType;
     }
+
+     public boolean getShowParticlesCrashed() {return inputData.showParticlesCrashed;}
+
+    public boolean getShowParticles() {return inputData.showParticles;}
 
     private static class ParticleDeserializer implements JsonDeserializer<Particle> {
         @Override

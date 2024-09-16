@@ -54,7 +54,7 @@ plt.ticklabel_format(axis='y', style='sci', scilimits=(0,0), useMathText=True)
 ax = plt.gca()
 ax.yaxis.get_offset_text().set_fontsize(font_size)
 
-plt.plot(x_w, y_w)
-plt.plot(x_o, y_o)
+plt.plot(x_w, y_w, format("o-"))
+plt.plot(x_o, y_o, format("o-"))
 plt.show()
 

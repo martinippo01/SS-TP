@@ -13,8 +13,10 @@ if static_data['inputData']['planeType'] != "BOX":
 
 L = static_data['inputData']['L']
 TOLERANCE = L / 90
-DT = static_data['inputData']['maxTime'] / 100
+DT = static_data['inputData']['maxTime'] / 10
 M = static_data['inputData']['m']
+OBSTACLE_R = static_data['inputData']['obstacles'][0]['radius']
+print(OBSTACLE_R)
 
 def get_vn_obstacle(particles_crashed):
     hyp = (particles_crashed['position']['x'] ** 2 + particles_crashed['position']['y'] ** 2) ** 0.5
@@ -46,9 +48,17 @@ for i, event in enumerate(dynamic_data['events']):
         velocities_n_wall = []
         velocities_n_obstacle = []
     if event['event'] == "OBSTACLE":
-        velocities_n_obstacle.append((2 * M * get_vn_obstacle(event['particlesCrashed'][0])) / (DT * L))
+        velocities_n_obstacle.append(
+            (2 * M * get_vn_obstacle(event['particlesCrashed'][0]))
+            /
+            (DT * 2 * math.pi * OBSTACLE_R)
+        )
     if event['event'] == "WALL":
-        velocities_n_wall.append((2 * M * get_vn_wall(event['particlesCrashed'][0])) / (DT * L))
+        velocities_n_wall.append(
+            (2 * M * get_vn_wall(event['particlesCrashed'][0]))
+            /
+            (DT * 4 * L)
+        )
 
 # Create the output dictionary
 output_data = {

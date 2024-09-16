@@ -1,5 +1,7 @@
 package ar.edu.itba.ss;
 
+import ar.edu.itba.ss.utils.InputData;
+
 import java.util.List;
 
 public class EventOutput {
@@ -13,8 +15,8 @@ public class EventOutput {
         this(tc, particles, event, null);
     }
 
-    public EventOutput(double tc, List<Particle> particles, Crash crash) {
-        this(tc, particles, crash.getName(), crash.getCrashedParticles());
+    public EventOutput(double tc, List<Particle> particles, Crash crash, InputData inputData) {
+        this(tc, (inputData.getShowParticles()) ? particles : null, crash.getName(), (inputData.getShowParticlesCrashed()) ? crash.getCrashedParticles() : null);
     }
 
     public EventOutput(double tc, List<Particle> particles, String event, List<Particle> particlesCrashed) {
