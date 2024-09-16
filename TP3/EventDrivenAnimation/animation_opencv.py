@@ -3,10 +3,10 @@ import cv2
 import numpy as np
 
 # Load the JSON data
-with open('../EventDrivenSimulation/output/example/2024-09-14_15-44-50/dynamic.json', 'r') as file:
+with open('./input/dynamic.json', 'r') as file:
     dynamic_data = json.load(file)
 
-with open('../EventDrivenSimulation/output/example/2024-09-14_15-44-50/static.json', 'r') as file:
+with open('./input/static.json', 'r') as file:
     static_data = json.load(file)
 
 # Extract simulation parameters

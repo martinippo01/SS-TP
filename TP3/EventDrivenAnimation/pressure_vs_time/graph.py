@@ -1,88 +1,60 @@
 import json
-import plotly.graph_objs as go
+import sys
 
-# Load the JSON data
-with open('./input/dynamic.json', 'r') as file:
-    dynamic_data = json.load(file)
+from matplotlib import pyplot as plt
 
-with open('./input/static.json', 'r') as file:
-    static_data = json.load(file)
 
-# Extract simulation parameters
-L = static_data['inputData']['L']
-obstacle = static_data['inputData']['obstacles'][0]
-is_circular = static_data['inputData']['planeType'] == 'CIRCULAR'
+def plot_slope(plt, x, D):
+    y = [2 * D * xi for xi in x]
+    plt.plot(x, y, linewidth=4, color='red', label=f'$<z^2>$')
 
-# Obstacle properties
-obstacle_x = obstacle['position']['x']
-obstacle_y = obstacle['position']['y']
-obstacle_radius = obstacle['radius']
+x_w = []
+y_w = []
+x_o = []
+yerr = []
 
-# Initial particle positions and IDs from the first event
-particles = dynamic_data['events'][0]['particles']
-x_positions = [p['position']['x'] for p in particles]
-y_positions = [p['position']['y'] for p in particles]
-particle_ids = [p['id'] for p in particles]
+y_o = []
+font_size = None
+fig_size = None
+time = {}
+slope = False
 
-# Create the figure
-fig = go.Figure()
+with open("./graph_format.json", 'r') as json_file:
+    config = json.load(json_file)['graph']
+    input_file = config['input_file']
+    font_size = int(config['fontSize'])
+    # fig_size = list(map(int, config['figSize']))
+    time = config['time']
+    slope = config['slope']
 
-# Add the scatter plot for particles with labels (IDs)
-fig.add_trace(go.Scatter(x=x_positions, y=y_positions, mode='markers+text',
-                         marker=dict(size=10, color='blue'), name="Particles",
-                         text=particle_ids, textposition='top center'))
+    with open(input_file, 'r') as analysis_file:
+        analysis_json = json.load(analysis_file)
 
-# Add the obstacle as a shape
-fig.add_shape(type="circle",
-              x0=obstacle_x - obstacle_radius, y0=obstacle_y - obstacle_radius,
-              x1=obstacle_x + obstacle_radius, y1=obstacle_y + obstacle_radius,
-              line_color="red")
+        # tc_max = float(time['max'])
+        # tc_min = float(time['min'])
+        #
+        # tc_keys = list(map(lambda key: (key, float(key)), analysis_json.keys()))
+        # tc_keys_sorted = sorted(tc_keys, key=lambda key: key[1])
+        # tc_keys_sorted = list(filter(lambda key: tc_min <= key[1] <= tc_max, tc_keys_sorted))
 
-# Add an unfilled circle representing the LxL plane
-if is_circular:
-    fig.add_shape(type="circle",
-                  x0=0, y0=0,
-                  x1=L, y1=L,
-                  line=dict(color='green', width=2),
-                  fillcolor='rgba(0,0,0,0)')  # Transparent fill
+        for p_w in analysis_json['pressure_wall_by_dt']:
+            x_w.append(p_w['tc'])
+            y_w.append(p_w['pressure'])
 
-# Prepare frames for each event in the dynamic JSON
-frames = []
-for i, event in enumerate(dynamic_data['events']):
-    if is_circular:
-        x_positions = [p['position']['x'] + L/2 for p in event['particles']]
-        y_positions = [p['position']['y'] + L/2 for p in event['particles']]
-    else:
-        x_positions = [p['position']['x'] for p in event['particles']]
-        y_positions = [p['position']['y'] for p in event['particles']]
-    particle_ids = [p['id'] for p in event['particles']]
-    frames.append(go.Frame(data=[go.Scatter(x=x_positions, y=y_positions, text=particle_ids)],
-                           name=f"Frame {i+1}"))
+        for p_o in analysis_json['pressure_obstacle_by_dt']:
+            x_o.append(p_o['tc'])
+            y_o.append(p_o['pressure'])
 
-# Update the layout with play/pause buttons
-fig.update_layout(
-    xaxis=dict(range=[0, L], autorange=False),
-    yaxis=dict(range=[0, L], autorange=False),
-    title="Particle Simulation (Frame-by-Frame)",
-    updatemenus=[dict(type="buttons", showactive=False,
-                      buttons=[dict(label="Play",
-                                    method="animate",
-                                    args=[None, {"frame": {"duration": 100, "redraw": True},
-                                                 "fromcurrent": True, "mode": "immediate"}]),
-                               dict(label="Pause",
-                                    method="animate",
-                                    args=[[None], {"frame": {"duration": 0, "redraw": True},
-                                                   "mode": "immediate"}])])])
+plt.figure(figsize=(10, 7))
+plt.xlabel('$?$', fontsize=font_size)
+plt.ylabel('$?$', fontsize=font_size)
+plt.xticks(fontsize=font_size)
+plt.yticks(fontsize=font_size)
+plt.ticklabel_format(axis='y', style='sci', scilimits=(0,0), useMathText=True)
+ax = plt.gca()
+ax.yaxis.get_offset_text().set_fontsize(font_size)
 
-# Add frames to the figure
-fig.frames = frames
+plt.plot(x_w, y_w)
+plt.plot(x_o, y_o)
+plt.show()
 
-# Export as an HTML with embedded animation (very efficient for large data)
-fig.write_html('particle_simulation.html', auto_play=True)
-
-# # Optional: Export as a GIF
-# # Note: Plotly currently only supports GIF via 'orca' tool
-# fig.write_image("particle_simulation.gif", format="gif")
-
-# Show plot
-fig.show()
