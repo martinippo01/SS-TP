@@ -3,10 +3,10 @@ import cv2
 import numpy as np
 
 # Load the JSON data
-with open('../EventDrivenSimulation/output/example/2024-09-14_15-44-50/dynamic.json', 'r') as file:
+with open('./input/dynamic.json', 'r') as file:
     dynamic_data = json.load(file)
 
-with open('../EventDrivenSimulation/output/example/2024-09-14_15-44-50/static.json', 'r') as file:
+with open('./input/static.json', 'r') as file:
     static_data = json.load(file)
 
 # Extract simulation parameters
@@ -56,13 +56,15 @@ def draw_frame(particles, frame_number):
 
 
 fourcc = cv2.VideoWriter.fourcc(*'mp4v')
-out = cv2.VideoWriter('particle_simulation.mp4', fourcc, 10.0, (window_size, window_size))
+out = cv2.VideoWriter('particle_simulation_1.mp4', fourcc, 20.0, (window_size, window_size))
 show_frame = True
 
 # Get particle data from events and render each frame
 events = dynamic_data['events']
 length = len(events)
 for i, event in enumerate(dynamic_data['events']):
+    # if i % 100 != 0:
+    #     continue
     particles = event['particles']
 
     # Draw the frame
