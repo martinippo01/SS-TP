@@ -5,7 +5,7 @@ import java.util.List;
 public class EventOutput {
 
     private String event;
-    private List<Long> particlesCrashed;
+    private List<Particle> particlesCrashed;
     private List<Particle> particles;
     private double tc;
 
@@ -14,10 +14,10 @@ public class EventOutput {
     }
 
     public EventOutput(double tc, List<Particle> particles, Crash crash) {
-        this(tc, particles, crash.getName(), crash.getCrashedParticles().stream().map(Particle::getId).toList());
+        this(tc, particles, crash.getName(), crash.getCrashedParticles());
     }
 
-    public EventOutput(double tc, List<Particle> particles, String event, List<Long> particlesCrashed) {
+    public EventOutput(double tc, List<Particle> particles, String event, List<Particle> particlesCrashed) {
         this.tc = tc;
         this.particles = particles;
         this.event = event;
@@ -33,7 +33,7 @@ public class EventOutput {
         this.event = event;
     }
 
-    public List<Long> getParticlesCrashed() {
+    public List<Particle> getParticlesCrashed() {
         return particlesCrashed;
     }
 
