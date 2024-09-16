@@ -41,13 +41,14 @@ with open(sys.argv[1], "r") as config_file:
     with open(input_file, "r") as analysis_file:
         analysis_json = json.load(analysis_file)
 
-        tc_keys = list(map(lambda key: (key, float(key)), analysis_json.keys()))
+        dc = analysis_json['dc']
+        tc_keys = list(map(lambda key: (key, float(key)), dc.keys()))
         tc_keys_sorted = sorted(tc_keys, key=lambda key: key[1])
 
         for tc_str, tc in tc_keys_sorted:
             if tc <= max_time:
                 f_x.append(tc)
-                f_y.append(analysis_json[tc_str]['mean'])
+                f_y.append(dc[tc_str]['mean'])
 
 
 graph_x = []
