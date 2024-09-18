@@ -3,10 +3,10 @@ from matplotlib import pyplot as plt
 import os
 
 # Para el 1.3a poner en True, para el 1.3b poner en False
-each_particle_bounces_once = True
+each_particle_bounces_once = False
 
 # Specify the parent directory path
-parent_directory = '../../EventDrivenSimulation/output/para1punto3_1'
+parent_directory = '../../EventDrivenSimulation/output/para1punto3_05'
 # Si output tiene directorios dentro que a su vez tienen los distintos directorios con timestamp, poner True
 multiple_directories = False
 
