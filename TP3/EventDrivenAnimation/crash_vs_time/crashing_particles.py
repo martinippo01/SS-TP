@@ -2,6 +2,13 @@ import json
 from matplotlib import pyplot as plt
 import os
 
+# Para el 1.3a poner en True, para el 1.3b poner en False
+each_particle_bounces_once = False
+
+# Specify the parent directory path
+parent_directory = '../../EventDrivenSimulation/output/para1punto3_3'
+# Si output tiene directorios dentro que a su vez tienen los distintos directorios con timestamp, poner True
+multiple_directories = False
 
 def add_plot(dynamic_file):
     with open(dynamic_file, 'r') as file:
@@ -18,32 +25,41 @@ def add_plot(dynamic_file):
 
         for crash in obstacle_crashes:
             p_id = crash["particlesCrashed"][0]["id"]
-            if p_id not in already_crashed:
+            if each_particle_bounces_once and p_id in already_crashed:
+                continue
+            if each_particle_bounces_once:
                 already_crashed[p_id] = True
-                current_amount += 1
-                cum_amount.append(current_amount)
-                t.append(crash["tc"])
+            current_amount += 1
+            cum_amount.append(current_amount)
+            t.append(crash["tc"])
 
         plt.plot(t, cum_amount)
 
 
+def go_one_directory_deeper(parent):
+    for data_directory in os.listdir(parent):
+        data_path = os.path.join(parent, data_directory)
 
-# Specify the parent directory path
-parent_directory = '../../EventDrivenSimulation/output'
+        if os.path.isdir(data_path):
+            retrieve_data(data_path)
 
-# Loop through all files and directories
+
+def retrieve_data(data_path):
+    specific_file = 'dynamic.json'
+    specific_file_path = os.path.join(data_path, specific_file)
+
+    # Check if the specific file exists and perform some action
+    if os.path.isfile(specific_file_path):
+        add_plot(specific_file_path)
+
+
 for item in os.listdir(parent_directory):
     item_path = os.path.join(parent_directory, item)
-
-    # Check if the item is a directory
+    print(item)
     if os.path.isdir(item_path):
-        # Define the specific file you're looking for in the subdirectory
-        specific_file = 'dynamic.json'
-        specific_file_path = os.path.join(item_path, specific_file)
-
-        # Check if the specific file exists and perform some action
-        if os.path.isfile(specific_file_path):
-            add_plot(specific_file_path)
-
+        if multiple_directories:
+            go_one_directory_deeper(item_path)
+        else:
+            retrieve_data(item_path)
 
 plt.show()
