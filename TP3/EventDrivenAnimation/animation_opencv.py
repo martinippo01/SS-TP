@@ -63,8 +63,8 @@ show_frame = True
 events = dynamic_data['events']
 length = len(events)
 for i, event in enumerate(dynamic_data['events']):
-    # if i % 100 != 0:
-    #     continue
+    if i % 50 != 0:
+        continue
     particles = event['particles']
 
     # Draw the frame
