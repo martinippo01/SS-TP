@@ -39,7 +39,7 @@ with open("./graph_format.json", 'r') as json_file:
 
 plt.figure(figsize=(10, 7))
 plt.xlabel('$Tiempo (s)$', fontsize=font_size)
-plt.ylabel('$Presión ()$', fontsize=font_size)
+plt.ylabel('$Presión (N/m)$', fontsize=font_size)
 plt.xticks(fontsize=font_size)
 plt.yticks(fontsize=font_size)
 plt.ticklabel_format(axis='y', style='sci', scilimits=(0,0), useMathText=True)

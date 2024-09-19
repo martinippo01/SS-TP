@@ -3,21 +3,21 @@ import json
 import math
 
 # Load the JSON data
-with open('../input/v3_box/dynamic.json', 'r') as file:
+with open('../input/n200t5CIRCULAR/v3/dynamic.json', 'r') as file:
     dynamic_data = json.load(file)
 
-with open('../input/v3_box/static.json', 'r') as file:
+with open('../input/n200t5CIRCULAR/v3/static.json', 'r') as file:
     static_data = json.load(file)
 
 isCircular = static_data['inputData']['planeType'] != "BOX"
 L = static_data['inputData']['L']
-TOLERANCE = L / 1000
-DT = static_data['inputData']['maxTime'] / 100
+TOLERANCE = L / 500
+DT = static_data['inputData']['maxTime'] / 20
 M = static_data['inputData']['m']
 OBSTACLE_R = static_data['inputData']['obstacles'][0]['radius']
 v = static_data['inputData']['v0']
 particle_r = static_data['inputData']['r']
-print(isCircular, static_data['inputData']['planeType'])
+
 
 def get_vn_obstacle(particles_crashed):
     hyp = (particles_crashed['position']['x'] ** 2 + particles_crashed['position']['y'] ** 2) ** 0.5
@@ -41,8 +41,12 @@ def get_vn_wall_circular(particles_crashed):
     hyp = (particles_crashed['position']['x'] ** 2 + particles_crashed['position']['y'] ** 2) ** 0.5
     cos = particles_crashed['position']['x'] / hyp #n1
     sin = particles_crashed['position']['y'] / hyp #n2
-    # return abs(particles_crashed['velocity']['vX'] * cos + particles_crashed['velocity']['vY'] * sin)
-    return (((sin ** 2 - cos ** 2) * vX - (2*sin*cos) * vY) ** 2 + (-(2 * sin * cos) * vX + (cos**2-sin**2) * vY) ** 2) ** 0.5
+    return abs((((sin ** 2 - cos ** 2) * vX - (2*sin*cos) * vY) * cos + (-(2 * sin * cos) * vX + (cos**2-sin**2) * vY) * sin))
+    # distance = (x ** 2 + y ** 2) ** 0.5
+    # nx = x / distance
+    # ny = y / distance
+    # vn = (vX * nx + vY * ny)
+    # return abs(vn)
 
 
 velocities_n_wall = []
