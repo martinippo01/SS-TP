@@ -23,19 +23,11 @@ with open("./graph_format.json", 'r') as json_file:
     config = json.load(json_file)['graph']
     input_file = config['input_file']
     font_size = int(config['fontSize'])
-    # fig_size = list(map(int, config['figSize']))
     time = config['time']
     slope = config['slope']
 
     with open(input_file, 'r') as analysis_file:
         analysis_json = json.load(analysis_file)
-
-        # tc_max = float(time['max'])
-        # tc_min = float(time['min'])
-        #
-        # tc_keys = list(map(lambda key: (key, float(key)), analysis_json.keys()))
-        # tc_keys_sorted = sorted(tc_keys, key=lambda key: key[1])
-        # tc_keys_sorted = list(filter(lambda key: tc_min <= key[1] <= tc_max, tc_keys_sorted))
 
         for p_w in analysis_json['pressure_wall_by_dt']:
             x_w.append(p_w['tc'])
@@ -46,15 +38,22 @@ with open("./graph_format.json", 'r') as json_file:
             y_o.append(p_o['pressure'])
 
 plt.figure(figsize=(10, 7))
-plt.xlabel('$?$', fontsize=font_size)
-plt.ylabel('$?$', fontsize=font_size)
+plt.xlabel('$Tiempo (s)$', fontsize=font_size)
+plt.ylabel('$Presión ()$', fontsize=font_size)
 plt.xticks(fontsize=font_size)
 plt.yticks(fontsize=font_size)
 plt.ticklabel_format(axis='y', style='sci', scilimits=(0,0), useMathText=True)
 ax = plt.gca()
 ax.yaxis.get_offset_text().set_fontsize(font_size)
 
-plt.plot(x_w, y_w, format("o-"))
-plt.plot(x_o, y_o, format("o-"))
-plt.show()
+# Plot lines with different colors and labels
+plt.plot(x_w, y_w, 'o-', color='blue', label='Pared')
+plt.plot(x_o, y_o, 'o-', color='green', label='Obstáculo')
 
+# Add legend to indicate the color and its representation
+plt.legend(fontsize=font_size/1.5, loc='upper right')
+
+# Add margins to the y-axis for vertical spacing
+plt.margins(y=0.3)
+
+plt.show()
