@@ -3,20 +3,21 @@ import json
 import math
 
 # Load the JSON data
-with open('../input/v6/dynamic.json', 'r') as file:
+with open('../input/v3_box/dynamic.json', 'r') as file:
     dynamic_data = json.load(file)
 
-with open('../input/v6/static.json', 'r') as file:
+with open('../input/v3_box/static.json', 'r') as file:
     static_data = json.load(file)
 
 isCircular = static_data['inputData']['planeType'] != "BOX"
 L = static_data['inputData']['L']
-TOLERANCE = L / 90
+TOLERANCE = L / 1000
 DT = static_data['inputData']['maxTime'] / 100
 M = static_data['inputData']['m']
 OBSTACLE_R = static_data['inputData']['obstacles'][0]['radius']
 v = static_data['inputData']['v0']
-
+particle_r = static_data['inputData']['r']
+print(isCircular, static_data['inputData']['planeType'])
 
 def get_vn_obstacle(particles_crashed):
     hyp = (particles_crashed['position']['x'] ** 2 + particles_crashed['position']['y'] ** 2) ** 0.5
@@ -26,9 +27,9 @@ def get_vn_obstacle(particles_crashed):
 
 
 def get_vn_wall(particles_crashed):
-    if abs(particles_crashed['position']['x']) < TOLERANCE or abs(particles_crashed['position']['x'] - L) < TOLERANCE:
+    if abs(particles_crashed['position']['x'] - particle_r) < TOLERANCE or abs(particles_crashed['position']['x'] + particle_r - L) < TOLERANCE:
         return abs((-1) * particles_crashed['velocity']['vX'])
-    elif abs(particles_crashed['position']['y']) < TOLERANCE or abs(particles_crashed['position']['y'] - L) < TOLERANCE:
+    elif abs(particles_crashed['position']['y'] - particle_r) < TOLERANCE or abs(particles_crashed['position']['y'] + particle_r - L) < TOLERANCE:
         return abs((-1) * particles_crashed['velocity']['vY'])
     print("failed")
 
