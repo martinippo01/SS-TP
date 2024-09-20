@@ -13,12 +13,12 @@ stds = [item['std'] for item in data.values()]
 # Plot
 plt.figure(figsize=(10, 6))
 plt.errorbar(temperatures, means, yerr=stds, fmt='o', capsize=5, capthick=2, markersize=8, color='blue', ecolor='red')
-plt.xlabel('Temperatura $(v^2)$', fontsize=15)
-plt.ylabel('Tiempo (s)', fontsize=16)
-plt.xticks(temperatures, ['0.25' if temp == 0.25 else str(int(temp)) for temp in temperatures], fontsize=20)
+plt.xlabel('Temperatura $(U.A.)$', fontsize=30)
+plt.ylabel('Tiempo (s)', fontsize=30)
+plt.xticks(temperatures, ['0.25' if temp == 0.25 else str(int(temp)) for temp in temperatures], fontsize=30)
 plt.gca().get_xticklabels()[0].set_rotation(90)
-plt.xticks(fontsize=15)
-plt.yticks(fontsize=15)
+plt.xticks(fontsize=30)
+plt.yticks(fontsize=30)
 plt.tight_layout()
 
 plt.show()

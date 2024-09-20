@@ -4,7 +4,7 @@ from matplotlib import pyplot as plt
 import os
 
 # Set to True for 1.3a and False for 1.3b
-each_particle_bounces_once = True
+each_particle_bounces_once = False
 show_lineal_regresion = False
 
 # Specify the parent directory path
@@ -15,7 +15,7 @@ multiple_directories = True
 fig, ax = plt.subplots()
 
 colors = ['b', 'r', 'g', 'y', 'c', 'm']
-my_labels = ['T = 0.25 $v^2$', 'T = 1 $v^2$', 'T = 4 $v^2$', 'T = 9 $v^2$', 'T = 16 $v^2$', 'T = 25 $v^2$']
+my_labels = ['T = 0.25 $U.A.$', 'T = 1 $U.A.$', 'T = 4 $U.A.$', 'T = 9 $U.A.$', 'T = 16 $U.A.$', 'T = 25 $U.A.$']
 col_val = 0
 
 def add_plot(dynamic_file):
@@ -100,13 +100,13 @@ handles, labels = plt.gca().get_legend_handles_labels()
 unique_labels = dict(zip(labels, handles))
 
 # Show the legend with unique labels
-plt.legend(unique_labels.values(), unique_labels.keys(), fontsize=15)
+plt.legend(unique_labels.values(), unique_labels.keys(), fontsize=25)
 
-plt.xlabel('$Tiempo\ (s)$', fontsize=18)
-plt.ylabel('Cantidad Acumulativa de Choques', fontsize=14)
+plt.xlabel('$Tiempo\ (s)$', fontsize=30)
+plt.ylabel('Cantidad Acumulativa de Choques', fontsize=30)
 plt.tight_layout()
 
-plt.xticks(fontsize=16)
-plt.yticks(fontsize=12)
+plt.xticks(fontsize=30)
+plt.yticks(fontsize=30)
 
 plt.show()
