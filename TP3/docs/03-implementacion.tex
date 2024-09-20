@@ -8,25 +8,27 @@
 \end{frame}
 
 \begin{frame}{Pseudocódigo}
+    \footnotesize{
     \begin{algorithmic}
         \State $queue = PriorityQueue()$
         \State \text{Crear n partículas con velocidad y dirección aleatoria}
         \For{\text{partícula i}}
-            \State \text{Calcular tiempo de colisión con contorno, partículas y obstáculos}
+            \State \text{Calcular tiempo de colisión con contorno, otras partículas y obstáculos}
             \State \text{Agregar eventos a $queue$}
         \EndFor
-        \While{\text{tiempo < $tiempo_{max}$}}
+        \While{\text{$t$ < $t_{max}$}}
             \State \text{Obtener evento de $queue$}
             \State \text{Actualizar posiciones de las partículas}
-            \State \text{Actualizar tiempo}
+            \State \text{Actualizar $t$}
             \State \text{Calcular la nueva velocidad de las partículas involucradas en la colisión}
-            \State \text{Eliminar los eventos de colisión de las partículas involucradas de $queue$}
+            \State \text{Eliminar los eventos que involucran a las partículas colisionadas de $queue$}
             \For{\text{partícula colisionada}}
-                \State \text{Calcular tiempo de colisión con contorno, partículas y obstáculos}
+                \State \text{Calcular tiempo de colisión con contorno, otras partículas y obstáculos}
                 \State \text{Agregar eventos a $queue$}
             \EndFor
         \EndWhile
     \end{algorithmic}
+    }
 \end{frame}
 
 
