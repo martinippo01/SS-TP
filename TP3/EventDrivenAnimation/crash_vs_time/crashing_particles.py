@@ -1,4 +1,6 @@
 import json
+
+import numpy
 from matplotlib import pyplot as plt
 import os
 
@@ -62,5 +64,18 @@ for item in os.listdir(parent_directory):
             go_one_directory_deeper(item_path, add_plot)
         else:
             retrieve_data(item_path, add_plot)
+
+plt.show()
+
+# Para el b
+if not each_particle_bounces_once:
+    # Load JSON data from the file
+    with open("mean_and_std.json", "r") as file:
+        data = json.load(file)
+
+    pendientes = [item['mean'] for item in data.values()]
+    fig, ax = plt.subplot()
+    for pend in pendientes:
+        ax.axline((0, 0), slope=pend)
 
 plt.show()
