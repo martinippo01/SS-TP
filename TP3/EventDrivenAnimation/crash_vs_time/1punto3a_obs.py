@@ -13,13 +13,10 @@ stds = [item['std'] for item in data.values()]
 # Plot
 plt.figure(figsize=(10, 6))
 plt.errorbar(labels, means, yerr=stds, fmt='o', capsize=5, capthick=2, markersize=8, color='blue', ecolor='red')
-# TODO: Cambiar las palabras y coso
-plt.title('Segundos que se tarda en llegar al 95%')
-plt.xlabel('Parameters')
-plt.ylabel('Mean Value')
+plt.xlabel('Temperatura $(V^2)$')
+plt.ylabel('Tiempo (s)')
 plt.xticks(rotation=45)
 
 # Show plot
 plt.tight_layout()
 plt.show()
-

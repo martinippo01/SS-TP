@@ -64,7 +64,7 @@ min_error_index = graph_y.index(min_error)
 best_c = graph_x[min_error_index]
 
 plt.figure(figsize=tuple(fig_size))
-plt.xlabel("$D\ (m^2/s)$", fontsize=font_size)
+plt.xlabel("$Coeficiente de Difusión\ (m^2/s)$", fontsize=font_size)
 plt.ylabel("Error", fontsize=font_size)
 plt.xticks(fontsize=font_size)
 plt.yticks(fontsize=font_size)
@@ -76,6 +76,6 @@ ax.yaxis.get_offset_text().set_fontsize(font_size)
 ax.xaxis.get_offset_text().set_fontsize(font_size)
 plt.plot(best_c, min_error, 'ro')
 plt.axvline(best_c, color='r', linestyle='--', ymax=min_error / max(graph_y))
-plt.xticks(numpy.arange(c_min, c_max, c_step * 2))
+plt.xticks(numpy.arange(c_min, c_max, c_step * 5))
 plt.show()
 

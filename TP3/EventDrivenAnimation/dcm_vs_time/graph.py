@@ -38,7 +38,7 @@ with open(sys.argv[1], 'r') as json_file:
         tc_max = float(time['max'])
         tc_min = float(time['min'])
 
-        saturation_time = analysis_json['saturation']['mean']
+        #saturation_time = analysis_json['saturation']['mean']
 
         dc = analysis_json['dc']
         tc_keys = list(map(lambda key: (key, float(key)), dc.keys()))
@@ -52,8 +52,9 @@ with open(sys.argv[1], 'r') as json_file:
             yerr.append(mean_and_std['std'])
 
 plt.figure(figsize=(10, 7))
-plt.xlabel('$t\ (s)$', fontsize=font_size)
-plt.ylabel('$z^2\ (m^2)$', fontsize=font_size)
+plt.scatter(x=[1], y=[y[20]], c='r', s=500)
+plt.xlabel('$Tiempo\ (s)$', fontsize=font_size)
+plt.ylabel('$Desplazamiento\ Cuadrático\ (m^2)$', fontsize=font_size)
 plt.xticks(fontsize=font_size)
 plt.yticks(fontsize=font_size)
 plt.ticklabel_format(axis='y', style='sci', scilimits=(0,0), useMathText=True)
@@ -67,6 +68,7 @@ if show_saturation_time:
 if slope['show']:
     plot_slope(plt, x, float(slope['D']))
     plt.legend(fontsize=font_size)
+
 
 plt.show()
 
