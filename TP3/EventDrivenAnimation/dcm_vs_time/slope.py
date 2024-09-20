@@ -64,7 +64,7 @@ min_error_index = graph_y.index(min_error)
 best_c = graph_x[min_error_index]
 
 plt.figure(figsize=tuple(fig_size))
-plt.xlabel("$Coeficiente de Difusión\ (m^2/s)$", fontsize=font_size)
+plt.xlabel("Coeficiente de Difusión $(m^2/s)$", fontsize=font_size)
 plt.ylabel("Error", fontsize=font_size)
 plt.xticks(fontsize=font_size)
 plt.yticks(fontsize=font_size)

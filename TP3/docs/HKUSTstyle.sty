@@ -90,14 +90,15 @@
 \setbeamercolor{subsection in sidebar}{fg=brown}
 \setbeamercolor{subsection in sidebar shaded}{fg=grey}
 \AtBeginSection[]{
-    \begin{frame}
-        \tableofcontents[sectionstyle=show/shaded,subsectionstyle=show/shaded/hide,subsubsectionstyle=show/shaded/hide]
+    \begin{frame}[noframenumbering,plain]
+        \vfill
+        \centering
+        \huge{\insertsection}
+        \vspace{0.5cm}
+        \hrule
     \end{frame}
 }
 \AtBeginSubsection[]{
-    \begin{frame}
-        \tableofcontents[sectionstyle=show/shaded,subsectionstyle=show/shaded/hide,subsubsectionstyle=show/shaded/hide]
-    \end{frame}
 }
 
 \mode

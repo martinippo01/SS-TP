@@ -22,6 +22,8 @@ time = {}
 slope = {}
 saturation_time = None
 show_saturation_time = False
+max_time = 0
+max_mean = 0
 
 with open(sys.argv[1], 'r') as json_file:
     config = json.load(json_file)['graph']
@@ -48,19 +50,23 @@ with open(sys.argv[1], 'r') as json_file:
         for tc_str, tc in tc_keys_sorted:
             x.append(tc)
             mean_and_std = dc[tc_str]
-            y.append(mean_and_std['mean'])
+            mean = mean_and_std['mean']
+            if mean > max_mean:
+                max_mean = mean
+                max_time = tc
+            y.append(mean)
             yerr.append(mean_and_std['std'])
 
 plt.figure(figsize=(10, 7))
-plt.scatter(x=[1], y=[y[20]], c='r', s=500)
-plt.xlabel('$Tiempo\ (s)$', fontsize=font_size)
-plt.ylabel('$Desplazamiento\ Cuadrático\ (m^2)$', fontsize=font_size)
+plt.xlabel('Tiempo $(s)$', fontsize=font_size)
+plt.ylabel('Desplazamiento Cuadrático $(m^2)$', fontsize=font_size)
 plt.xticks(fontsize=font_size)
 plt.yticks(fontsize=font_size)
 plt.ticklabel_format(axis='y', style='sci', scilimits=(0,0), useMathText=True)
 ax = plt.gca()
 ax.yaxis.get_offset_text().set_fontsize(font_size)
 plt.errorbar(x, y, yerr=yerr, fmt='o', capsize=5, capthick=2)
+plt.plot(max_time, max_mean, 'ro', zorder=10)
 
 if show_saturation_time:
     plt.axvline(x=saturation_time, color='grey', linestyle='--', label='Saturation time')
