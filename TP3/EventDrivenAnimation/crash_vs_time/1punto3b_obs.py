@@ -16,14 +16,16 @@ for key, c_data in dynamic_data.items():
 # Prepare data for plotting
 means = [np.mean(values) for values in data.values()]
 stds = [np.std(values) for values in data.values()]
-labels = [0.5, 1, 2, 3, 4, 5]
+temperatures = [0.25, 1, 4, 9, 16, 25]
 
 # Plot
 plt.figure(figsize=(10, 6))
-plt.errorbar(labels, means, yerr=stds, fmt='o', capsize=5, capthick=2, markersize=8, color='blue', ecolor='red')
-plt.xlabel('$Temperatura\ (V^2)$')
-plt.ylabel('Pendiente')
-plt.xticks(rotation=45)
+plt.errorbar(temperatures, means, yerr=stds, fmt='o', capsize=5, capthick=2, markersize=4, color='blue', ecolor='red')
+plt.xlabel('$Temperatura\ (v^2)$', fontsize=20)
+plt.ylabel('Pendiente (1/s)', fontsize=20)
+plt.xticks(temperatures, ['0.25' if temp == 0.25 else str(int(temp)) for temp in temperatures], fontsize=20)
+plt.gca().get_xticklabels()[0].set_rotation(90)
+plt.yticks(fontsize=20)
 
 # Show plot
 plt.tight_layout()
