@@ -2,19 +2,19 @@ package ar.edu.itba.ss;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.Set;
+import java.util.List;
 
 public class InputData {
 
     private final InputFile inputData;
 
     public InputData(String inputFileName) {
-        try(JsonReader fileReader = new JsonReader(new FileReader(inputFileName))){
+        try (JsonReader fileReader = new JsonReader(new FileReader(inputFileName))) {
             Gson gson = new GsonBuilder()
                     .create();
             this.inputData = gson.fromJson(fileReader, InputFile.class);
@@ -31,8 +31,25 @@ public class InputData {
         private double tf;
         private double r0;
         private double v0;
+        private double dt;
+        private int dt_jumps;
+
+        // List of DynamicFields for the dynamic array
+        @SerializedName("dynamic")
+        private List<DynamicField> dynamic;
+
+        // Nested class for dynamic objects
+        private static class DynamicField {
+            private double k;
+            private double tf;
+            private double r0;
+            private double v0;
+            private double dt;
+            private int dt_jumps;
+        }
     }
 
+    // Getters
     public double getM() { return inputData.m; }
 
     public double getGamma() { return inputData.gamma; }
@@ -45,6 +62,8 @@ public class InputData {
 
     public double getV0() { return inputData.v0; }
 
+    public double dt() { return inputData.dt; }
 
+    // Getters for dynamic list
+    public List<InputFile.DynamicField> getDynamic() { return inputData.dynamic; }
 }
-
