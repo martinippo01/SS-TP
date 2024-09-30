@@ -1,6 +1,7 @@
 package ar.edu.itba.ss;
 
 import java.util.List;
+import java.util.function.BiConsumer;
 
 public abstract class Simulation {
     private final double k;
@@ -8,30 +9,30 @@ public abstract class Simulation {
     private final double timeMax;
     private final double dt;
     private final double mass;
-    private final int dt2;
+    private final AlgorithmType algorithmType;
+    private final BiConsumer<List<Particle>, Long> onStep;
 
-    public Simulation(double k, double A, double timeMax, double dt, double mass, int dt2) {
+    public Simulation(double k, double A, double timeMax, double dt, double mass, AlgorithmType algorithmType, BiConsumer<List<Particle>, Long> onStep) {
         this.k = k;
         this.A = A;
         this.timeMax = timeMax;
         this.dt = dt;
         this.mass = mass;
-        this.dt2 = dt2;
+        this.algorithmType = algorithmType;
+        this.onStep = onStep;
     }
 
-    abstract Algorithm getAlgorithm(AlgorithmType algorithmType);
+    abstract Algorithm getAlgorithm();
 
-    public void runSimulation(AlgorithmType algorithmType) {
-        Algorithm algorithm = getAlgorithm(algorithmType);
+    public void run() {
+        Algorithm algorithm = getAlgorithm();
         double time = 0;
-        int counter = 0;
+        long counter = 0;
         while (time <= timeMax) {
             algorithm.evolve(dt);
             time+=dt;
-            if (counter % dt2 == 0) {
-                // Output particles
-                List<Particle> particles = algorithm.getParticles();
-            }
+            List<Particle> particles = algorithm.getParticles();
+            onStep.accept(particles, counter);
             counter++;
         }
     }
@@ -56,7 +57,7 @@ public abstract class Simulation {
         return dt;
     }
 
-    public int getDt2() {
-        return dt2;
+    public AlgorithmType getAlgorithmType() {
+        return algorithmType;
     }
 }

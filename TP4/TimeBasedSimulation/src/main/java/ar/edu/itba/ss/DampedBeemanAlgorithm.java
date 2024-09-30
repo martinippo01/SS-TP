@@ -9,7 +9,7 @@ public class DampedBeemanAlgorithm extends DampedAlgorithm {
         double currentR = particle.getPosition().getY();
         double currentV = particle.getVelocity().getY();
         double force = - k * currentR - gamma * currentV;
-        this.previousA = force / particle.getMass(); // TODO: Preguntar si está bien tomar este previous
+        this.previousA = force / particle.getMass();    // Esto se puede dejar así o conseguir un vFantasma y rFantasma
     }
 
     public void evolve(double dt) {
@@ -24,7 +24,7 @@ public class DampedBeemanAlgorithm extends DampedAlgorithm {
         double nextR = currentR + currentV*dt + (2.0/3.0)*currentA*dt*dt - (1/6.0)*previousA*dt*dt;
 
         double predNextV = currentV + (3/2.0)*currentA*dt - (1/2.0)*previousA*dt;
-        double nextForce = -k * nextR - gamma * predNextV; // Se usa nextR, no?
+        double nextForce = -k * nextR - gamma * predNextV;
         double predNextA = nextForce / particle.getMass();
 
         double correctedNextV = currentV + (1/3.0) * predNextA * dt + (5/6.0) * currentA * dt - (1/6.0) * previousA * dt;
