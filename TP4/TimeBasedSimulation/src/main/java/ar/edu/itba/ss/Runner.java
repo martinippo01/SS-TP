@@ -3,7 +3,9 @@ package ar.edu.itba.ss;
 import ar.edu.itba.ss.utils.InputData;
 import ar.edu.itba.ss.utils.OutputData;
 import ar.edu.itba.ss.utils.SimulationParams;
+import ar.edu.itba.ss.utils.TimeEvent;
 
+import java.io.IOException;
 import java.util.List;
 
 public class Runner {
@@ -13,21 +15,31 @@ public class Runner {
         this.inputData = inputData;
     }
 
-    public void run() {
+    private void runIteration(InputData.InputFile.DynamicField dynamicField) {
+        int dt2 = inputData.getDtJumps();
+        double dt = dynamicField.getDt();
         SimulationType simulationType = inputData.getSimulationType();
-        List<InputData.InputFile.DynamicField> dynamicFields = inputData.getDynamic();
-        dynamicFields.parallelStream().forEach((dynamicField) -> {
-            int dt2 = inputData.getDtJumps();
-            SimulationParams iterationParams = new SimulationParams(inputData, dynamicField);
-            // TODO: Replace inputData with SimulationParams and add the isPretty and outputDir params
-            OutputData outputData = new OutputData(inputData);
+        SimulationParams iterationParams = new SimulationParams(inputData, dynamicField);
+        try (OutputData outputData = new OutputData(inputData.getOutputDir(), inputData.isPrettyPrint())) {
+            outputData.openDynamicFile();
             Simulation simulation = simulationType.getSimulation(iterationParams, (p, i) -> {
                 if (i % dt2 == 0) {
-                    // TODO: Create timeEvent
-                    outputData.writeEvent();
+                    TimeEvent timeEvent = new TimeEvent(i * dt, p.stream().map(Particle::getPosition).toList());
+                    try {
+                        outputData.writeEvent(timeEvent);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             });
             simulation.run();
-        });
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void run() {
+        List<InputData.InputFile.DynamicField> dynamicFields = inputData.getDynamic();
+        dynamicFields.parallelStream().forEach(this::runIteration);
     }
 }

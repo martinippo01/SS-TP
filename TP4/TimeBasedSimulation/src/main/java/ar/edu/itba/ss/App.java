@@ -14,16 +14,13 @@ public class App {
 
     public static void main( String[] args ) {
         final String inputFileName = System.getProperty("input");
-        if(inputFileName == null)
+        if(inputFileName == null) {
             throw new IllegalArgumentException("Input file not found");
+        }
         InputData inputData = new InputData(inputFileName);
 
-        try (OutputData outputData = new OutputData(inputData)){
-            // outputData.writeEvent(new TimeEvent(time, position));
-        }catch(IOException e){
-            throw new RuntimeException(e);
-        }
-
-
+        final Runner runner = new Runner(inputData);
+        runner.run();
+        System.out.println("Simulation finished");
     }
 }

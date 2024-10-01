@@ -12,7 +12,7 @@ public enum SimulationType {
             return new DampedSimulation(
                     params.getK(),
                     params.getA(),
-                    params.getTimeMax(),
+                    params.getTf(),
                     params.getDt(),
                     params.getMass(),
                     params.getAlgorithmType(),

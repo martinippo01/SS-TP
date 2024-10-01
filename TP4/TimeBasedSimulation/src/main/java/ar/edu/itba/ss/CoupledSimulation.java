@@ -1,6 +1,7 @@
 package ar.edu.itba.ss;
 
 import java.util.List;
+import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
@@ -8,10 +9,17 @@ public class CoupledSimulation extends Simulation {
     private final int n;
     private final double w;
 
-    public CoupledSimulation(double k, double A, double timeMax, double dt, double mass, int dt2, int n, double w) {
-        super(k, A, timeMax, dt, mass, dt2);
+    public CoupledSimulation(double k, double A, double timeMax, double dt, double mass, AlgorithmType algorithmType, BiConsumer<List<Particle>, Long> onStep, int dt2, int n, double w) {
+        super(k, A, timeMax, dt, mass, algorithmType, onStep);
         this.n = n;
         this.w = w;
+    }
+
+
+    @Override
+    public Algorithm getAlgorithm() {
+
+        return null;
     }
 
     /*private ParticleFunctions getFirstParticleFunctionsGetter(List<Particle> particles) {
@@ -59,11 +67,7 @@ public class CoupledSimulation extends Simulation {
                 return getLastParticleFunctionsGetter(particles);
             return getIntermediateParticleFunctionsGetter(particles, position);
         };
-    }*/
-
-    @Override
-    Algorithm getAlgorithm(AlgorithmType algorithmType) {
-        return null;
     }
 
+    */
 }

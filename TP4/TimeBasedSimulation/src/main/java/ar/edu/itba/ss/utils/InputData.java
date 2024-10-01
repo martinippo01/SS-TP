@@ -28,7 +28,7 @@ public class InputData {
 
     public static class InputFile {
         private Integer n;
-        private Double m;
+        private Double mass;
         private Double k;
         private Double gamma;
         private Double tf;
@@ -41,7 +41,6 @@ public class InputData {
         private AlgorithmType algorithmType;
         private SimulationType simulationType;
         private Double a;
-        private Double timeMax;
 
         // List of DynamicFields for the dynamic array
         @SerializedName("dynamic")
@@ -56,7 +55,6 @@ public class InputData {
             private Double dt;
             private Integer dt_jumps;
             private AlgorithmType algorithmType;
-            private Double timeMax;
 
             public AlgorithmType getAlgorithmType(){
                 return algorithmType;
@@ -86,9 +84,6 @@ public class InputData {
                 return dt_jumps;
             }
 
-            public Double getTimeMax() {
-                return timeMax;
-            }
         }
     }
 
@@ -105,7 +100,7 @@ public class InputData {
         return inputData.a;
     }
 
-    public double getM() { return inputData.m; }
+    public double getMass() { return inputData.mass; }
 
     public double getGamma() { return inputData.gamma; }
 
@@ -127,9 +122,6 @@ public class InputData {
 
     public String getOutputDir() { return inputData.outputDir; }
 
-    public Double getTimeMax() {
-        return inputData.timeMax;
-    }
 
     // Getters for dynamic list
     public List<InputFile.DynamicField> getDynamic() { return inputData.dynamic; }

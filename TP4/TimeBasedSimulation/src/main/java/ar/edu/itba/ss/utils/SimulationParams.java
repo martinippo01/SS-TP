@@ -8,7 +8,7 @@ import java.util.Optional;
 public class SimulationParams {
 
     private final Integer n;
-    private final Double m;
+    private final Double mass;
     private final Double k;
     private final Double gamma;
     private final Double tf;
@@ -19,11 +19,10 @@ public class SimulationParams {
     private final AlgorithmType algorithmType;
     private final SimulationType simulationType;
     private final Double a;
-    private final Double timeMax;
 
     public SimulationParams(InputData inputData, InputData.InputFile.DynamicField dynamicFields) {
         this.n = inputData.getN();
-        this.m = inputData.getM();
+        this.mass = inputData.getMass();
         this.k = Optional.ofNullable(dynamicFields.getK()).orElse(inputData.getK());
         this.gamma = inputData.getGamma();
         this.tf = Optional.ofNullable(dynamicFields.getTf()).orElse(inputData.getTf());
@@ -34,15 +33,10 @@ public class SimulationParams {
         this.algorithmType = Optional.ofNullable(dynamicFields.getAlgorithmType()).orElse(inputData.getAlgorithmType());
         this.simulationType = inputData.getSimulationType();
         this.a = inputData.getA();
-        this.timeMax = Optional.ofNullable(dynamicFields.getTimeMax()).orElse(inputData.getTimeMax());
     }
 
     public Integer getN() {
         return n;
-    }
-
-    public Double getM() {
-        return m;
     }
 
     public Double getK() {
@@ -85,7 +79,6 @@ public class SimulationParams {
         return a;
     }
 
-    public Double getTimeMax() {
-        return timeMax;
+    public double getMass() { return mass;
     }
 }

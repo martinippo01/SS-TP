@@ -13,22 +13,22 @@ import java.time.LocalDateTime;
 
 public class OutputData implements Closeable {
 
-    private final InputData inputData;
+    private final String outputDir;
     private final boolean prettyPrint;
     private final LocalDateTime timeStamp;
     private FileWriter fileWriter;
     private Gson gson;
     private boolean first = true;
 
-    public OutputData(InputData inputData) throws IOException {
-        this.inputData = inputData;
-        this.prettyPrint = inputData.isPrettyPrint();
+    public OutputData(String outputDir, boolean prettyPrint) throws IOException {
+        this.outputDir = outputDir;
+        this.prettyPrint = prettyPrint;
         this.timeStamp = LocalDateTime.now();
-        Files.createDirectory(Path.of(inputData.getOutputDir(), getTimestampDir()));
+        Files.createDirectory(Path.of(outputDir, getTimestampDir()));
     }
 
     private String getFileName(String type) {
-        return String.format("%s/%s/%s.json", inputData.getOutputDir(), getTimestampDir(), type);
+        return String.format("%s/%s/%s.json", outputDir, getTimestampDir(), type);
     }
 
     private String getTimestampDir() {

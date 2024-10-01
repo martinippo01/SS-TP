@@ -6,29 +6,30 @@ import java.util.function.BiConsumer;
 public abstract class Simulation {
     private final double k;
     private final double A;
-    private final double timeMax;
+    private final double tf;
     private final double dt;
     private final double mass;
     private final AlgorithmType algorithmType;
     private final BiConsumer<List<Particle>, Long> onStep;
+    private final Algorithm algorithm;
 
-    public Simulation(double k, double A, double timeMax, double dt, double mass, AlgorithmType algorithmType, BiConsumer<List<Particle>, Long> onStep) {
+    public Simulation(double k, double A, double tf, double dt, double mass, AlgorithmType algorithmType, BiConsumer<List<Particle>, Long> onStep) {
         this.k = k;
         this.A = A;
-        this.timeMax = timeMax;
+        this.tf = tf;
         this.dt = dt;
         this.mass = mass;
         this.algorithmType = algorithmType;
         this.onStep = onStep;
+        this.algorithm = getAlgorithm();
     }
 
     abstract Algorithm getAlgorithm();
 
     public void run() {
-        Algorithm algorithm = getAlgorithm();
         double time = 0;
         long counter = 0;
-        while (time <= timeMax) {
+        while (time <= tf) {
             algorithm.evolve(dt);
             time+=dt;
             List<Particle> particles = algorithm.getParticles();
@@ -49,15 +50,15 @@ public abstract class Simulation {
         return A;
     }
 
-    public double getTimeMax() {
-        return timeMax;
-    }
-
     public double getDt() {
         return dt;
     }
 
     public AlgorithmType getAlgorithmType() {
         return algorithmType;
+    }
+
+    public List<Particle> getParticles() {
+        return algorithm.getParticles();
     }
 }
