@@ -1,6 +1,5 @@
 package ar.edu.itba.ss.utils;
 
-import ar.edu.itba.ss.AlgorithmType;
 import ar.edu.itba.ss.SimulationType;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -38,9 +37,11 @@ public class InputData {
         private Integer dt_jumps;
         private Boolean prettyPrint;
         private String outputDir;
-        private AlgorithmType algorithmType;
+        private String algorithmType;
         private SimulationType simulationType;
         private Double a;
+        private Double w;
+        private Double l0;
 
         // List of DynamicFields for the dynamic array
         @SerializedName("dynamic")
@@ -54,9 +55,10 @@ public class InputData {
             private Double v0;
             private Double dt;
             private Integer dt_jumps;
-            private AlgorithmType algorithmType;
+            private String algorithmType;
+            private Double w;
 
-            public AlgorithmType getAlgorithmType(){
+            public String getAlgorithmType(){
                 return algorithmType;
             }
 
@@ -84,11 +86,14 @@ public class InputData {
                 return dt_jumps;
             }
 
+            public Double getW() {
+                return w;
+            }
         }
     }
 
     // Getters
-    public AlgorithmType getAlgorithmType(){
+    public String getAlgorithmType(){
         return inputData.algorithmType;
     }
 
@@ -122,6 +127,9 @@ public class InputData {
 
     public String getOutputDir() { return inputData.outputDir; }
 
+    public double getW() { return inputData.w; }
+
+    public double getL0() { return inputData.l0; }
 
     // Getters for dynamic list
     public List<InputFile.DynamicField> getDynamic() { return inputData.dynamic; }

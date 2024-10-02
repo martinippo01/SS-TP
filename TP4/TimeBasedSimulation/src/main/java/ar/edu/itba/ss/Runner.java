@@ -17,11 +17,11 @@ public class Runner {
 
     private void runIteration(InputData.InputFile.DynamicField dynamicField) {
         int dt2 = inputData.getDtJumps();
-        double dt = dynamicField.getDt();
         SimulationType simulationType = inputData.getSimulationType();
         SimulationParams iterationParams = new SimulationParams(inputData, dynamicField);
         try (OutputData outputData = new OutputData(inputData.getOutputDir(), inputData.isPrettyPrint())) {
             outputData.openDynamicFile();
+            double dt = iterationParams.getDt();
             Simulation simulation = simulationType.getSimulation(iterationParams, (p, i) -> {
                 if (i % dt2 == 0) {
                     TimeEvent timeEvent = new TimeEvent(i * dt, p.stream().map(Particle::getPosition).toList());

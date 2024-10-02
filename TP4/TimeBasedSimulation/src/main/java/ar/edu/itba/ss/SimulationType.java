@@ -16,15 +16,26 @@ public enum SimulationType {
                     params.getDt(),
                     params.getMass(),
                     params.getAlgorithmType(),
-                    onStep,
-                    params.getGamma()
+                    params.getGamma(),
+                    onStep
             );
         }
     },
     COUPLED{
         @Override
         Simulation getSimulation(SimulationParams params, BiConsumer<List<Particle>, Long> onStep) {
-            return null;
+            return new CoupledSimulation(
+                    params.getK(),
+                    params.getA(),
+                    params.getTf(),
+                    params.getDt(),
+                    params.getMass(),
+                    params.getAlgorithmType(),
+                    params.getN(),
+                    params.getW(),
+                    params.getL0(),
+                    onStep
+            );
         }
     };
 

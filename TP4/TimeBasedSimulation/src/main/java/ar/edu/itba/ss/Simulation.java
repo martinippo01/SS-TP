@@ -9,11 +9,11 @@ public abstract class Simulation {
     private final double tf;
     private final double dt;
     private final double mass;
-    private final AlgorithmType algorithmType;
+    private final String algorithmType;
     private final BiConsumer<List<Particle>, Long> onStep;
-    private final Algorithm algorithm;
+    private Algorithm algorithm;
 
-    public Simulation(double k, double A, double tf, double dt, double mass, AlgorithmType algorithmType, BiConsumer<List<Particle>, Long> onStep) {
+    public Simulation(double k, double A, double tf, double dt, double mass, String algorithmType, BiConsumer<List<Particle>, Long> onStep) {
         this.k = k;
         this.A = A;
         this.tf = tf;
@@ -21,20 +21,20 @@ public abstract class Simulation {
         this.mass = mass;
         this.algorithmType = algorithmType;
         this.onStep = onStep;
-        this.algorithm = getAlgorithm();
+        this.algorithm = null;
     }
 
-    abstract Algorithm getAlgorithm();
+    protected abstract Algorithm getAlgorithm();
 
     public void run() {
+        algorithm = getAlgorithm();
         double time = 0;
         long counter = 0;
         while (time <= tf) {
             algorithm.evolve(dt);
             time+=dt;
             List<Particle> particles = algorithm.getParticles();
-            onStep.accept(particles, counter);
-            counter++;
+            onStep.accept(particles, ++counter);
         }
     }
 
@@ -54,11 +54,11 @@ public abstract class Simulation {
         return dt;
     }
 
-    public AlgorithmType getAlgorithmType() {
+    public String getAlgorithmType() {
         return algorithmType;
     }
 
     public List<Particle> getParticles() {
-        return algorithm.getParticles();
+        return algorithm != null ? algorithm.getParticles() : null;
     }
 }

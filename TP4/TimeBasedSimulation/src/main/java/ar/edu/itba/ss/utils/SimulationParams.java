@@ -1,6 +1,5 @@
 package ar.edu.itba.ss.utils;
 
-import ar.edu.itba.ss.AlgorithmType;
 import ar.edu.itba.ss.SimulationType;
 
 import java.util.Optional;
@@ -16,9 +15,11 @@ public class SimulationParams {
     private final Double v0;
     private final Double dt;
     private final Integer dtJumps;
-    private final AlgorithmType algorithmType;
+    private final String algorithmType;
     private final SimulationType simulationType;
     private final Double a;
+    private final Double w;
+    private final Double l0;
 
     public SimulationParams(InputData inputData, InputData.InputFile.DynamicField dynamicFields) {
         this.n = inputData.getN();
@@ -33,6 +34,8 @@ public class SimulationParams {
         this.algorithmType = Optional.ofNullable(dynamicFields.getAlgorithmType()).orElse(inputData.getAlgorithmType());
         this.simulationType = inputData.getSimulationType();
         this.a = inputData.getA();
+        this.w = Optional.ofNullable(dynamicFields.getW()).orElse(inputData.getW());
+        this.l0 = inputData.getL0();
     }
 
     public Integer getN() {
@@ -67,7 +70,7 @@ public class SimulationParams {
         return dtJumps;
     }
 
-    public AlgorithmType getAlgorithmType() {
+    public String getAlgorithmType() {
         return algorithmType;
     }
 
@@ -79,6 +82,13 @@ public class SimulationParams {
         return a;
     }
 
-    public double getMass() { return mass;
+    public double getMass() { return mass; }
+
+    public Double getW() {
+        return w;
+    }
+
+    public Double getL0() {
+        return l0;
     }
 }
