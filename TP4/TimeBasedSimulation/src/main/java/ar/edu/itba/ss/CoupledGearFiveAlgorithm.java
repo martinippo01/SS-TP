@@ -69,9 +69,12 @@ public class CoupledGearFiveAlgorithm extends CoupledAlgorithm {
         for(int i = 0 ; i < particles.size() -1 ; i++) {
             double currentR = currentRs.get(i), currentR1 = currentR1s.get(i), currentR2 = currentR2s.get(i),
                     currentR3 = currentR3s.get(i), currentR4 = currentR4s.get(i), currentR5 = currentR5s.get(i);
-            // TODO: Add predNextR of lastParticle
             predNextR.add(currentR + currentR1 * dt + currentR2 * (dt * dt / 2) + currentR3 * (dt * dt * dt / (2 * 3)) + currentR4 * (Math.pow(dt, 4) / (2 * 3 * 4)) + currentR5 * (Math.pow(dt, 5) / (2 * 3 * 4 * 5)));
         }
+        // ya actualizo la última partícula
+        updateLastParticle(dt);
+        double lastPExactPosition = particles.get(particles.size()-1).getPosition().getY();
+        predNextR.add(lastPExactPosition);
 
 
         for(int i = 0 ; i < particles.size() - 1 ; i++) {
@@ -121,9 +124,7 @@ public class CoupledGearFiveAlgorithm extends CoupledAlgorithm {
         currentR4s = newCurrentR4s;
         currentR5s = newCurrentR5s;
 
-        updateLastParticle(dt);
-        Particle lastP = particles.get(particles.size()-1);
-        currentRs.add(lastP.getPosition().getY());
+        currentRs.add(lastPExactPosition);
         currentR1s.add(A*Math.cos(w*getTime())*w);
     }
 }
