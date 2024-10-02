@@ -1,6 +1,9 @@
-package ar.edu.itba.ss;
+package ar.edu.itba.ss.utils;
 
-import ar.edu.itba.ss.utils.SimulationParams;
+import ar.edu.itba.ss.Particle;
+import ar.edu.itba.ss.Simulation;
+import ar.edu.itba.ss.coupled.CoupledSimulation;
+import ar.edu.itba.ss.damped.DampedSimulation;
 
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -8,7 +11,7 @@ import java.util.function.BiConsumer;
 public enum SimulationType {
     DAMPED {
         @Override
-        Simulation getSimulation(SimulationParams params, BiConsumer<List<Particle>, Long> onStep) {
+        public Simulation getSimulation(SimulationParams params, BiConsumer<List<Particle>, Long> onStep) {
             return new DampedSimulation(
                     params.getK(),
                     params.getA(),
@@ -23,7 +26,7 @@ public enum SimulationType {
     },
     COUPLED{
         @Override
-        Simulation getSimulation(SimulationParams params, BiConsumer<List<Particle>, Long> onStep) {
+        public Simulation getSimulation(SimulationParams params, BiConsumer<List<Particle>, Long> onStep) {
             return new CoupledSimulation(
                     params.getK(),
                     params.getA(),
@@ -39,5 +42,5 @@ public enum SimulationType {
         }
     };
 
-    abstract Simulation getSimulation(SimulationParams params, BiConsumer<List<Particle>, Long> onStep);
+    public abstract Simulation getSimulation(SimulationParams params, BiConsumer<List<Particle>, Long> onStep);
 }

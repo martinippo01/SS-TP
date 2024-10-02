@@ -1,4 +1,6 @@
-package ar.edu.itba.ss;
+package ar.edu.itba.ss.damped;
+
+import ar.edu.itba.ss.Particle;
 
 import java.util.function.BiFunction;
 

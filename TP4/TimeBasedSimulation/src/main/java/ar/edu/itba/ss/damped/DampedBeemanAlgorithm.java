@@ -1,4 +1,6 @@
-package ar.edu.itba.ss;
+package ar.edu.itba.ss.damped;
+
+import ar.edu.itba.ss.Particle;
 
 public class DampedBeemanAlgorithm extends DampedAlgorithm {
 
@@ -12,6 +14,7 @@ public class DampedBeemanAlgorithm extends DampedAlgorithm {
         this.previousA = force / particle.getMass();    // Esto se puede dejar así o conseguir un vFantasma y rFantasma
     }
 
+    @Override
     public void evolve(double dt) {
         Particle particle = getParticle();
         double k = getK();

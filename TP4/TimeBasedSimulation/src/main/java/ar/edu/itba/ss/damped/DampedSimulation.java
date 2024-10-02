@@ -1,6 +1,6 @@
-package ar.edu.itba.ss;
+package ar.edu.itba.ss.damped;
 
-import ar.edu.itba.ss.damped.DampedAlgorithmType;
+import ar.edu.itba.ss.*;
 
 import java.util.List;
 import java.util.function.BiConsumer;

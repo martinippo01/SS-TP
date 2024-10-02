@@ -1,7 +1,5 @@
 package ar.edu.itba.ss.utils;
 
-import ar.edu.itba.ss.SimulationType;
-
 import java.util.Optional;
 
 public class SimulationParams {

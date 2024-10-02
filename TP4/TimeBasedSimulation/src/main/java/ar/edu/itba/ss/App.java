@@ -1,15 +1,7 @@
 package ar.edu.itba.ss;
 
 import ar.edu.itba.ss.utils.InputData;
-import ar.edu.itba.ss.utils.OutputData;
-import ar.edu.itba.ss.utils.TimeEvent;
 
-import java.io.IOException;
-
-/**
- *
- *
- */
 public class App {
 
     public static void main( String[] args ) {

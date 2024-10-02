@@ -4,7 +4,7 @@ import java.util.List;
 
 public abstract class Algorithm {
 
-    abstract void evolve(double dt);
+    public abstract void evolve(double dt);
 
-    abstract List<Particle> getParticles();
+    public abstract List<Particle> getParticles();
 }
