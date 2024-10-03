@@ -11,8 +11,17 @@ public class CoupledGearFiveAlgorithm extends CoupledAlgorithm {
 
     public CoupledGearFiveAlgorithm(double k, double a, double w, int n, List<Particle> particles) {
         super(k, a, w, n, particles);
+
         currentRs = particles.stream().map((p) -> p.getPosition().getY()).toList();
         currentR1s = particles.stream().map((p) -> p.getVelocity().getY()).toList();
+        currentR2s = getCurrentRs(currentRs);
+        currentR2s.add(-a*Math.sin(w*0)*Math.pow(w, 2));    // quizás reemplazar con 0
+
+        currentR3s = getCurrentRs(currentR1s);
+        currentR3s.add(-a*Math.cos(w*0)*Math.pow(w, 3));    // quizás reemplazar con 0
+
+        currentR4s = getCurrentRs(currentR2s);
+        currentR5s = getCurrentRs(currentR3s);
     }
 
 
@@ -53,17 +62,6 @@ public class CoupledGearFiveAlgorithm extends CoupledAlgorithm {
         double mass = particles.get(0).getMass();
         List<Double> newCurrentRs = new ArrayList<>(), newCurrentR1s = new ArrayList<>(), newCurrentR2s = new ArrayList<>(),
                 newCurrentR3s = new ArrayList<>(), newCurrentR4s = new ArrayList<>(), newCurrentR5s = new ArrayList<>();
-
-
-        // Para todas falta la última
-        currentR2s = getCurrentRs(currentRs);
-        currentR2s.add(-A*Math.sin(w*time)*Math.pow(w, 2));
-
-        currentR3s = getCurrentRs(currentR1s);
-        currentR3s.add(-A*Math.cos(w*time)*Math.pow(w, 3));
-
-        currentR4s = getCurrentRs(currentR2s);
-        currentR5s = getCurrentRs(currentR3s);
 
 
         // Recorro dos veces, pero es para tener las posiciones para el deltar2
@@ -127,6 +125,6 @@ public class CoupledGearFiveAlgorithm extends CoupledAlgorithm {
         currentR5s = newCurrentR5s;
 
         currentRs.add(lastPExactPosition);
-        currentR1s.add(A*Math.cos(w*getTime())*w);
+        currentR1s.add(A*Math.cos(w*getTime())*w); // creo que no hace falta
     }
 }
