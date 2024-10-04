@@ -42,9 +42,17 @@ public class Runner {
         return dynamicFields.stream().allMatch(dynamicField -> dynamicField.getId() != null);
     }
 
+    private boolean areIdsUnique() {
+        List<InputData.InputFile.DynamicField> dynamicFields = inputData.getDynamic();
+        return dynamicFields.stream().map(InputData.InputFile.DynamicField::getId).distinct().count() == dynamicFields.size();
+    }
+
     public void run() {
         if (!doIterationsHaveId()) {
             throw new IllegalArgumentException("All iterations must have an id");
+        }
+        if (!areIdsUnique()) {
+            throw new IllegalArgumentException("All iterations must have a unique id");
         }
         List<InputData.InputFile.DynamicField> dynamicFields = inputData.getDynamic();
         dynamicFields.parallelStream().forEach(this::runIteration);
