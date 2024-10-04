@@ -12,25 +12,24 @@ import java.time.LocalDateTime;
 
 public class OutputData implements Closeable {
 
-    private final String outputDir;
+    private final String fileName;
+    private final Path outputDir;
     private final boolean prettyPrint;
-    private final LocalDateTime timeStamp;
     private FileWriter fileWriter;
     private Gson gson;
     private boolean first = true;
 
-    public OutputData(String outputDir, boolean prettyPrint) throws IOException {
+    public OutputData(String fileName, Path outputDir, boolean prettyPrint) {
+        this.fileName = fileName;
         this.outputDir = outputDir;
         this.prettyPrint = prettyPrint;
-        this.timeStamp = LocalDateTime.now();
-        Files.createDirectory(Path.of(outputDir, getTimestampDir()));
     }
 
-    private String getFileName(String type) {
-        return String.format("%s/%s/%s.json", outputDir, getTimestampDir(), type);
+    private String getFileName() {
+        return Path.of(outputDir.toString(), fileName + ".json").toString();
     }
 
-    private String getTimestampDir() {
+    public static String getTimestampDirName(LocalDateTime timeStamp) {
         return String.format("%d-%02d-%02d_%02d-%02d-%02d",
                 timeStamp.getYear(), timeStamp.getMonthValue(), timeStamp.getDayOfMonth(),
                 timeStamp.getHour(), timeStamp.getMinute(), timeStamp.getSecond());
@@ -43,11 +42,8 @@ public class OutputData implements Closeable {
         return builder.create();
     }
 
-    public void openDynamicFile() throws IOException {
-        if (fileWriter != null) {
-            throw new IllegalStateException("Dynamic file already open");
-        }
-        fileWriter = new FileWriter(getFileName("dynamic"));
+    private void openFile() throws IOException {
+        fileWriter = new FileWriter(getFileName());
         gson = getGson();
         if(prettyPrint)
             fileWriter.write("{\n\t\"steps\": [");
@@ -58,7 +54,7 @@ public class OutputData implements Closeable {
     // Method to write an event to the file
     public void writeEvent(TimeEvent timeEvent) throws IOException {
         if (fileWriter == null) {
-            throw new IllegalStateException("Dynamic file not open");
+            openFile();
         }
         try {
             if (!first) {

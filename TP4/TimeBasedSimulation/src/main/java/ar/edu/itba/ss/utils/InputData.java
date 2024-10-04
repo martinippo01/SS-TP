@@ -48,6 +48,7 @@ public class InputData {
 
         // Nested class for dynamic objects
         public static class DynamicField {
+            private String id;
             private Double k;
             private Double tf;
             private Double r0;
@@ -56,6 +57,10 @@ public class InputData {
             private Integer dt_jumps;
             private String algorithmType;
             private Double w;
+
+            public String getId() {
+                return id;
+            }
 
             public String getAlgorithmType(){
                 return algorithmType;

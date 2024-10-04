@@ -12,7 +12,12 @@ public class App {
         InputData inputData = new InputData(inputFileName);
 
         final Runner runner = new Runner(inputData);
-        runner.run();
-        System.out.println("Simulation finished");
+        try {
+            runner.run();
+            System.out.println("Simulation finished");
+        } catch (Exception e) {
+            System.err.println("Error running simulation");
+            throw new RuntimeException(e);
+        }
     }
 }
