@@ -19,16 +19,20 @@ with open(args.input) as f:
 width, height = 640, 480
 fps = 10  # Frames per second
 
+total_width = data['params']['l0'] * data['params']['n']
+print(total_width)
+
 args.output += '/' if args.output[-1] != '/' else args.output + ''
 out = cv2.VideoWriter(args.output + args.name + '.mp4', cv2.VideoWriter_fourcc(*'mp4v'), fps, (width, height))
 
 
 # Function to draw a dot at given x, y coordinates
 def draw_dot(frame, x, y):
-    x = int((x + 1) / 2 * width)  # Scale x to fit the window
+    # x = int((x + 1) / 2 * width)  # Scale x to fit the window
+    # y = int((1 - y) / 2 * height)  # Scale y and invert to match OpenCV's coordinates
+    x = int((x - 0) / (total_width - 0) * (0.95 * width))  # Normalize x based on min and max
     y = int((1 - y) / 2 * height)  # Scale y and invert to match OpenCV's coordinates
     cv2.circle(frame, (x, y), 5, (0, 255, 0), -1)  # Draw smaller green circles for particles
-
 
 # Animate over each step in the JSON file
 for step in data['steps']:
