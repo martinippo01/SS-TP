@@ -1,11 +1,12 @@
 package ar.edu.itba.ss.coupled;
 
 import ar.edu.itba.ss.Particle;
+import ar.edu.itba.ss.Position;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.BiFunction;
+import java.util.stream.Collectors;
 
 public class CoupledVerletAlgorithm extends CoupledAlgorithm {
 
@@ -17,27 +18,31 @@ public class CoupledVerletAlgorithm extends CoupledAlgorithm {
     }
 
     private List<Double> getPhantomRs(double dt) {
-        List<Particle> particles = getParticles();
-        List<Double> phantomRs = new ArrayList<>();
-        BiFunction<Particle, Double, Double> getPhantomR = (particle, force) -> {
-            double r0 = particle.getPosition().getY();
-            double v0 = particle.getVelocity().getY();
-            double mass = particle.getMass();
-            double phantomV = v0 - (dt/mass)*force;
-            return r0 - phantomV * dt + dt * dt * force / (2 * mass);
-        };
+//        List<Particle> particles = getParticles();
+//        List<Double> phantomRs = new ArrayList<>();
+//        BiFunction<Particle, Double, Double> getPhantomR = (particle, force) -> {
+//            double r0 = particle.getPosition().getY();
+//            double v0 = particle.getVelocity().getY();
+//            double mass = particle.getMass();
+//            double phantomV = v0 - (dt/mass)*force;
+//            return r0 - phantomV * dt + dt * dt * force / (2 * mass);
+//        };
+//
+//        double firstForce = getFirstForce();
+//        double firstPhantomR = getPhantomR.apply(particles.get(0), firstForce);
+//        phantomRs.add(firstPhantomR);
+//
+//        for (int i = 1; i < getN()-1; i++) {
+//            double force = getIntermediateForce(i);
+//            double currentPhantomR = getPhantomR.apply(particles.get(i), force);
+//            phantomRs.add(currentPhantomR);
+//        }
+//        return phantomRs;
 
-        double firstForce = getFirstForce();
-        double firstPhantomR = getPhantomR.apply(particles.get(0), firstForce);
-        phantomRs.add(firstPhantomR);
-
-        for (int i = 1; i < getN()-1; i++) {
-            double force = getIntermediateForce(i);
-            double currentPhantomR = getPhantomR.apply(particles.get(i), force);
-            phantomRs.add(currentPhantomR);
-        }
-
-        return phantomRs;
+        return getParticles().stream()
+                .map(Particle::getPosition)
+                .map(Position::getY)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     private void updateParticle(int i, double force, double dt) {
