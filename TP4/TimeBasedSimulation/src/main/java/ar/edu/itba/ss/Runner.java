@@ -19,7 +19,7 @@ public class Runner {
         boolean isPrettyPrint = inputData.isPrettyPrint();
         SimulationType simulationType = inputData.getSimulationType();
         SimulationParams iterationParams = new SimulationParams(inputData, dynamicField);
-        try (OutputData outputData = new OutputData(fileName, isPrettyPrint)) {
+        try (OutputData outputData = new OutputData(fileName, isPrettyPrint, iterationParams)) {
             double dt = iterationParams.getDt();
             Simulation simulation = simulationType.getSimulation(iterationParams, (p, i) -> {
                 if (i % dt2 == 0) {

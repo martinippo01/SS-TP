@@ -15,13 +15,15 @@ public class OutputData implements Closeable {
 
     private final String fileName;
     private final boolean prettyPrint;
+    private final SimulationParams simulationParams;
     private FileWriter fileWriter;
     private Gson gson;
     private boolean first = true;
 
-    public OutputData(String fileName, boolean prettyPrint) {
+    public OutputData(String fileName, boolean prettyPrint, SimulationParams simulationParams) {
         this.fileName = fileName;
         this.prettyPrint = prettyPrint;
+        this.simulationParams = simulationParams;
     }
 
     public static void setAndCreateOutputDir(Path outputDir) throws IOException {
@@ -49,10 +51,14 @@ public class OutputData implements Closeable {
     private void openFile() throws IOException {
         fileWriter = new FileWriter(getFileName());
         gson = getGson();
-        if(prettyPrint)
-            fileWriter.write("{\n\t\"steps\": [");
-        else
-            fileWriter.write("{\"steps\":[");
+        String paramsJson = gson.toJson(simulationParams);
+        if(prettyPrint) {
+            fileWriter.write("\n{\n\t\"params\": " + paramsJson + ",\n");
+            fileWriter.write("\t\"steps\": [");
+        }
+        else {
+            fileWriter.write("{\"params\":" + paramsJson + ",\"steps\":[");
+        }
     }
 
     // Method to write an event to the file
