@@ -11,22 +11,26 @@ import java.nio.file.Path;
 import java.time.LocalDateTime;
 
 public class OutputData implements Closeable {
+    private static String OUTPUT_DIR = null;
 
     private final String fileName;
-    private final Path outputDir;
     private final boolean prettyPrint;
     private FileWriter fileWriter;
     private Gson gson;
     private boolean first = true;
 
-    public OutputData(String fileName, Path outputDir, boolean prettyPrint) {
+    public OutputData(String fileName, boolean prettyPrint) {
         this.fileName = fileName;
-        this.outputDir = outputDir;
         this.prettyPrint = prettyPrint;
     }
 
+    public static void setAndCreateOutputDir(Path outputDir) throws IOException {
+        OUTPUT_DIR = outputDir.toString();
+        Files.createDirectory(outputDir);
+    }
+
     private String getFileName() {
-        return Path.of(outputDir.toString(), fileName + ".json").toString();
+        return Path.of(OUTPUT_DIR, fileName + ".json").toString();
     }
 
     public static String getTimestampDirName(LocalDateTime timeStamp) {

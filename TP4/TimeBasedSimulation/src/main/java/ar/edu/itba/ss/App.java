@@ -1,6 +1,10 @@
 package ar.edu.itba.ss;
 
 import ar.edu.itba.ss.utils.InputData;
+import ar.edu.itba.ss.utils.OutputData;
+
+import java.nio.file.Path;
+import java.time.LocalDateTime;
 
 public class App {
 
@@ -11,13 +15,17 @@ public class App {
         }
         InputData inputData = new InputData(inputFileName);
 
-        final Runner runner = new Runner(inputData);
+        LocalDateTime startTime = LocalDateTime.now();
+        String outputDir = inputData.getOutputDir();
+        Path outputDirPath = Path.of(outputDir, OutputData.getTimestampDirName(startTime));
         try {
-            runner.run();
-            System.out.println("Simulation finished");
+            OutputData.setAndCreateOutputDir(outputDirPath);
         } catch (Exception e) {
-            System.err.println("Error running simulation");
             throw new RuntimeException(e);
         }
+
+        final Runner runner = new Runner(inputData);
+        runner.run();
+        System.out.println("Simulation finished");
     }
 }
