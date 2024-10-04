@@ -57,7 +57,6 @@ public class CoupledGearFiveAlgorithm extends CoupledAlgorithm {
         List<Particle> particles = getParticles();
         double A = getA();
         double w = getW();
-        double time = getTime();
         double k = getK();
         double mass = particles.get(0).getMass();
         List<Double> newCurrentRs = new ArrayList<>(), newCurrentR1s = new ArrayList<>(), newCurrentR2s = new ArrayList<>(),
