@@ -30,6 +30,7 @@ public abstract class Simulation {
         algorithm = getAlgorithm();
         double time = 0;
         long counter = 0;
+        onStep.accept(algorithm.getParticles(), counter);
         while (time <= tf) {
             algorithm.evolve(dt);
             time+=dt;
