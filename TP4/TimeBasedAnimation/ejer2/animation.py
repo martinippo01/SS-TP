@@ -20,7 +20,8 @@ width, height = 640, 480
 fps = 10  # Frames per second
 
 total_width = data['params']['l0'] * data['params']['n']
-print(total_width)
+total_height = data['params']['a']
+
 
 args.output += '/' if args.output[-1] != '/' else args.output + ''
 out = cv2.VideoWriter(args.output + args.name + '.mp4', cv2.VideoWriter_fourcc(*'mp4v'), fps, (width, height))
@@ -31,19 +32,20 @@ def draw_dot(frame, x, y):
     # x = int((x + 1) / 2 * width)  # Scale x to fit the window
     # y = int((1 - y) / 2 * height)  # Scale y and invert to match OpenCV's coordinates
     x = int((x - 0) / (total_width - 0) * (0.95 * width))  # Normalize x based on min and max
-    y = int((1 - y) / 2 * height)  # Scale y and invert to match OpenCV's coordinates
-    cv2.circle(frame, (x, y), 5, (0, 255, 0), -1)  # Draw smaller green circles for particles
+    # y = int((1 - y) / 2 * height)  # Scale y and invert to match OpenCV's coordinates
+    y = int((1 - (y + total_height) / (2 * total_height)) * height)  # Normalize y based on total_height
+    cv2.circle(frame, (x, y), 5, (0, 0, 255), -1)  # Draw smaller red circles for particles
 
 # Animate over each step in the JSON file
 for step in data['steps']:
-    frame = np.zeros((height, width, 3), dtype=np.uint8)  # Black background
+    frame = np.ones((height, width, 3), dtype=np.uint8) * 255  # White background
 
     # Loop through each particle's position and draw it
     for pos in step['positions']:
         draw_dot(frame, pos['x'], pos['y'])
 
     # Display time on the frame
-    cv2.putText(frame, f"Time: {step['time']:.1f}s", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+    cv2.putText(frame, f"Time: {step['time']:.1f}s", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,0), 2)
 
     # Write frame to the video
     out.write(frame)
