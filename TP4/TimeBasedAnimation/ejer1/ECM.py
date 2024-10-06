@@ -68,7 +68,7 @@ plt.figure(figsize=(10, 6))
 colors = {'beeman': 'blue', 'gear5': 'green', 'verlet': 'red'}
 markers = {'beeman': 'o', 'gear5': 's', 'verlet': 'D'}
 
-# Define custom x-axis labels based on file naming
+# Define custom x-axis labels based on file naming, reversing the order
 x_labels = {'2': r'$10^{-2}$', '3': r'$10^{-3}$', '4': r'$10^{-4}$', '5': r'$10^{-5}$', '6': r'$10^{-6}$'}
 
 # Plot the data for each method
@@ -77,8 +77,11 @@ for method, values in ecm_values.items():
     files = list(values.keys())
     ecm_values_spec = list(values.values())
 
-    # Create custom x-values based on file naming
-    custom_x = [x_labels[file[0]] for file in files]  # Use the first character of the file name
+    # Create custom x-values based on file naming, reversed
+    custom_x = [x_labels[file[0]] for file in files[::-1]]  # Reverse the file order for x-axis
+
+    # Reverse the corresponding ECM values to match
+    ecm_values_spec = ecm_values_spec[::-1]
 
     # Plot with lines and dots
     plt.plot(custom_x, ecm_values_spec, marker=markers[method], color=colors[method], label=method, linestyle='-',
@@ -90,7 +93,6 @@ plt.yscale('log')
 # Add labels and title
 plt.xlabel('Files')
 plt.ylabel('ECM (log scale)')
-plt.title('Comparison of ECM Values for Different Methods')
 
 # Customize x-ticks
 plt.xticks(custom_x)
@@ -101,4 +103,3 @@ plt.legend()
 # Show the plot
 plt.tight_layout()
 plt.show()
-
