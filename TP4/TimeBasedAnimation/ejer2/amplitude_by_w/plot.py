@@ -32,9 +32,14 @@ with open(input_file, 'r') as f:
             max_x = time
 
 # Plot the data
-plt.plot(x, y, 'o-')
-plt.xlabel('Tiempo $(s)$')
-plt.ylabel('Amplitud $(m)$')
+fontsize = 20
+
+plt.figure(figsize=(10, 7))
+plt.plot(x, y, 'o', markersize=5)
+plt.xlabel('Tiempo $(s)$', fontsize=fontsize)
+plt.ylabel('Amplitud máxima $(m)$', fontsize=fontsize)
+plt.xticks(fontsize=fontsize)
+plt.yticks(fontsize=fontsize)
 plt.plot(max_x, max_y, 'ro')
 plt.show()
 

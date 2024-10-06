@@ -29,12 +29,16 @@ with open(input_file, 'r') as f:
             max_y = value
             max_x = float(key)
 
-print(f'y: {y}')
-plt.plot(x, y, 'o')
-plt.xlabel('w $(rad/s)$')
-plt.ylabel('Amplitud $(m)$')
+fontsize = 20
+
+plt.figure(figsize=(10, 7))
+plt.plot(x, y, 'o', markersize=5)
+plt.xlabel('w $(rad/s)$', fontsize=fontsize)
+plt.ylabel('Amplitud máxima $(m)$', fontsize=fontsize)
 plt.plot(max_x, max_y, 'ro')
+plt.axvline(max_x, color='r', linestyle='--', ymax=0.95, linewidth=1)
+plt.xticks(fontsize=fontsize)
+plt.yticks(fontsize=fontsize)
 plt.ticklabel_format(axis='y', style='sci', scilimits=(0,0), useMathText=True)
-plt.xticks(x)
 plt.show()
 

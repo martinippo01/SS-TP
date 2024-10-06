@@ -1,7 +1,22 @@
+import concurrent.futures
 import json
 import os
 import sys
 import time
+
+def get_max_amplitude(data):
+    w = data['params']['w']
+    print(f'w={w} - Processing results')
+    steps = data['steps']
+    max_amplitude = 0
+    for step in steps:
+        positions = step['positions']
+        for position in positions:
+            amplitude = abs(position['y'])
+            max_amplitude = max(max_amplitude, amplitude)
+    print(f'w={w} - Max amplitude: {max_amplitude}')
+    return (w, max_amplitude)
+
 
 if len(sys.argv) != 2:
     print("Usage: python analysis.py <config>")
@@ -13,21 +28,21 @@ with open(sys.argv[1], 'r') as f:
     config = config['analysis']
 
 output_data = {}
-
 input_dir = config['inputDir']
+
+pool = concurrent.futures.ThreadPoolExecutor(max_workers=5)
+futures = []
 for f in os.listdir(input_dir):
     file_path = os.path.join(input_dir, f)
-    with open(file_path, 'r') as file:
-        data = json.load(file)
-        w = data['params']['w']
-        steps = data['steps']
-        max_amplitude = 0
-        for step in steps:
-            positions = step['positions']
-            for position in positions:
-                amplitude = abs(position['y'])
-                max_amplitude = max(max_amplitude, amplitude)
-        output_data[w] = max_amplitude
+    with open(file_path, 'r') as f:
+        data = json.load(f)
+        future = pool.submit(get_max_amplitude, data)
+        futures.append(future)
+    futures.append(future)
+
+for future in concurrent.futures.as_completed(futures):
+    w, max_amplitude = future.result()
+    output_data[w] = max_amplitude
 
 output_file_path = config['outputFilePath']
 output_dir = output_file_path.rsplit('/', 1)[0]
