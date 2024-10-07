@@ -26,10 +26,10 @@ for i in range(0, len(file_paths)):
 
     plt.plot(time_values, y_values, marker=markers[i], color=colors[i], label=names[i])
 
-plt.xlabel('Time (s)')
-plt.ylabel('Y Position')
+plt.xlabel('Tiempo (s)')
+plt.ylabel('Posición (m)')
 if focus:
-    plt.xlim(4.8999, 4.899999999)
+    plt.xlim(4.86, 4.95)
     plt.ylim(-0.02, -0.0065)
 
 A = 1  # debería ser 1
