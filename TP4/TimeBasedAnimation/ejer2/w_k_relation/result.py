@@ -30,14 +30,12 @@ with open(input_file, 'r') as f:
 c = config['c']
 min_f_x = config['min']
 max_f_x = config['max']
-count_f_x = config['count']
-f_x = np.linspace(min_f_x, max_f_x, count_f_x).tolist()
-f_y = [x_i ** c for x_i in f_x]
+f_x = [c * np.sqrt(k) for k in x]
 
 fontsize = 20
 plt.figure(figsize=(10, 7))
 plt.plot(x, y, 'o', markersize=5)
-plt.plot(f_x, f_y, linewidth=2, color='red')
+plt.plot(x, f_x, linewidth=2, color='red')
 plt.xlabel('k $(kg/s^2)$', fontsize=fontsize)
 plt.ylabel('w $(rad/s)$', fontsize=fontsize)
 plt.xticks(fontsize=fontsize)

@@ -9,7 +9,8 @@ import numpy
 def calculate_error(f_x, f_y, c):
     error = 0
     for x, y in zip(f_x, f_y):
-        f = x ** c
+        # w(k, c) = c * sqrt(k)
+        f = c * numpy.sqrt(x)
         error += (y - f) ** 2
     return error
 
@@ -28,7 +29,6 @@ min_c = config['c']['min']
 step_c = config['c']['step']
 f_y = []
 f_x = []
-c_values = numpy.arange(min_c, max_c, step_c).tolist()
 
 input_file = config['inputFile']
 with open(input_file, 'r') as f:
@@ -37,6 +37,7 @@ with open(input_file, 'r') as f:
         f_x.append(float(key))
         f_y.append(value)
 
+c_values = numpy.arange(min_c, max_c, step_c).tolist()
 error_by_c = {}
 for c in c_values:
     error = calculate_error(f_x, f_y, c)

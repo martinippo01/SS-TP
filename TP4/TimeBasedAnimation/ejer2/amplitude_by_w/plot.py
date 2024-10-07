@@ -37,9 +37,10 @@ fontsize = 20
 plt.figure(figsize=(10, 7))
 plt.plot(x, y, 'o', markersize=5)
 plt.xlabel('Tiempo $(s)$', fontsize=fontsize)
-plt.ylabel('Amplitud máxima $(m)$', fontsize=fontsize)
+plt.ylabel('Amplitud $(m)$', fontsize=fontsize)
 plt.xticks(fontsize=fontsize)
 plt.yticks(fontsize=fontsize)
-plt.plot(max_x, max_y, 'ro')
+plt.plot(max_x, max_y, 'ro', markersize=10)
+plt.axhline(y=max_y, color='r', linestyle='--')
 plt.show()
 

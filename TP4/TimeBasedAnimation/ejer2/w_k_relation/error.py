@@ -34,7 +34,7 @@ with open(input_file, 'r') as f:
 fontsize = 20
 plt.figure(figsize=(10, 7))
 plt.plot(x, y, 'o', markersize=5)
-plt.xlabel('Exponente', fontsize=fontsize)
+plt.xlabel('Factor de proporcionalidad $(1/kg^{1/2})$', fontsize=fontsize)
 plt.ylabel('Error', fontsize=fontsize)
 plt.plot(best_c, min_error, 'ro')
 plt.axvline(best_c, color='r', linestyle='--', ymax=min_error / max(y), linewidth=1)
