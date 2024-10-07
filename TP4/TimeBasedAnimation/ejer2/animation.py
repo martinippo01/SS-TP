@@ -20,7 +20,11 @@ width, height = 640, 480
 fps = 10  # Frames per second
 
 total_width = data['params']['l0'] * data['params']['n']
-total_height = data['params']['a']
+# total_height = data['params']['a']
+
+min_y = min(pos['y'] for step in data['steps'] for pos in step['positions'])
+max_y = max(pos['y'] for step in data['steps'] for pos in step['positions'])
+total_height = max_y if max_y > min_y else min_y
 
 
 args.output += '/' if args.output[-1] != '/' else args.output + ''
