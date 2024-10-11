@@ -4,19 +4,21 @@ import os
 import sys
 import time
 
-def get_max_amplitude(data):
-    w = data['params']['w']
-    k = data['params']['k']
-    print(f'w={w} k ={k} - Processing results')
-    steps = data['steps']
-    max_amplitude = 0
-    for step in steps:
-        positions = step['positions']
-        for position in positions:
-            amplitude = abs(position['y'])
-            max_amplitude = max(max_amplitude, amplitude)
-    print(f'w={w} k ={k} - Max amplitude: {max_amplitude}')
-    return (w, k, max_amplitude)
+def get_max_amplitude(f_p):
+    with open(f_p, 'r') as _f:
+        max_amplitude = 0
+        data = json.load(_f)
+        w = data['params']['w']
+        k = data['params']['k']
+        print(f'w={w} k ={k} - Processing results')
+        steps = data['steps']
+        for step in steps:
+            positions = step['positions']
+            for position in positions:
+                amplitude = abs(position['y'])
+                max_amplitude = max(max_amplitude, amplitude)
+        print(f'w={w} k ={k} - Max amplitude: {max_amplitude}')
+        return (w, k, max_amplitude)
 
 
 if len(sys.argv) != 2:
@@ -32,14 +34,11 @@ output_data = {}
 max_per_k={}
 input_dir = config['inputDir']
 
-pool = concurrent.futures.ThreadPoolExecutor(max_workers=5)
+pool = concurrent.futures.ThreadPoolExecutor(max_workers=2)
 futures = []
 for f in os.listdir(input_dir):
     file_path = os.path.join(input_dir, f)
-    with open(file_path, 'r') as f:
-        data = json.load(f)
-        future = pool.submit(get_max_amplitude, data)
-        futures.append(future)
+    future = pool.submit(get_max_amplitude, file_path)
     futures.append(future)
 
 for future in concurrent.futures.as_completed(futures):
@@ -57,8 +56,8 @@ output_file_path = config['outputFilePath']
 output_dir = output_file_path.rsplit('/', 1)[0]
 gmt = time.gmtime()
 timestamp = time.strftime('%Y-%m-%d_%H-%M-%S', gmt)
-output_file_plot = f'{output_file_path}_plot_{timestamp}.json'
-output_file_analysis = f'{output_file_path}_analysis_{timestamp}.json'
+output_file_plot = f'{output_file_path}plot{timestamp}.json'
+output_file_analysis = f'{output_file_path}analysis{timestamp}.json'
 
 if not os.path.exists(output_dir):
     os.makedirs(output_dir)
@@ -72,7 +71,3 @@ with open(output_file_analysis, 'w') as f:
     json.dump(max_per_k, f)
 
 print(f"Analysis data saved to {output_file_analysis}")
-
-
-
-

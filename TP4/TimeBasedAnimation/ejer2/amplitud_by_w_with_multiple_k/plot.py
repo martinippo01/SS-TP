@@ -7,68 +7,53 @@ if len(sys.argv) != 2:
     print("Usage: python plot.py <config>")
     sys.exit(1)
 
-config = None
+# Load the config file
 with open(sys.argv[1], 'r') as f:
     config = json.load(f)
     config = config['plot']
 
-x = {}
-y = {}
-
-ks = []
-
-max_x = {}
-max_y = {}
-
+# Load the input data file
 input_file = config['inputFile']
 with open(input_file, 'r') as f:
     data = json.load(f)
-    keys_k = data.keys()
-    keys_k_sorted = sorted(keys_k, key=lambda key: float(key))
-    for key_k in keys_k_sorted:
-        ks.append(key_k)
-        data_by_k = data[key_k]
-        keys_w = data_by_k.keys()
-        keys_w_sorted = sorted(keys_w, key=lambda key: float(key))
-        x[key_k] = []
-        y[key_k] = []
-        for key_w in keys_w_sorted:
-            value_by_w = data_by_k[key_w]
-            x[key_k].append(float(key_w))
-            y[key_k].append(float(value_by_w))
-            if key_k not in max_y:
-                max_x[key_k] = float(key_w)
-                max_y[key_k] = value_by_w
-            elif value_by_w > max_y[key_k]:
-                max_x[key_k] = float(key_w)
-                max_y[key_k] = value_by_w
 
-
-fontsize = 20
-
-# Get a colormap
-cmap = plt.get_cmap('tab10')  # You can choose different colormaps like 'viridis', 'plasma', etc.
+# Initialize a colormap
+ks = sorted(data.keys(), key=lambda k: float(k))  # Sort k values numerically
+cmap = plt.get_cmap('tab10')  # Get a colormap
 colors = cmap(np.linspace(0, 1, len(ks)))  # Get distinct colors for each k
 
 plt.figure(figsize=(10, 7))
-plt.xlabel('w $(rad/s)$', fontsize=fontsize)
-plt.ylabel('Amplitud máxima $(m)$', fontsize=fontsize)
 
-# Loop through ks and use different colors for each
+# Loop through each k and plot the corresponding (x, y) points in a different color
 for idx, k in enumerate(ks):
-    color = colors[idx]
-    plt.plot(x[k], y[k], 'o', markersize=5, color=color, label=f'k={k}')  # Use color for different k
-    plt.plot(max_x[k], max_y[k], 'ro')  # Still highlight the max points with red
-    plt.axvline(max_x[k], color='r', linestyle='--', ymax=max_y[k], linewidth=1)
+    x = []
+    y = []
+    data_by_k = data[k]
 
-# Add a legend to differentiate k values
-plt.legend(loc='best', fontsize=fontsize)
+    for key_w, value_by_w in data_by_k.items():
+        x.append(float(key_w))  # Append w values to x
+        y.append(float(value_by_w))  # Append corresponding y values
 
-plt.xticks(fontsize=fontsize)
-plt.yticks(fontsize=fontsize)
-plt.ticklabel_format(axis='y', style='sci', scilimits=(0, 0), useMathText=True)
+    # Find the maximum y value and its corresponding x (w)
+    max_y_value = max(y)
+    max_y_index = y.index(max_y_value)
+    max_x_value = x[max_y_index]
+
+    # Plot the points for this k value with a distinct color
+    plt.scatter(x, y, color=colors[idx], label=f'k={k}', s=50)  # s=50 sets the marker size
+
+    # Mark the maximum y point with a red color and add a vertical dotted line
+    plt.scatter(max_x_value, max_y_value, color='red', s=100, edgecolor='black')
+    plt.axvline(max_x_value, color='red', linestyle='--', linewidth=1)  # Dotted vertical line at max x
+
+# Customize the plot
+plt.xlabel('w $(rad/s)$', fontsize=16)
+plt.ylabel('Amplitud $(m)$', fontsize=16)
+plt.legend(loc='best', fontsize=12)  # Add a legend to differentiate k values
+
+# Display the plot
 plt.show()
 
-# Save figure
+# Save the figure if specified in config
 fig_file_name = config["outputFilePath"] + "fig.png"
 plt.savefig(fig_file_name)
