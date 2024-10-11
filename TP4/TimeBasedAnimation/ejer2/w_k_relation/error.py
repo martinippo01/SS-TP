@@ -32,13 +32,17 @@ with open(input_file, 'r') as f:
             best_c = key_value
 
 fontsize = 20
-plt.figure(figsize=(10, 7))
+plt.figure(figsize=(12, 8))
 plt.plot(x, y, 'o', markersize=5)
-plt.xlabel('Factor de proporcionalidad $(1/kg^{1/2})$', fontsize=fontsize)
+plt.xlabel('Factor de proporcionalidad $(1/\sqrt{kg})$', fontsize=fontsize)
 plt.ylabel('Error', fontsize=fontsize)
 plt.plot(best_c, min_error, 'ro')
 plt.axvline(best_c, color='r', linestyle='--', ymax=min_error / max(y), linewidth=1)
 plt.xticks(fontsize=fontsize)
 plt.yticks(fontsize=fontsize)
 plt.ticklabel_format(axis='y', style='sci', scilimits=(0,0), useMathText=True)
+ax = plt.gca()
+ax.yaxis.get_offset_text().set_fontsize(fontsize)
 plt.show()
+
+print(f'Min error is c={best_c} where error={min_error}')

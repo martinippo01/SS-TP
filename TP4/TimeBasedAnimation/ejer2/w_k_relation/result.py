@@ -8,7 +8,6 @@ if len(sys.argv) != 2:
     print("Usage: python result.py <json>")
     sys.exit(1)
 
-
 config = None
 with open(sys.argv[1], 'r') as f:
     config = json.load(f)
@@ -30,14 +29,17 @@ with open(input_file, 'r') as f:
 c = config['c']
 min_f_x = config['min']
 max_f_x = config['max']
-f_x = [c * np.sqrt(k) for k in x]
+step = 1 / config['count']
+f_x = np.arange(min_f_x, max_f_x, step)
+f_y = [c * np.sqrt(k) for k in f_x]
 
 fontsize = 20
-plt.figure(figsize=(10, 7))
+plt.figure(figsize=(12, 8))
 plt.plot(x, y, 'o', markersize=5)
-plt.plot(x, f_x, linewidth=2, color='red')
+plt.plot(f_x, f_y, linewidth=2, color='red', label='$w_0 = $' + str(c) + '$\cdot \sqrt{k}$')
 plt.xlabel('k $(kg/s^2)$', fontsize=fontsize)
 plt.ylabel('w $(rad/s)$', fontsize=fontsize)
-plt.xticks(fontsize=fontsize)
+plt.xticks(x, fontsize=fontsize)
 plt.yticks(fontsize=fontsize)
+plt.legend(fontsize=fontsize)
 plt.show()
