@@ -33,7 +33,7 @@ fontsize = 20
 
 plt.figure(figsize=(10, 7))
 plt.plot(x, y, 'o', markersize=5)
-plt.xlabel('Frecuencia angular $(rad/s)$', fontsize=fontsize)
+plt.xlabel('Frecuencia angular $(1/s)$', fontsize=fontsize)
 plt.ylabel('Amplitud máxima $(m)$', fontsize=fontsize)
 plt.plot(max_x, max_y, 'ro')
 plt.axvline(max_x, color='r', linestyle='--', ymax=0.95, linewidth=1)
