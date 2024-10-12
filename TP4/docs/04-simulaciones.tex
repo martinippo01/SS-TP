@@ -31,14 +31,14 @@
     \begin{block}{Amplitud de oscilación del sistema}
         \text{La máxima amplitud que alcanza cualquier partícula del sistema en un instante de tiempo.}
         \begin{equation*}
-            D(t) = \max_{1\ \leq\ i\ \leq\ N} \left\{\ r_i(t)\ \right\}
+            H(t) = \max \left\{\ r_i(t) : 1 \leq i \leq N\ \right\}
         \end{equation*}
     \end{block}
 
     \begin{block}{Máxima amplitud de oscilación del sistema}
         \text{La máxima amplitud de oscilación alcanzada por el sistema, dada una frecuencia angular.}
         \begin{equation*}
-            D_{max}(\omega) = \max_{t} \left\{\ D(t)\ \right\}
+            H_{max}(\omega) = \max \left\{\ H(t) : 0 \leq t \leq tf\ \right\}
         \end{equation*}
     \end{block}
 \end{frame}
@@ -48,7 +48,7 @@
     \begin{block}{Frecuencia de resonancia}
         \text{Frecuencia angular en la que el sistema alcanza la máxima amplitud de oscilación.}
         \begin{equation*}
-            \omega_{0} = \omega\ /\ D_{max}(\omega) \geq D_{max}(\omega_2),\ \forall\omega_2
+            \omega_{0} = \omega\ /\ H_{max}(\omega) \geq H_{max}(\omega_2),\ \forall\omega_2
         \end{equation*}
     \end{block}
 
@@ -60,8 +60,7 @@
     \end{block}
 
     \begin{block}{Fórmula de error}
-        \text{Utilizado para ajustar el factor de proporcionalidad entre la frecuencia de resonancia}
-        \text{y la constante elástica.}
+        \text{Utilizado para ajustar el factor de proporcionalidad entre $\omega_0$ y $k$.}
         \begin{equation*}
             E(c) = \sum (y_i - f(x_i, c))^2
         \end{equation*}
