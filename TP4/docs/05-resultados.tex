@@ -1,1 +1,83 @@
 \section{Resultados}\label{sec:resultados}
+
+\begin{frame}{Osciladores acoplados}
+    \begin{minipage}{0.45\textwidth}
+        \begin{block}{Parámetros variables}
+            \begin{itemize}
+                \item $k = 100\ kg/s^2$
+                \item $\omega \in [5, 15]$
+                \item $dt = \min(10^{-3}, \frac{1}{100*\omega})$
+            \end{itemize}
+        \end{block}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.8\textwidth]{pic/05-results/system_animation}
+            \label{fig:system-animation}
+        \end{figure}
+        % TODO: Link to video
+        \tiny{\href{}{}}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}{Osciladores acoplados}
+    \textbf{Amplitud de oscilación del sistema}
+    \begin{minipage}[c]{0.8\linewidth}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.8\textwidth]{pic/05-results/system_amplitude}
+            \label{fig:system-amplitude}
+        \end{figure}
+    \end{minipage}
+    \begin{minipage}{0.15\linewidth}
+        \large{\text{$\omega = 10\ \frac{1}{s}$}}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}{Osciladores acoplados}
+    \textbf{Máxima amplitud de oscilación del sistema}
+    \begin{minipage}[c]{0.7\linewidth}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.8\textwidth]{pic/05-results/system_max_amplitude}
+            \label{fig:system-max-amplitude}
+        \end{figure}
+    \end{minipage}
+    \begin{minipage}[c]{0.25\linewidth}
+        \large{
+            \begin{equation*}
+                \begin{aligned}
+                    \omega_0 &= 9.95\ \frac{1}{s} \\ \\
+                    D_{max}(\omega_0) &\approx 4.0095\ m
+                \end{aligned}
+            \end{equation*}
+        }
+    \end{minipage}
+\end{frame}
+
+%TODO: IPPO
+
+\begin{frame}{Osciladores acoplados}
+    \textbf{Ajuste lineal del factor de proporcionalidad}
+    \begin{minipage}[c]{0.8\linewidth}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.8\textwidth]{pic/05-results/prop_error}
+            \label{fig:prop-error}
+        \end{figure}
+    \end{minipage}
+    \begin{minipage}{0.15\linewidth}
+        \large{\text{$c = 0.9925\ \frac{1}{\sqrt{kg}}$}}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}{Osciladores acoplados}
+    \textbf{Relación entre la frecuencia de resonancia y la constante elástica}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{pic/05-results/prop_relation}
+        \label{fig:prop-relation}
+    \end{figure}
+\end{frame}
