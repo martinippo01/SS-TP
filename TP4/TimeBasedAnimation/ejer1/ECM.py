@@ -66,7 +66,8 @@ plt.figure(figsize=(10, 6))
 
 # Define colors and markers for each method
 colors = {'beeman': 'blue', 'gear5': 'green', 'verlet': 'red'}
-markers = {'beeman': 'o', 'gear5': 's', 'verlet': 'D'}
+correct_name = {'beeman': 'Beeman', 'gear5': 'Gear Five', 'verlet': 'Verlet'}
+markers = {'beeman': 'o', 'gear5': 's', 'verlet': '^'}
 
 # Define custom x-axis labels based on file naming, reversing the order
 x_labels = {'2': r'$10^{-2}$', '3': r'$10^{-3}$', '4': r'$10^{-4}$', '5': r'$10^{-5}$', '6': r'$10^{-6}$'}
@@ -84,15 +85,15 @@ for method, values in ecm_values.items():
     ecm_values_spec = ecm_values_spec[::-1]
 
     # Plot with lines and dots
-    plt.plot(custom_x, ecm_values_spec, marker=markers[method], color=colors[method], label=method, linestyle='-',
+    plt.plot(custom_x, ecm_values_spec, marker=markers[method], color=colors[method], label=correct_name[method], linestyle='-',
              markersize=8)
 
 # Set y-axis to logarithmic scale
 plt.yscale('log')
 
 # Add labels and title
-plt.xlabel('Files')
-plt.ylabel('ECM (log scale)')
+plt.xlabel('Paso temporal (s)')
+plt.ylabel('Error Cuadrático Medio')
 
 # Customize x-ticks
 plt.xticks(custom_x)
