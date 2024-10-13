@@ -11,7 +11,7 @@ names = ['Beeman', 'Gear Five', 'Verlet']
 colors = ['blue', 'green', 'red']
 markers = ['o', 's', '^']
 
-focus = True
+focus = False
 
 plt.figure(figsize=(8, 6))
 
@@ -28,6 +28,12 @@ for i in range(0, len(file_paths)):
 
 plt.xlabel('Tiempo (s)')
 plt.ylabel('Posición (m)')
+font_size = 25
+plt.xlabel('Tiempo $(s)$', fontsize=font_size)
+plt.ylabel('Posición $(m)$', fontsize=font_size)
+plt.xticks(fontsize=font_size)
+plt.yticks(fontsize=font_size)
+
 if focus:
     plt.xlim(4.86, 4.95)
     plt.ylim(-0.02, -0.0065)
@@ -48,6 +54,6 @@ def analytical_solution(time):
 y_real_values = [analytical_solution(t) for t in time_values]
 
 plt.plot(time_values, y_real_values, marker='x', linestyle='--', color='orange', label='Solución Analítica')
-plt.legend()
+plt.legend(fontsize=font_size)
 # Display the plot
 plt.show()

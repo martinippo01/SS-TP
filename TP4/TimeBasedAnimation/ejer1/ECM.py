@@ -2,7 +2,6 @@ import json
 import math
 import os
 import matplotlib.pyplot as plt
-import numpy as np
 
 # Constants for the analytical solution
 A = 1  # should be 1
@@ -10,7 +9,7 @@ gamma = 100
 mass = 70
 tf = 5
 k = 10000
-
+font_size=25
 
 # Analytical solution function
 def analytical_solution(time):
@@ -92,15 +91,15 @@ for method, values in ecm_values.items():
 plt.yscale('log')
 
 # Add labels and title
-plt.xlabel('Paso temporal (s)')
-plt.ylabel('Error Cuadrático Medio')
+plt.xlabel('Paso temporal (s)', fontsize=font_size)
+plt.ylabel('Error Cuadrático Medio', fontsize=font_size)
 
 # Customize x-ticks
-plt.xticks(custom_x)
+plt.xticks(custom_x, fontsize=font_size)
+plt.yticks(fontsize=font_size)
 
 # Add legend
-plt.legend()
+plt.legend(fontsize=font_size)
 
-# Show the plot
-plt.tight_layout()
+
 plt.show()
