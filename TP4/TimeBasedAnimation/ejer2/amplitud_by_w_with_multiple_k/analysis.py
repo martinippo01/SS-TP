@@ -46,7 +46,7 @@ for future in concurrent.futures.as_completed(futures):
     if k not in output_data:
         output_data[k] = {}
     output_data[k][w] = max_amplitude
-
+    # TODO this is wrong
     if k not in max_per_k:
         max_per_k[k] = max_amplitude
     else:

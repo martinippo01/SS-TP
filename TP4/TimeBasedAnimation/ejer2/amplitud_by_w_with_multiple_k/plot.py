@@ -44,12 +44,13 @@ for idx, k in enumerate(ks):
 
     # Mark the maximum y point with a red color and add a vertical dotted line
     plt.scatter(max_x_value, max_y_value, color='red', s=100, edgecolor='black')
-    plt.axvline(max_x_value, color='red', linestyle='--', linewidth=1)  # Dotted vertical line at max x
+    # plt.axvline(max_x_value, color='red', linestyle='--', linewidth=1)  # Dotted vertical line at max x
+    plt.vlines(max_x_value, ymin=0, ymax=max_y_value, color='red', linestyle='--', linewidth=1)  # Line up to max y
 
 # Customize the plot
-plt.xlabel('w $(rad/s)$', fontsize=16)
-plt.ylabel('Amplitud $(m)$', fontsize=16)
-plt.legend(loc='best', fontsize=12)  # Add a legend to differentiate k values
+plt.xlabel('$\omega$ $(1/s)$', fontsize=20)
+plt.ylabel('Amplitud maxima $(m)$', fontsize=20)
+plt.legend(loc='best', fontsize=18)  # Add a legend to differentiate k values
 
 # Display the plot
 plt.show()
