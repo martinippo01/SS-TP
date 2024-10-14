@@ -5,7 +5,7 @@
         \begin{block}{Parámetros variables}
             \begin{itemize}
                 \item $k = 100\ kg/s^2$
-                \item $\omega \in [5, 15]$
+                \item Se tomaron 5 valores de $\omega$ dentro del rango $[5, 15]$
                 \item $dt = \min\left(10^{-3}, \frac{1}{100*\omega}\right)$
             \end{itemize}
         \end{block}
@@ -60,29 +60,43 @@
 \begin{frame}
     \begin{block}{Parámetros variables}
         \begin{itemize}
-            \item $k \in \left\{100 kg/s^2, 2500 kg/s^2, 5000 kg/s^2, 7500 kg/s^2, 10000 kg/s^2\right\} $
-            \item $\omega \in [5, 15]$
-            \item $dt = \min\left(10^{-3}\,s, \frac{1}{100 \omega}\,s\right)$
+%            \item $k \in \left\{100 kg/s^2, 2500 kg/s^2, 5000 kg/s^2, 7500 kg/s^2, 10000 kg/s^2\right\} $
+%            \item $\omega \in [5, 105]$
+%            \item $dt = \min\left(10^{-3}\,s, \frac{1}{100 \omega}\,s\right)$
+            \item $k=100 kg/s^2 $
+                \begin{itemize}
+                    \item Se tomaron 20 valores de $\omega$ dentro del rango $[5, 15]$
+                \end{itemize}
+            \item $k=2500 kg/s^2$
+                \begin{itemize}
+                    \item Se tomaron 20 valores de $\omega$ dentro del rango $[5, 15]$
+                \end{itemize}
+            \item $k=5000 kg/s^2$
+                \begin{itemize}
+                    \item Se tomaron 20 valores de $\omega$ dentro del rango $[5, 15]$
+                \end{itemize}
+            \item $k=7500 kg/s^2$
+                \begin{itemize}
+                    \item Se tomaron 20 valores de $\omega$ dentro del rango $[5, 15]$
+                \end{itemize}
+            \item $k=10000 kg/s^2$
+                \begin{itemize}
+                    \item Se tomaron 20 valores de $\omega$ dentro del rango $[5, 15]$
+                \end{itemize}
         \end{itemize}
     \end{block}
 \end{frame}
 
 \begin{frame}{Analisis de $\omega_o$ variando $k$}
-    \begin{minipage}[c]{0.7\linewidth}
+    \begin{minipage}[c]{0.65\linewidth}
         \begin{figure}[H]
             \centering
-            \includegraphics[width=0.9\textwidth]{pic/05-results/amp_w_k}
+            \includegraphics[width=1\textwidth]{pic/05-results/amp_w_k}
             \label{fig:amp_w_k}
         \end{figure}
     \end{minipage}
-    \begin{minipage}[c]{0.25\linewidth}
-        \large{
-            \begin{equation*}
-                \begin{aligned}
-                    dt = \min\left(10^{-3}\,s, \frac{1}{100 \omega}\,s\right)
-                \end{aligned}
-            \end{equation*}
-        }
+    \begin{minipage}[c]{0.34\linewidth}
+        $dt = \min\left(10^{-3}\,s, \frac{1}{100 \omega}\,s\right)$
     \end{minipage}
 \end{frame}
 
