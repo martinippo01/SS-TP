@@ -5,8 +5,8 @@
         \begin{block}{Parámetros variables}
             \begin{itemize}
                 \item $k = 100\ kg/s^2$
-                \item Se tomaron 5 valores de $\omega$ dentro del rango $[5, 15]$
-                \item $dt = \min\left(10^{-3}, \frac{1}{100*\omega}\right)$
+                \item Se tomaron 20 valores de $\omega$ dentro del rango $[5, 15]\ \frac{1}{s}$
+                \item $dt = \min\left\{10^{-3}s, \frac{1}{100*\omega}s\right\}$
             \end{itemize}
         \end{block}
     \end{minipage}
@@ -57,55 +57,58 @@
     \end{minipage}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Análisis de $\omega_o$ variando $k$}
     \begin{block}{Parámetros variables}
+        Para toda simulación, $dt = \min\left\{10^{-3}s, \frac{1}{100*\omega}s\right\}$
         \begin{itemize}
-%            \item $k \in \left\{100 kg/s^2, 2500 kg/s^2, 5000 kg/s^2, 7500 kg/s^2, 10000 kg/s^2\right\} $
-%            \item $\omega \in [5, 105]$
-%            \item $dt = \min\left(10^{-3}\,s, \frac{1}{100 \omega}\,s\right)$
             \item $k=100 kg/s^2 $
                 \begin{itemize}
-                    \item Se tomaron 20 valores de $\omega$ dentro del rango $[5, 15]$
+                    \item Se tomaron 20 valores de $\omega$ dentro del rango $[5, 15] \frac{1}{s}$
                 \end{itemize}
             \item $k=2500 kg/s^2$
                 \begin{itemize}
-                    \item Se tomaron 20 valores de $\omega$ dentro del rango $[45, 55]$
+                    \item Se tomaron 20 valores de $\omega$ dentro del rango $[45, 55] \frac{1}{s}$
                 \end{itemize}
             \item $k=5000 kg/s^2$
                 \begin{itemize}
-                    \item Se tomaron 20 valores de $\omega$ dentro del rango $[65, 75]$
+                    \item Se tomaron 20 valores de $\omega$ dentro del rango $[65, 75] \frac{1}{s}$
                 \end{itemize}
             \item $k=7500 kg/s^2$
                 \begin{itemize}
-                    \item Se tomaron 20 valores de $\omega$ dentro del rango $[80, 90]$
+                    \item Se tomaron 20 valores de $\omega$ dentro del rango $[80, 90] \frac{1}{s}$
                 \end{itemize}
             \item $k=10000 kg/s^2$
                 \begin{itemize}
-                    \item Se tomaron 20 valores de $\omega$ dentro del rango $[95, 105]$
+                    \item Se tomaron 20 valores de $\omega$ dentro del rango $[95, 105] \frac{1}{s}$
                 \end{itemize}
         \end{itemize}
     \end{block}
 \end{frame}
 
-\begin{frame}{Analisis de $\omega_o$ variando $k$}
-    \begin{minipage}[c]{0.7\linewidth}
+\begin{frame}{Análisis de $\omega_o$ variando $k$}
+    \begin{minipage}[c]{0.6\linewidth}
         \begin{figure}[H]
             \centering
             \includegraphics[width=1\textwidth]{pic/05-results/amp_w_k}
             \label{fig:amp_w_k}
         \end{figure}
     \end{minipage}
-    \begin{minipage}[c]{0.29\linewidth}
-%         center a formula below
-        \begin{equation*}
-            \begin{aligned}
-                dt = \min\left(10^{-3}\,s, \frac{1}{100 \omega}\,s\right)
-            \end{aligned}
-        \end{equation*}
+    \begin{minipage}[c]{0.39\linewidth}
+        \footnotesize{
+            \begin{equation*}
+                \begin{aligned}
+                    k&=100\ kg/s^2 & \omega_0 &= 9.95\ \frac{1}{s} \\
+                    k&=2500\ kg/s^2 & \omega_0 &= 49.35\ \frac{1}{s} \\
+                    k&=5000\ kg/s^2 & \omega_0 &= 70.4\ \frac{1}{s} \\
+                    k&=7500\ kg/s^2 & \omega_0 &= 86.0\ \frac{1}{s} \\
+                    k&=10000\ kg/s^2 & \omega_0 &= 99.2\ \frac{1}{s}
+                \end{aligned}
+            \end{equation*}
+        }
     \end{minipage}
 \end{frame}
 
-\begin{frame}{Analisis de $\omega_o$ variando $k$}
+\begin{frame}{Análisis de $\omega_o$ variando $k$}
         \begin{figure}[H]
             \centering
             \includegraphics[width=0.7\textwidth]{pic/05-results/w_k}
@@ -113,8 +116,7 @@
         \end{figure}
 \end{frame}
 
-\begin{frame}{Osciladores acoplados}
-    \textbf{Ajuste lineal del factor de proporcionalidad}
+\begin{frame}{Ajuste lineal del factor de proporcionalidad}
     \begin{minipage}[c]{0.8\linewidth}
         \begin{figure}[H]
             \centering
@@ -127,8 +129,7 @@
     \end{minipage}
 \end{frame}
 
-\begin{frame}{Osciladores acoplados}
-    \textbf{Relación entre la frecuencia de resonancia y la constante elástica}
+\begin{frame}{Análisis de $\omega_o$ variando $k$}
     \begin{figure}
         \centering
         \includegraphics[width=0.7\textwidth]{pic/05-results/prop_relation}
