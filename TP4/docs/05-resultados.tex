@@ -69,54 +69,48 @@
                 \end{itemize}
             \item $k=2500 kg/s^2$
                 \begin{itemize}
-                    \item Se tomaron 20 valores de $\omega$ dentro del rango $[5, 15]$
+                    \item Se tomaron 20 valores de $\omega$ dentro del rango $[45, 55]$
                 \end{itemize}
             \item $k=5000 kg/s^2$
                 \begin{itemize}
-                    \item Se tomaron 20 valores de $\omega$ dentro del rango $[5, 15]$
+                    \item Se tomaron 20 valores de $\omega$ dentro del rango $[65, 75]$
                 \end{itemize}
             \item $k=7500 kg/s^2$
                 \begin{itemize}
-                    \item Se tomaron 20 valores de $\omega$ dentro del rango $[5, 15]$
+                    \item Se tomaron 20 valores de $\omega$ dentro del rango $[80, 90]$
                 \end{itemize}
             \item $k=10000 kg/s^2$
                 \begin{itemize}
-                    \item Se tomaron 20 valores de $\omega$ dentro del rango $[5, 15]$
+                    \item Se tomaron 20 valores de $\omega$ dentro del rango $[95, 105]$
                 \end{itemize}
         \end{itemize}
     \end{block}
 \end{frame}
 
 \begin{frame}{Analisis de $\omega_o$ variando $k$}
-    \begin{minipage}[c]{0.65\linewidth}
+    \begin{minipage}[c]{0.7\linewidth}
         \begin{figure}[H]
             \centering
             \includegraphics[width=1\textwidth]{pic/05-results/amp_w_k}
             \label{fig:amp_w_k}
         \end{figure}
     \end{minipage}
-    \begin{minipage}[c]{0.34\linewidth}
-        $dt = \min\left(10^{-3}\,s, \frac{1}{100 \omega}\,s\right)$
+    \begin{minipage}[c]{0.29\linewidth}
+%         center a formula below
+        \begin{equation*}
+            \begin{aligned}
+                dt = \min\left(10^{-3}\,s, \frac{1}{100 \omega}\,s\right)
+            \end{aligned}
+        \end{equation*}
     \end{minipage}
 \end{frame}
 
 \begin{frame}{Analisis de $\omega_o$ variando $k$}
-%    \begin{minipage}[c]{0.7\linewidth}
         \begin{figure}[H]
             \centering
             \includegraphics[width=0.7\textwidth]{pic/05-results/w_k}
             \label{fig:w_k}
         \end{figure}
-%    \end{minipage}
-%    \begin{minipage}[c]{0.25\linewidth}
-%        \large{
-%            \begin{equation*}
-%                \begin{aligned}
-%                    dt = \min\left(10^{-3}\,s, \frac{1}{100 \omega}\,s\right)
-%                \end{aligned}
-%            \end{equation*}
-%        }
-%    \end{minipage}
 \end{frame}
 
 \begin{frame}{Osciladores acoplados}
