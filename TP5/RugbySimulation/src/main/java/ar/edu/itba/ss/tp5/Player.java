@@ -1,4 +1,4 @@
-package org.example;
+package ar.edu.itba.ss.tp5;
 
 public abstract class Player {
     final private int id;

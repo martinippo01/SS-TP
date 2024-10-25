@@ -1,4 +1,4 @@
-package org.example;
+package ar.edu.itba.ss.tp5;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
