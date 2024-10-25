@@ -5,11 +5,12 @@ import math
 # Load the data from the dynamic.json file
 file_paths = ['../../TimeBasedSimulation/outputs/damped/beeman/2beeman.json',
               '../../TimeBasedSimulation/outputs/damped/gear5/2gear5.json',
-              '../../TimeBasedSimulation/outputs/damped/verlet/2verlet.json']
+              '../../TimeBasedSimulation/outputs/damped/verlet/2verlet.json',
+              '../../TimeBasedSimulation/outputs/damped/verletAlt/2verletAlt.json']
 
-names = ['Beeman', 'Gear Five', 'Verlet']
-colors = ['blue', 'green', 'red']
-markers = ['o', 's', '^']
+names = ['Beeman', 'Gear Five', 'Verlet', 'Verlet Alt']
+colors = ['blue', 'green', 'red', 'purple']
+markers = ['o', 's', '^', 'x']
 
 focus = False
 

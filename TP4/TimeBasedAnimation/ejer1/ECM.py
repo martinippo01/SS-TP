@@ -64,9 +64,9 @@ print(ecm_values)
 plt.figure(figsize=(10, 6))
 
 # Define colors and markers for each method
-colors = {'beeman': 'blue', 'gear5': 'green', 'verlet': 'red'}
-correct_name = {'beeman': 'Beeman', 'gear5': 'Gear Five', 'verlet': 'Verlet'}
-markers = {'beeman': 'o', 'gear5': 's', 'verlet': '^'}
+colors = {'beeman': 'blue', 'gear5': 'green', 'verlet': 'red', 'verletAlt': 'purple'}
+correct_name = {'beeman': 'Beeman', 'gear5': 'Gear Five', 'verlet': 'Verlet', 'verletAlt': 'Verlet Alt'}
+markers = {'beeman': 'o', 'gear5': 's', 'verlet': '^', 'verletAlt': 'x'}
 
 # Define custom x-axis labels based on file naming, reversing the order
 x_labels = {'2': r'$10^{-2}$', '3': r'$10^{-3}$', '4': r'$10^{-4}$', '5': r'$10^{-5}$', '6': r'$10^{-6}$'}

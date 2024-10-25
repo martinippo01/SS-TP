@@ -26,7 +26,7 @@ public class DampedVerletAlgorithm extends DampedAlgorithm {
         double mass = particle.getMass();
         double force = getForce();
         double phantomV = v0 - (dt/mass)*force;
-        return r0 - phantomV * dt + dt * dt * force / (2 * mass);
+        return r0 - v0 * dt + Math.pow(dt,2) * force / (2 * mass);
     }
 
     public void evolve(double dt) {
@@ -37,7 +37,14 @@ public class DampedVerletAlgorithm extends DampedAlgorithm {
         double currentR = particle.getPosition().getY();
         double force = getForce();
         double newR = 2*currentR - previousR + (dt*dt/particle.getMass())*force;
-        double newV = (newR - previousR)/(2*dt);
+
+        double k = getK();
+        double gamma = getGamma();
+
+        double newForce = -k * newR - gamma * particle.getVelocity().getY(); // r(t+dt) y v(t)
+
+        double newnewR = 2*newR - currentR + (dt*dt / particle.getMass())*newForce;
+        double newV = (newnewR - currentR)/(2*dt);
         this.previousR = currentR;
         particle.getVelocity().setY(newV);
         particle.getPosition().setY(newR);
