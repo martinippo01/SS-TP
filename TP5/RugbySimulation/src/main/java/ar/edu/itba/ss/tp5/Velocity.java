@@ -10,6 +10,10 @@ public class Velocity {
         this.vY = vY;
     }
 
+    public Velocity() {
+        this(0, 0);
+    }
+
     public void setVX(double vX) {
         this.vX = vX;
     }
