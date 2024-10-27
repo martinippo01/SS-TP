@@ -1,19 +1,20 @@
 package ar.edu.itba.ss.tp5.players;
 
-import ar.edu.itba.ss.tp5.Position;
+import ar.edu.itba.ss.tp5.vector.Position;
 import ar.edu.itba.ss.tp5.SimulationContext;
-import ar.edu.itba.ss.tp5.Velocity;
+import ar.edu.itba.ss.tp5.vector.Vector;
+import ar.edu.itba.ss.tp5.vector.Velocity;
 
 public class BluePlayer extends Player {
 
-    public BluePlayer(Position position, Velocity velocity, double radius) {
-        super(position, velocity, radius);
+    public BluePlayer(String id, Position pos, Velocity vel, double radius, double minRadius, double maxRadius, double desiredVel, double escapeVel, double reactionTime) {
+        super(id, pos, vel, radius, minRadius, maxRadius, desiredVel, escapeVel, reactionTime);
     }
 
     @Override
-    public Position getMainTargetPosition() {
-        SimulationContext context = SimulationContext.get();
+    public Vector getTargetVersor() {
+        SimulationContext context = SimulationContext.get(this);
         RedPlayer redPlayer = context.getRedPlayer();
-        return redPlayer.getPos();
+        return new Vector(redPlayer.getX() - getX(), redPlayer.getY() - getY()).getVersor();
     }
 }

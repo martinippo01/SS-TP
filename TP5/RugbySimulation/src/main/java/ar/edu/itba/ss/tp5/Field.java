@@ -1,10 +1,16 @@
 package ar.edu.itba.ss.tp5;
 
 import ar.edu.itba.ss.tp5.fieldLines.FieldLine;
+import ar.edu.itba.ss.tp5.fieldLines.OutFieldLine;
+import ar.edu.itba.ss.tp5.fieldLines.TryFieldLine;
+import ar.edu.itba.ss.tp5.vector.Position;
+
+import java.util.List;
 
 public class Field {
 
-    private final FieldLine left, top, right, bottom;
+    private final TryFieldLine left;
+    private final OutFieldLine top, right, bottom;
 
     public Field(double length, double width) {
         this.left = new TryFieldLine(new Position(0, 0), new Position(0, width));
@@ -27,5 +33,13 @@ public class Field {
 
     public FieldLine getBottom() {
         return bottom;
+    }
+
+    public List<FieldLine> getLines() {
+        return List.of(left, top, right, bottom);
+    }
+
+    public List<OutFieldLine> getOutLines() {
+        return List.of(top, right, bottom);
     }
 }
