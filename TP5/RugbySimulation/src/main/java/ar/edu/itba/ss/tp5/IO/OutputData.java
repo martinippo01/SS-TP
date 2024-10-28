@@ -55,10 +55,10 @@ public class OutputData implements Closeable {
         String paramsJson = gson.toJson(simulationParams);
         if(prettyPrint) {
             fileWriter.write("\n{\n\t\"params\": " + paramsJson + ",\n");
-            fileWriter.write("\t\"steps\": [");
+            fileWriter.write("\t\"events\": [");
         }
         else {
-            fileWriter.write("{\"params\":" + paramsJson + ",\"steps\":[");
+            fileWriter.write("{\"params\":" + paramsJson + ",\"events\":[");
         }
     }
 

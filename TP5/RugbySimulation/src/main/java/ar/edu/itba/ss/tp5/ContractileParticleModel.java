@@ -19,12 +19,14 @@ public class ContractileParticleModel {
     private final double beta;
     private final List<Player> players;
     private final Field field;
+    private double time;
     private final double dt;
 
     public ContractileParticleModel(List<Player> players, Field field, double beta) {
         this.beta = beta;
         this.players = players;
         this.field = field;
+        this.time = 0;
         this.dt = getDt(players);
     }
 
@@ -42,8 +44,11 @@ public class ContractileParticleModel {
         return minDt;
     }
 
-    public void nextStep() {
+    public double getTime() {
+        return time;
+    }
 
+    public void nextStep() {
         // Conseguir contactos y calcular Ve
         Map<Player, Velocity> escapeVelocities = getEscapeVelocities();
 
@@ -55,6 +60,8 @@ public class ContractileParticleModel {
 
         // Hacer Vd + Ve y actualizar X
         updateVelocitiesAndPositions(desiredVelocities, escapeVelocities);
+
+        time += dt;
     }
 
 
