@@ -32,7 +32,10 @@ public class SimulationContext {
     }
 
     public static SimulationContext get(Player player) {
-        SimulationContext context = CONTEXT_BY_PLAYER.get(player.getId());
+        SimulationContext context;
+        synchronized (lock) {
+            context = CONTEXT_BY_PLAYER.get(player.getId());
+        }
         if (context == null) {
             throw new IllegalArgumentException("Player not found in any context");
         }
@@ -40,7 +43,10 @@ public class SimulationContext {
     }
 
     public static SimulationContext get(Field field) {
-        SimulationContext context = CONTEXT_BY_FIELD.get(field);
+        SimulationContext context;
+        synchronized (lock) {
+            context = CONTEXT_BY_FIELD.get(field);
+        }
         if (context == null) {
             throw new IllegalArgumentException("Field not found in any context");
         }
