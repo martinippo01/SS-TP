@@ -66,7 +66,7 @@ public class Simulation {
                 i++;
             }
         }
-        context = new SimulationContext(field, redPlayer, bluePlayers);
+        context = new SimulationContext(field, redPlayer, bluePlayers, params.getForAnimation());
         List<Player> allPlayers = new ArrayList<>(bluePlayers);
         allPlayers.add(redPlayer);
         this.cpm = new ContractileParticleModel(allPlayers, field, params.getBeta());
@@ -99,7 +99,8 @@ public class Simulation {
         }
         RedPlayer redPlayer = context.getRedPlayer();
         while (true) {
-            onEvent.accept(new StepEvent(cpm.getTime(), context.getBluePlayers(), redPlayer));
+            if (context.isForAnimation())
+                onEvent.accept(new StepEvent(cpm.getTime(), context.getBluePlayers(), redPlayer));
             cpm.nextStep();
             EndEvent endEvent = getEndEvent(redPlayer);
             if (endEvent != null) {

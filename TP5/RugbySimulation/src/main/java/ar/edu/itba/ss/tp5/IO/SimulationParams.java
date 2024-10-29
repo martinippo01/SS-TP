@@ -24,6 +24,7 @@ public class SimulationParams {
     private final double Bp;
     private final double visibilityAngle;
     private final double beta;
+    private final boolean forAnimation;
 
     public SimulationParams(String id, InputData inputData, InputData.InputFile.DynamicField dynamicFields) {
         this.id = id;
@@ -47,6 +48,7 @@ public class SimulationParams {
         this.Bp = Optional.ofNullable(dynamicFields.getBp()).orElse(inputData.getBp());
         this.visibilityAngle = Optional.ofNullable(dynamicFields.getVisibilityAngle()).orElse(inputData.getVisibilityAngle());
         this.beta = Optional.ofNullable(dynamicFields.getBeta()).orElse(inputData.getBeta());
+        this.forAnimation = Optional.ofNullable(dynamicFields.getForAnimation()).orElse(inputData.getForAnimation());
     }
 
     //getters
@@ -129,4 +131,6 @@ public class SimulationParams {
     public double getVisibilityAngle() {
         return visibilityAngle;
     }
+
+    public boolean getForAnimation() {return forAnimation;}
 }

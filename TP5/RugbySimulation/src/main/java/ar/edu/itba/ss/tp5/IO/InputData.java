@@ -47,6 +47,7 @@ public class InputData {
         private double Bp;
         private double visibilityAngle;
         private double beta;
+        private boolean forAnimation;
 
 
 
@@ -138,6 +139,8 @@ public class InputData {
             return beta;
         }
 
+        public boolean getForAnimation() { return forAnimation; }
+
         public List<DynamicField> getDynamic() {
             return dynamic;
         }
@@ -164,6 +167,7 @@ public class InputData {
             private Double Bp;
             private Double visibilityAngle;
             private Double beta;
+            private Boolean forAnimation;
 
             // Getters
 
@@ -238,6 +242,8 @@ public class InputData {
             public Double getBeta() {
                 return beta;
             }
+
+            public Boolean getForAnimation() { return forAnimation; }
         }
     }
 
@@ -329,6 +335,8 @@ public class InputData {
     public double getBeta(){
         return inputFile.beta;
     }
+
+    public boolean getForAnimation() { return inputFile.forAnimation;}
 }
 
 

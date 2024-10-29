@@ -16,14 +16,16 @@ public class SimulationContext {
     private final Field field;
     private final RedPlayer redPlayer;
     private final List<BluePlayer> bluePlayers;
+    private final boolean forAnimation;
 
-    public SimulationContext(Field field, RedPlayer redPlayer, List<BluePlayer> bluePlayers) {
+    public SimulationContext(Field field, RedPlayer redPlayer, List<BluePlayer> bluePlayers, boolean forAnimation) {
         this.field = field;
         this.redPlayer = redPlayer;
         this.bluePlayers = bluePlayers;
         CONTEXT_BY_PLAYER.put(redPlayer, this);
         bluePlayers.forEach(player -> CONTEXT_BY_PLAYER.put(player, this));
         CONTEXT_BY_FIELD.put(field, this);
+        this.forAnimation = forAnimation;
     }
 
     public static SimulationContext get(Player player) {
@@ -52,5 +54,9 @@ public class SimulationContext {
 
     public Field getField() {
         return field;
+    }
+
+    public boolean isForAnimation() {
+        return forAnimation;
     }
 }
