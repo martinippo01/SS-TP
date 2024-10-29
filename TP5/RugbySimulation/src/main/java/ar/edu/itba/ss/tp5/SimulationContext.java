@@ -10,8 +10,9 @@ import java.util.Map;
 
 public class SimulationContext {
 
-    private static final Map<Player, SimulationContext> CONTEXT_BY_PLAYER = new HashMap<>();
+    private static final Map<String, SimulationContext> CONTEXT_BY_PLAYER = new HashMap<>();
     private static final Map<Field, SimulationContext> CONTEXT_BY_FIELD = new HashMap<>();
+    private static final Object lock = new Object();
 
     private final Field field;
     private final RedPlayer redPlayer;
@@ -22,14 +23,16 @@ public class SimulationContext {
         this.field = field;
         this.redPlayer = redPlayer;
         this.bluePlayers = bluePlayers;
-        CONTEXT_BY_PLAYER.put(redPlayer, this);
-        bluePlayers.forEach(player -> CONTEXT_BY_PLAYER.put(player, this));
-        CONTEXT_BY_FIELD.put(field, this);
+        synchronized (lock) {
+            CONTEXT_BY_PLAYER.put(redPlayer.getId(), this);
+            bluePlayers.forEach(player -> CONTEXT_BY_PLAYER.put(player.getId(), this));
+            CONTEXT_BY_FIELD.put(field, this);
+        }
         this.forAnimation = forAnimation;
     }
 
     public static SimulationContext get(Player player) {
-        SimulationContext context = CONTEXT_BY_PLAYER.get(player);
+        SimulationContext context = CONTEXT_BY_PLAYER.get(player.getId());
         if (context == null) {
             throw new IllegalArgumentException("Player not found in any context");
         }
