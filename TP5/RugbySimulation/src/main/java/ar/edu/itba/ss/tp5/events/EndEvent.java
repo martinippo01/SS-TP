@@ -5,7 +5,7 @@ import ar.edu.itba.ss.tp5.players.RedPlayer;
 
 import java.util.List;
 
-public class EndEvent extends Event{
+public class EndEvent extends Event {
 
     private EndEventType endEventType;
 

@@ -90,7 +90,7 @@ public class Simulation {
         if (fieldLine != null) {
             type = fieldLine.getEndEventType();
         }
-        return type == null ? null : new EndEvent(type, cpm.getTime(), context.getBluePlayers(), redPlayer);
+        return type == null ? null : new EndEvent(type, cpm.getTime(), context.isForAnimation()? context.getBluePlayers() : null, redPlayer);
     }
 
     public void runSimulation(){
@@ -98,8 +98,10 @@ public class Simulation {
             throw new IllegalStateException("Simulation not prepared");
         }
         RedPlayer redPlayer = context.getRedPlayer();
+        boolean printAllSteps = context.isForAnimation();
+
         while (true) {
-            if (context.isForAnimation())
+            if (printAllSteps)
                 onEvent.accept(new StepEvent(cpm.getTime(), context.getBluePlayers(), redPlayer));
             cpm.nextStep();
             EndEvent endEvent = getEndEvent(redPlayer);

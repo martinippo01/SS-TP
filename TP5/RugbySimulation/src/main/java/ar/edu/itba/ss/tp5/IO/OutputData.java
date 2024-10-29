@@ -75,6 +75,7 @@ public class OutputData implements Closeable {
                 fileWriter.write("\n\t\t"); // Adds a newline after each event for readability
             }
             first = false;
+
             String json = gson.toJson(event); // Convert EventOutput to JSON string
             fileWriter.write(json);
         } catch (IOException e) {
