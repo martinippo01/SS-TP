@@ -15,11 +15,11 @@ with open(config) as f:
 
 input_dir = config["inputDir"]
 
-try_count_by_ap_bp = {}
+data_by_ap_bp = {}
 
 filenames = os.listdir(input_dir)
 filenames_len = len(filenames)
-filenames = filter(lambda filename: filename.endswith(".json"), filenames)
+filenames = filter(lambda f: f.endswith(".json"), filenames)
 
 for idx, filename in enumerate(filenames):
     filepath = os.path.join(input_dir, filename)
@@ -29,15 +29,19 @@ for idx, filename in enumerate(filenames):
 
         ap = params["Ap"]
         bp = params["Bp"]
-        if ap not in try_count_by_ap_bp:
-            try_count_by_ap_bp[ap] = {}
-        if bp not in try_count_by_ap_bp[ap]:
-            try_count_by_ap_bp[ap][bp] = 0
+        if ap not in data_by_ap_bp:
+            data_by_ap_bp[ap] = {}
+        if bp not in data_by_ap_bp[ap]:
+            data_by_ap_bp[ap][bp] = {
+                'times': 0,
+                'tries': 0
+            }
 
         event = data["events"][-1]
         eventName = event["name"]
         if str.upper(eventName) == "TRY":
-            try_count_by_ap_bp[ap][bp] += 1
+            data_by_ap_bp[ap][bp]['tries'] += 1
+        data_by_ap_bp[ap][bp]['times'] += 1
 
     print(f"[{idx + 1}/{filenames_len}] {filename} processed")
 
@@ -51,6 +55,6 @@ if not os.path.exists(output_dir):
     os.makedirs(output_dir)
 
 with open(output_file, 'w') as f:
-    json.dump(try_count_by_ap_bp, f, indent=4)
+    json.dump(data_by_ap_bp, f, indent=4)
 
 print(f"Analysis results saved to {output_file}")
