@@ -44,7 +44,7 @@ public class Simulation {
 
     private RedPlayer generateRedPlayer(String id) {
         double radius = params.getRadiosMinRojo();
-        double x = params.getFieldW(), y = params.getFieldH() / 2;
+        double x = params.getFieldW() - params.getRadiosMaxRojo(), y = params.getFieldH() / 2;
         Position position = new Position(x, y);
         return new RedPlayer(id, position, new Velocity(), radius, params.getRadiosMinRojo(), params.getRadiosMaxRojo(), params.getvRojoMax(), params.getvRojoEscape(), params.getTauRojo(), params.getAp(), params.getBp(), params.getVisibilityAngle());
     }
@@ -53,7 +53,7 @@ public class Simulation {
         if (context != null) {
             throw new IllegalStateException("Simulation already prepared");
         }
-        Field field = new Field(params.getFieldH(), params.getFieldW());
+        Field field = new Field(params.getFieldW(), params.getFieldH());
         RedPlayer redPlayer = generateRedPlayer(this.id + "-red");
         List<BluePlayer> bluePlayers = new ArrayList<>();
         double redMinDistance = params.getMin_distance_to_red();
@@ -99,13 +99,13 @@ public class Simulation {
         }
         RedPlayer redPlayer = context.getRedPlayer();
         while (true) {
+            onEvent.accept(new StepEvent(cpm.getTime(), context.getBluePlayers(), redPlayer));
+            cpm.nextStep();
             EndEvent endEvent = getEndEvent(redPlayer);
             if (endEvent != null) {
                 onEvent.accept(endEvent);
                 break;
             }
-            onEvent.accept(new StepEvent(cpm.getTime(), context.getBluePlayers(), redPlayer));
-            cpm.nextStep();
         }
     }
 }

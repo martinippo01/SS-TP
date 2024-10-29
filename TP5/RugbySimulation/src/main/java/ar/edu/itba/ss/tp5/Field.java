@@ -12,11 +12,11 @@ public class Field {
     private final TryFieldLine left;
     private final OutFieldLine top, right, bottom;
 
-    public Field(double length, double width) {
-        this.left = new TryFieldLine(new Position(0, 0), new Position(0, width));
-        this.top = new OutFieldLine(new Position(0, width), new Position(length, width));
-        this.right = new OutFieldLine(new Position(length, width), new Position(length, 0));
-        this.bottom = new OutFieldLine(new Position(length, 0), new Position(0, 0));
+    public Field(double width, double height) {
+        this.left = new TryFieldLine(new Position(0, 0), new Position(0, height));
+        this.top = new OutFieldLine(new Position(0, height), new Position(width, height));
+        this.right = new OutFieldLine(new Position(width, height), new Position(width, 0));
+        this.bottom = new OutFieldLine(new Position(width, 0), new Position(0, 0));
     }
 
     public FieldLine getLeft() {

@@ -143,7 +143,7 @@ public class ContractileParticleModel {
                 p.setRadius(p.getMinRadius());
             else {
                 double deltaRadius = p.getMaxRadius() / (p.getReactionTime() / dt);
-                p.setRadius(p.getRadius() + deltaRadius);
+                p.setRadius(Math.min(p.getMaxRadius(), p.getRadius() + deltaRadius));
             }
         }
     }

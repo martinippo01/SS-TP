@@ -68,7 +68,7 @@ public class RedPlayer extends Player {
         }
 
         Vector eij = new Vector(-obstacleVersor.getX(), -obstacleVersor.getY()).getVersor();
-        double magnitude = ap * Math.exp(-distance / bp) * cosTheta;
+        double magnitude = Math.abs(ap * Math.exp(-distance / bp) * cosTheta);
         Vector nc = new Vector(magnitude * eij.getX(), magnitude * eij.getY());
         return Optional.of(nc);
     }

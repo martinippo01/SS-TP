@@ -25,7 +25,7 @@ public abstract class FieldLine {
 
     public Position getClosestPosition(Position pos) {
         // Primer caso si es la de arriba o abajo, segundo caso si es la de la derecha
-        return getStart().getY()==getEnd().getY()? new Position(pos.getX(),getStart().getY()) : new Position(getStart().getX(), pos.getY());
+        return getStart().getY()==getEnd().getY() ? new Position(pos.getX(),getStart().getY()) : new Position(getStart().getX(), pos.getY());
     }
 
 }
