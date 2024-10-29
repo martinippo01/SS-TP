@@ -1,35 +1,59 @@
 import json
-import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
+import cv2
+import numpy as np
+import argparse
+
+
+# Parse arguments
+parser = argparse.ArgumentParser(description="Process animation parameters.")
+parser.add_argument('--input', type=str, default="./input/input.json", help='Path to the input json')
+parser.add_argument('--output', type=str, default="./output/", help='Path to the output directory')
+parser.add_argument('--name', type=str, default="rugby_animation", help='Name of the output video')
+args = parser.parse_args()
 
 # Load JSON data
-with open("output.json") as f:
+with open(args.input) as f:
     data = json.load(f)
 
-# Parse data from JSON
-steps = data["steps"]
-n_frames = len(steps)
+# Field dimensions from JSON
+field_w, field_h = data["params"]["fieldW"], data["params"]["fieldH"]
+scale = 10  # Scale up for visualization
 
-# Separate particles into two sets based on their ID
-# (For simplicity, we can assume particles with even IDs are Set 1, odd IDs are Set 2)
-runner_positions = [[(p["x"], p["y"]) for p in frame["particles"] if p["id"] == 0] for frame in steps]
-pursuer_positions = [[(p["x"], p["y"]) for p in frame["particles"] if p["id"] != 0] for frame in steps]
-
-# Initialize plot
-fig, ax = plt.subplots()
-scatter_runner = ax.scatter([], [], color='red', label="Set 1")
-scatter_pursuer = ax.scatter([], [], color='blue', label="Set 2")
-ax.set_xlim(0, 1)
-ax.set_ylim(0, 1)
-ax.legend()
+# Initialize OpenCV video writer
+frame_w, frame_h = int(field_w * scale), int(field_h * scale)
+fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+output_path = f"{args.output}/{args.name}.mp4"
+video_writer = cv2.VideoWriter(output_path, fourcc, 30, (frame_w, frame_h))
 
 
-# Update function for animation
-def update(frame):
-    scatter_runner.set_offsets(runner_positions[frame])
-    scatter_pursuer.set_offsets(pursuer_positions[frame])
+# Function to draw players and arrows on the frame
+def draw_frame(event):
+    frame = np.full((frame_h, frame_w, 3), (0, 128, 0), dtype=np.uint8)  # Green background
+    arrow_scale = 0.25  # Scale factor for the arrows to make them smaller
+
+    # Draw blue players
+    for player in event["bluePlayers"]:
+        pos = (int(player["pos"]["x"] * scale), int(player["pos"]["y"] * scale))
+        vel = (int(player["vel"]["x"] * scale * arrow_scale), int(player["vel"]["y"] * scale * arrow_scale))
+        cv2.circle(frame, pos, 10, (255, 0, 0), -1)  # Blue circle
+        cv2.arrowedLine(frame, pos, (pos[0] + vel[0], pos[1] + vel[1]), (255, 0, 0), 2)
+
+    # Draw red player
+    red_player = event["redPlayer"]
+    red_pos = (int(red_player["pos"]["x"] * scale), int(red_player["pos"]["y"] * scale))
+    red_vel = (int(red_player["vel"]["x"] * scale * arrow_scale), int(red_player["vel"]["y"] * scale * arrow_scale))
+    cv2.circle(frame, red_pos, 10, (0, 0, 255), -1)  # Red circle
+    cv2.arrowedLine(frame, red_pos, (red_pos[0] + red_vel[0], red_pos[1] + red_vel[1]), (0, 0, 255), 2)
+
+    return frame
 
 
-# Create animation
-ani = FuncAnimation(fig, update, frames=n_frames, interval=50)
-plt.show()
+
+# Generate frames and write to video
+for event in data["events"]:
+    frame = draw_frame(event)
+    video_writer.write(frame)
+
+# Release the video writer
+video_writer.release()
+print(f"Video saved to {output_path}")
