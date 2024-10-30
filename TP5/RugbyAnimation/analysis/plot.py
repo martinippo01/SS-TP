@@ -22,8 +22,8 @@ with open(input_file, 'r') as f:
     data = json.load(f)
     for ap in data:
         for bp in data[ap]:
-            aps.append(ap)
-            bps.append(bp)
+            aps.append(float(ap))
+            bps.append(float(bp))
 
     aps_sorted = sorted(set(aps))
     bps_sorted = sorted(set(bps), reverse=True)
@@ -31,7 +31,9 @@ with open(input_file, 'r') as f:
     for bp in bps_sorted:
         row = []
         for ap in aps_sorted:
-            try_count = data[ap][bp]
+            ap_str = str(ap)
+            bp_str = str(bp)
+            try_count = data[ap_str][bp_str]
             row.append(try_count)
         try_counts.append(row)
 
@@ -57,4 +59,5 @@ for i in range(len(bps_sorted)):
 plt.xlabel("Ap", fontsize=font_size)
 plt.ylabel("Bp", fontsize=font_size)
 fig.tight_layout()
+plt.colorbar(im)
 plt.show()
