@@ -17,7 +17,6 @@ input_file = config["inputFile"]
 aps = []
 bps = []
 try_counts = []
-texts = []
 
 with open(input_file, 'r') as f:
     data = json.load(f)
@@ -30,16 +29,11 @@ with open(input_file, 'r') as f:
     bps_sorted = sorted(set(bps), reverse=True)
 
     for bp in bps_sorted:
-        try_counts_row = []
-        texts_row = []
+        row = []
         for ap in aps_sorted:
-            run = data[ap][bp]
-            tries = run["tries"]
-            times = run["times"]
-            try_counts_row.append(tries)
-            texts_row.append(tries)
-        try_counts.append(try_counts_row)
-        texts.append(texts_row)
+            try_count = data[ap][bp]
+            row.append(try_count)
+        try_counts.append(row)
 
 fig, ax = plt.subplots(figsize=(14, 10))
 im = ax.imshow(try_counts)
@@ -59,7 +53,6 @@ for i in range(len(bps_sorted)):
             f"{value:.0f}" if value.is_integer() else f"{value:.1f}",
             ha="center", va="center", color="w", fontsize=font_size
         )
-
 
 plt.xlabel("Ap", fontsize=font_size)
 plt.ylabel("Bp", fontsize=font_size)
