@@ -35,7 +35,7 @@ with open(input_file, 'r') as f:
             row.append(try_count)
         try_counts.append(row)
 
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(figsize=(14, 10))
 im = ax.imshow(try_counts)
 
 font_size = config["fontSize"]
@@ -47,7 +47,12 @@ plt.setp(ax.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor")
 
 for i in range(len(bps_sorted)):
     for j in range(len(aps_sorted)):
-        text = ax.text(j, i, try_counts[i][j], ha="center", va="center", color="w", fontsize=font_size)
+        value = float(try_counts[i][j])  # Ensure the value is a float for consistent handling
+        text = ax.text(
+            j, i,
+            f"{value:.0f}" if value.is_integer() else f"{value:.1f}",
+            ha="center", va="center", color="w", fontsize=font_size
+        )
 
 plt.xlabel("Ap", fontsize=font_size)
 plt.ylabel("Bp", fontsize=font_size)
