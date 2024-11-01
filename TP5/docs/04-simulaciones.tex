@@ -2,26 +2,61 @@
 \begin{frame}{Parámetros del sistema}
     \begin{block}{Parámetros fijos}
         \begin{itemize}
-            \item .
+            \item Dimensiones de la cancha - \100\ m x 70\ m\)
+            \item Velocidad máxima de los jugadores azules - \(v_{azul}^{max} = 3.8\ m/s\)
+            \item Constantes de reacción - \(\tau_{azul} = 0.5\ s\), \(\tau_{rojo} = 0.3\ s\)
+            \item Intervalo de radio de los jugadores - \(r \in [0.15, 0.32]\)
+            \item Exponente Beta - \(\beta = 0.9\)
         \end{itemize}
     \end{block}
     \begin{block}{Parámetros variables}
         \begin{itemize}
-            \item .
+            \item Cantidad de jugadores azules - \(N_j\)
+            \item Velocidad máxima del jugador rojo - \(v_{rojo}^{max}\)
+            \item Coeficientes de CPM modificado - \(A_p\), \(B_p\)
         \end{itemize}
     \end{block}
 \end{frame}
 
 \begin{frame}{Esquema del sistema}
     \begin{center}
-    \begin{minipage}{0.65\textwidth}
-        \includegraphics[width=\textwidth]{pic/04-simulaciones/esquema-field}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.3\textwidth}
-        \includegraphics[width=\textwidth]{pic/04-simulaciones/esquema-particula}
-    \end{minipage}
-\end{center}
+        \begin{minipage}{0.65\textwidth}
+            \includegraphics[width=\textwidth]{pic/04-simulaciones/esquema-field}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.3\textwidth}
+            \includegraphics[width=\textwidth]{pic/04-simulaciones/esquema-particula}
+        \end{minipage}
+    \end{center}
+\end{frame}
+
+\begin{frame}{Heurísticas}
+    \begin{block}{Jugadores azules - Defensores}
+        \small{\text{Su dirección objetivo es la posición del jugador rojo (atacante).}}
+        \begin{equation*}
+            \mathbf{e}_{target}^{azul\ j} = \mathbf{x}_{rojo} - \mathbf{x}_{azul\ j}
+        \end{equation*}
+    \end{block}
+    \begin{block}{Jugador rojo - Atacante}
+        \small{
+            \text{Su heurística está determinada por CPM modificado, ya que debe llegar a su posición objetivo}
+            \text{principal \textit{in-goal} y al mismo tiempo evitar a los jugadores azules.}
+        }
+        \begin{equation*}
+            \begin{aligned}
+                \mathbf{n_c}_{azul\ j}^{rojo} = A_p e^{-\frac{d_{rojo,j}}{B_p}} &&& \mathbf{n_c}^{rojo} = \sum_{j=1}^{N_j} \mathbf{n_c}_{azul\ j}^{rojo} \\
+                \mathbf{e}_{target}^{rojo} = \mathbf{x}_{goal} - \mathbf{x}_{rojo} &&& \mathbf{e}_{avoid}^{rojo} = \frac{\mathbf{n_c}^{rojo} + \mathbf{e}_{target}^{rojo}}{\left\| \mathbf{n_c}^{rojo} + \mathbf{e}_{target}^{rojo} \right\|}
+            \end{aligned}
+        \end{equation*}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Consideraciones}
+    \begin{itemize}
+        \item Se realizan 100 repeticiones por cada configuración.
+        \item La posición inicial de los jugadores azules es uniformemente distribuida.
+        \item La posición inicial del jugador rojo es fija, en el otro extremo de la cancha.
+    \end{itemize}
 \end{frame}
 
 \begin{frame}{Observables}
