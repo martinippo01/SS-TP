@@ -28,7 +28,7 @@ public class InputData {
         private boolean pretty;
         private double field_w;
         private double field_h;
-        private int N_j;
+        private int Nj;
         private double v_azul_max;
         private double v_rojo_max;
         private double tau_azu;
@@ -72,7 +72,7 @@ public class InputData {
         }
 
         public int getNj() {
-            return N_j;
+            return Nj;
         }
 
         public double getV_azul_max() {
@@ -265,7 +265,7 @@ public class InputData {
     }
 
     public int getNj() {
-        return inputFile.N_j;
+        return inputFile.Nj;
     }
 
     public double getV_azul_max() {
