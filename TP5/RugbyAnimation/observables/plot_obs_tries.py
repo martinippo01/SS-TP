@@ -37,12 +37,11 @@ def plot_avg_std(df):
     plt.figure(figsize=(10, 6))
 
     # Plot with error bars
-    plt.errorbar(df["Nj"], df["Avg_Value"], yerr=df["Std_Value"], fmt='o',
+    plt.errorbar(df["Nj"], df["Avg_Value"], fmt='o',
                  ecolor='salmon', capsize=5, linestyle='-', color='skyblue')
 
     plt.xlabel("Nj")
     plt.ylabel("Average TRY Events")
-    plt.grid(True, linestyle='--', alpha=0.7)
     plt.tight_layout()
     plt.show()
 

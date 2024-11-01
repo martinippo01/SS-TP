@@ -2,6 +2,7 @@ import os
 import json
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def load_json_files(directory_path):
@@ -21,14 +22,22 @@ def load_json_files(directory_path):
 
 def calculate_avg_std(df):
     grouped_df = df.groupby("Nj").agg(Avg_Value=("Value", "mean"), Std_Value=("Value", "std")).reset_index()
+    grouped_df["Std_Error"] = grouped_df["Std_Value"] / np.sqrt(100) # sigma / sqrt(n)
     return grouped_df
 
 
 def plot_avg_std(df):
     plt.figure(figsize=(10, 6))
 
+    # Esto es para que no se me vaya para arriba de 100 o abajo de 0
+    lower_error = np.minimum(df["Std_Error"], df["Avg_Value"])
+    upper_error = np.minimum(df["Std_Error"], 100 - df["Avg_Value"])
+
+    # Set asymmetric error bars for each point
+    yerr = [lower_error, upper_error]
+
     # Plot with error bars
-    plt.errorbar(df["Nj"], df["Avg_Value"], yerr=df["Std_Value"], fmt='o',
+    plt.errorbar(df["Nj"], df["Avg_Value"], yerr=yerr, fmt='o',
                  ecolor='salmon', capsize=5, linestyle='-', color='skyblue')
 
     plt.xlabel("Nj")
@@ -38,7 +47,7 @@ def plot_avg_std(df):
 
 
 # Main execution
-directory_path = "../../RugbySimulation/output/2024-10-31_21-07-20"
+directory_path = "../../RugbySimulation/output/2024-11-01_10-28-58"
 df = load_json_files(directory_path)
 grouped_df = calculate_avg_std(df)
 plot_avg_std(grouped_df)
