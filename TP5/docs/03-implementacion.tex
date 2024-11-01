@@ -1,1 +1,39 @@
 \section{Implementación}\label{sec:implementacion}
+\begin{frame}{Diagrama UML}
+\begin{center}
+    \includegraphics[width=\textwidth]{pic/03-implementacion/UML}
+\end{center}
+\end{frame}
+
+\begin{frame}{Pseudocódigo}
+    \tiny{
+        \begin{algorithmic}
+            \State \textbf{Simulación:}
+            \State \text{Generar: campo, jugadores azules (uniformemente distribuidos) y jugador rojo}
+            \State \text{Emitir posición inicial de los jugadores}
+            \While{\text{true}}
+                \For{\text{cada jugador}}
+                    \State \text{Preguntar su posición objetivo deseada (mainTargetPosition)}
+                    \State \text{Calcular el vector velocidad en función de la heurística, el modelo operativo y posición objetivo}
+                \EndFor
+                \State \text{Pasar dt tiempo}
+                \For{\text{cada jugador}}
+                    \State \text{Actualizar posición}
+                \EndFor
+                \If{\text{jugador rojo está sobre linea izquierda}}
+                    \State \text{Emitir evento $try$ con la posición de los jugadores}
+                    \State \text{break}
+                \ElsIf{\text{jugador rojo está sobre cualquier otra linea}}
+                    \State \text{Emitir evento $out$ con la posición de los jugadores}
+                    \State \text{break}
+                \ElsIf{\text{algún jugador azul se solapa con el rojo}}
+                    \State \text{Emitir evento $tackle$ con la posición de los jugadores}
+                    \State \text{break}
+                \EndIf
+                \If{\text{$t \% dt2 == 0$}}
+                    \State \text{Emitir posición de los jugadores}
+                \EndIf
+            \EndWhile
+        \end{algorithmic}
+    }
+\end{frame}
