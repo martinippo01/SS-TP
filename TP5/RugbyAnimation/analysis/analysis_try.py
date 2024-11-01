@@ -32,16 +32,12 @@ for idx, filename in enumerate(filenames):
         if ap not in data_by_ap_bp:
             data_by_ap_bp[ap] = {}
         if bp not in data_by_ap_bp[ap]:
-            data_by_ap_bp[ap][bp] = {
-                'times': 0,
-                'tries': 0
-            }
+            data_by_ap_bp[ap][bp] = 0
 
         event = data["events"][-1]
         eventName = event["name"]
         if str.upper(eventName) == "TRY":
-            data_by_ap_bp[ap][bp]['tries'] += 1
-        data_by_ap_bp[ap][bp]['times'] += 1
+            data_by_ap_bp[ap][bp] += 1
 
     print(f"[{idx + 1}/{filenames_len}] {filename} processed")
 
