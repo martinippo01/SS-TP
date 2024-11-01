@@ -17,7 +17,7 @@ with open(args.input) as f:
 
 # Field dimensions from JSON
 field_w, field_h = data["params"]["fieldW"], data["params"]["fieldH"]
-scale = 10  # Scale up for visualization
+scale = 19  # Scale up for visualization
 
 # Initialize OpenCV video writer
 frame_w, frame_h = int(field_w * scale), int(field_h * scale)
@@ -28,21 +28,22 @@ video_writer = cv2.VideoWriter(output_path, fourcc, 30, (frame_w, frame_h))
 
 # Function to draw players and arrows on the frame
 def draw_frame(event):
-    frame = np.full((frame_h, frame_w, 3), (0, 128, 0), dtype=np.uint8)  # Green background
-    arrow_scale = 0.25  # Scale factor for the arrows to make them smaller
+    frame = np.full((frame_h, frame_w, 3), (0, 255, 0), dtype=np.uint8)  # Green background
+    arrow_scale = 0.3  # Scale factor for the arrows to make them smaller
+    radius_factor = 1.25 * scale
 
     # Draw blue players
     for player in event["bluePlayers"]:
         pos = (int(player["pos"]["x"] * scale), int(player["pos"]["y"] * scale))
         vel = (int(player["vel"]["x"] * scale * arrow_scale), int(player["vel"]["y"] * scale * arrow_scale))
-        cv2.circle(frame, pos, 10, (255, 0, 0), -1)  # Blue circle
+        cv2.circle(frame, pos, int(player["radius"] * radius_factor), (255, 0, 0), -1)  # Blue circle
         cv2.arrowedLine(frame, pos, (pos[0] + vel[0], pos[1] + vel[1]), (255, 0, 0), 2)
 
     # Draw red player
     red_player = event["redPlayer"]
     red_pos = (int(red_player["pos"]["x"] * scale), int(red_player["pos"]["y"] * scale))
     red_vel = (int(red_player["vel"]["x"] * scale * arrow_scale), int(red_player["vel"]["y"] * scale * arrow_scale))
-    cv2.circle(frame, red_pos, 10, (0, 0, 255), -1)  # Red circle
+    cv2.circle(frame, red_pos, int(red_player["radius"] * radius_factor), (0, 0, 255), -1)  # Red circle
     cv2.arrowedLine(frame, red_pos, (red_pos[0] + red_vel[0], red_pos[1] + red_vel[1]), (0, 0, 255), 2)
 
     return frame
