@@ -1,47 +1,47 @@
 \section{Introducción}\label{sec:introduccion}
 
-\begin{frame}{Simulación de Multitudes}
-    \begin{center}
-        \begin{minipage}[c]{0.6\textwidth}
-            \begin{block}{Características}
-                \begin{itemize}
-                    \item N personas moviéndose en un espacio.
-                    \item Cada persona tiene definida su posición, velocidad y radio.
-                    \item Las personas desean moverse a una posición objetivo y con una velocidad deseada, $v_d$.
-                    \item Las personas desean evitar colisiones entre ellas.
-                    \item Las personas viajan en línea recta y a velocidad constante entre instantes de tiempo.
-                \end{itemize}
-            \end{block}
-        \end{minipage}
-        \hfill
-        \begin{minipage}[c]{0.3\textwidth}
-            \begin{figure}
-                \centering
-                \includegraphics[width=\textwidth]{pic/01-introduccion/particle-vd}
-                \label{fig:particle-vd}
-            \end{figure}
-        \end{minipage}
-    \end{center}
-\end{frame}
+%\begin{frame}{Simulación de Multitudes}
+%    \begin{center}
+%        \begin{minipage}[c]{0.6\textwidth}
+%            \begin{block}{Características}
+%                \begin{itemize}
+%                    \item N personas moviéndose en un espacio.
+%                    \item Cada persona tiene definida su posición, velocidad y radio.
+%                    \item Las personas desean moverse a una posición objetivo y con una velocidad deseada, $v_d$.
+%                    \item Las personas desean evitar colisiones entre ellas.
+%                    \item Las personas viajan en línea recta y a velocidad constante entre instantes de tiempo.
+%                \end{itemize}
+%            \end{block}
+%        \end{minipage}
+%        \hfill
+%        \begin{minipage}[c]{0.3\textwidth}
+%            \begin{figure}
+%                \centering
+%                \includegraphics[width=\textwidth]{pic/01-introduccion/particle-vd}
+%                \label{fig:particle-vd}
+%            %\end{figure}
+%        %\end{minipage}
+%    %\end{center}
+%\end{frame}
 
-\begin{frame}{Simulación de Multitudes}
-    \begin{block}{Regímenes}
-        \begin{itemize}
-            \item \textbf{Condiciones cooperativas}
-            \begin{itemize}
-                \item Prevalece el respeto, la caballerosidad y otros valores sociales.
-                \item El contacto físico es prácticamente nulo.
-                \item Las densidades son bajas o moderadas.
-            \end{itemize}
-            \item \textbf{Condiciones competitivas}
-            \begin{itemize}
-                \item Prevalece la competencia, la supervivencia y otros valores individuales.
-                \item El contacto físico es frecuente.
-                \item Las densidades y presiones son altas.
-            \end{itemize}
-        \end{itemize}
-    \end{block}
-\end{frame}
+%\begin{frame}{Simulación de Multitudes}
+%    \begin{block}{Regímenes}
+%        \begin{itemize}
+%            \item \textbf{Condiciones cooperativas}
+%            \begin{itemize}
+%                \item Prevalece el respeto, la caballerosidad y otros valores sociales.
+%                \item El contacto físico es prácticamente nulo.
+%                \item Las densidades son bajas o moderadas.
+%            \end{itemize}
+%            \item \textbf{Condiciones competitivas}
+%            \begin{itemize}
+%                \item Prevalece la competencia, la supervivencia y otros valores individuales.
+%                \item El contacto físico es frecuente.
+%                \item Las densidades y presiones son altas.
+%            \end{itemize}
+%        \end{itemize}
+%    \end{block}
+%\end{frame}
 
 \begin{frame}{Modelo}
     \textbf{\large{Contractile Particle Model (CPM)}}
@@ -96,6 +96,28 @@
         \end{equation*}
     \end{block}
 \end{frame}
+
+\begin{frame}{Heurísticas}
+    \begin{block}{Jugadores azules - Defensores}
+        \small{\text{Su dirección objetivo es la posición del jugador rojo (atacante).}}
+        \begin{equation*}
+            \mathbf{e}_{target}^{azul\ j} = \mathbf{x}_{rojo} - \mathbf{x}_{azul\ j}
+        \end{equation*}
+    \end{block}
+    \begin{block}{Jugador rojo - Atacante}
+        \small{
+            \text{Su heurística está determinada por CPM modificado, ya que debe llegar a su posición objetivo}
+            \text{principal \textit{in-goal} y al mismo tiempo evitar a los jugadores azules.}
+        }
+        \begin{equation*}
+            \begin{aligned}
+                \mathbf{n_c}_{azul\ j}^{rojo} = A_p e^{-\frac{d_{rojo,j}}{B_p}} &&& \mathbf{n_c}^{rojo} = \sum_{j=1}^{N_j} \mathbf{n_c}_{azul\ j}^{rojo} \\
+                \mathbf{e}_{target}^{rojo} = \mathbf{x}_{goal} - \mathbf{x}_{rojo} &&& \mathbf{e}_{avoid}^{rojo} = \frac{\mathbf{n_c}^{rojo} + \mathbf{e}_{target}^{rojo}}{\left\| \mathbf{n_c}^{rojo} + \mathbf{e}_{target}^{rojo} \right\|}
+            \end{aligned}
+        \end{equation*}
+    \end{block}
+\end{frame}
+
 
 
 
