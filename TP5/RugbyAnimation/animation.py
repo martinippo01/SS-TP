@@ -3,12 +3,12 @@ import cv2
 import numpy as np
 import argparse
 
-
 # Parse arguments
 parser = argparse.ArgumentParser(description="Process animation parameters.")
-parser.add_argument('--input', type=str, default="./input/input.json", help='Path to the input json')
+parser.add_argument('--input', type=str, default="./input/input.json", help='Path to the input JSON file')
 parser.add_argument('--output', type=str, default="./output/", help='Path to the output directory')
 parser.add_argument('--name', type=str, default="rugby_animation", help='Name of the output video')
+parser.add_argument('--pitch', type=str, default="./images/field.png", help='Path to the rugby pitch image')
 args = parser.parse_args()
 
 # Load JSON data
@@ -25,10 +25,14 @@ fourcc = cv2.VideoWriter_fourcc(*'mp4v')
 output_path = f"{args.output}/{args.name}.mp4"
 video_writer = cv2.VideoWriter(output_path, fourcc, 30, (frame_w, frame_h))
 
+# Load and resize the rugby pitch image
+pitch_image = cv2.imread(args.pitch)
+pitch_image = cv2.resize(pitch_image, (frame_w, frame_h))
 
 # Function to draw players and arrows on the frame
 def draw_frame(event):
-    frame = np.full((frame_h, frame_w, 3), (0, 255, 0), dtype=np.uint8)  # Green background
+    # Start with the rugby pitch background
+    frame = pitch_image.copy()
     arrow_scale = 0.3  # Scale factor for the arrows to make them smaller
     radius_factor = 1.25 * scale
 
@@ -36,19 +40,17 @@ def draw_frame(event):
     for player in event["bluePlayers"]:
         pos = (int(player["pos"]["x"] * scale), int(player["pos"]["y"] * scale))
         vel = (int(player["vel"]["x"] * scale * arrow_scale), int(player["vel"]["y"] * scale * arrow_scale))
-        cv2.circle(frame, pos, int(player["radius"] * radius_factor), (255, 0, 0), -1)  # Blue circle
-        cv2.arrowedLine(frame, pos, (pos[0] + vel[0], pos[1] + vel[1]), (255, 0, 0), 2)
+        cv2.circle(frame, pos, int(player["radius"] * radius_factor), (122, 0, 0), -1)  # Blue circle
+        cv2.arrowedLine(frame, pos, (pos[0] + vel[0], pos[1] + vel[1]), (122, 0, 0), 2)
 
     # Draw red player
     red_player = event["redPlayer"]
     red_pos = (int(red_player["pos"]["x"] * scale), int(red_player["pos"]["y"] * scale))
     red_vel = (int(red_player["vel"]["x"] * scale * arrow_scale), int(red_player["vel"]["y"] * scale * arrow_scale))
-    cv2.circle(frame, red_pos, int(red_player["radius"] * radius_factor), (0, 0, 255), -1)  # Red circle
-    cv2.arrowedLine(frame, red_pos, (red_pos[0] + red_vel[0], red_pos[1] + red_vel[1]), (0, 0, 255), 2)
+    cv2.circle(frame, red_pos, int(red_player["radius"] * radius_factor), (0, 0, 200), -1)  # Red circle
+    cv2.arrowedLine(frame, red_pos, (red_pos[0] + red_vel[0], red_pos[1] + red_vel[1]), (0, 0, 200), 2)
 
     return frame
-
-
 
 # Generate frames and write to video
 for event in data["events"]:
