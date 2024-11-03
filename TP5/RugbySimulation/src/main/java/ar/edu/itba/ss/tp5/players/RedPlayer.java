@@ -53,22 +53,23 @@ public class RedPlayer extends Player {
         double distance = obstacleVector.module();
 
         // https://en.wikipedia.org/wiki/Dot_product#Geometric_definition
-        double dotProduct = desiredDirectionVersor.dot(obstacleVersor);
-        double cosTheta = dotProduct / (desiredDirectionVersor.module() * obstacleVersor.module());
-        double theta = Math.acos(cosTheta);
-
-        if (obstacleVersor.getY() > 0) {
-            theta = - (Math.PI - theta);
-        } else {
-            theta = Math.PI - theta;
-        }
-
-        if (Math.abs(theta) > maxAngleVisibility) {
-            return Optional.empty();
-        }
+//        double dotProduct = desiredDirectionVersor.dot(obstacleVersor);
+//        double cosTheta = dotProduct / (desiredDirectionVersor.module() * obstacleVersor.module());
+//        double theta = Math.acos(cosTheta);
+//
+//        if (obstacleVersor.getY() > 0) {
+//            theta = - (Math.PI - theta);
+//        } else {
+//            theta = Math.PI - theta;
+//        }
+//
+//        if (Math.abs(theta) > maxAngleVisibility) {
+//            return Optional.empty();
+//        }
 
         Vector eij = new Vector(-obstacleVersor.getX(), -obstacleVersor.getY()).getVersor();
-        double magnitude = Math.abs(ap * Math.exp(-distance / bp) * cosTheta);
+        // We no longer take into account cos(theta)
+        double magnitude = Math.abs(ap * Math.exp(-distance / bp));
         Vector nc = new Vector(magnitude * eij.getX(), magnitude * eij.getY());
         return Optional.of(nc);
     }
