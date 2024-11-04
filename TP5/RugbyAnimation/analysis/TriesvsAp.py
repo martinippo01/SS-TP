@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from collections import defaultdict
 
 # Define the directory containing the JSON files
-directory_path = "../../RugbySimulation/output/2024-11-04_11-54-03"
+directory_path = "../../RugbySimulation/output/bp_1_5/2024-11-04_12-20-37"
 
 # Dictionary to store the total events and TRY events per Nj
 data_by_ap = defaultdict(lambda: {"total_events": 0, "try_events": 0})
@@ -39,26 +39,35 @@ try_percentages = [
 # Find the index of the maximum TRY percentage
 max_index = try_percentages.index(max(try_percentages))
 
+font_size = 20
+
 # Plot TRY percentage vs Ap
-plt.figure(figsize=(10, 6))
+plt.figure(figsize=(12, 8))
 plt.ylim(0, 100)
 plt.plot(ap_values, try_percentages, marker='o', linestyle='-', color='b')
 plt.plot(ap_values[max_index], try_percentages[max_index], 'ro',
-         label="Max TRY Percentage")  # Highlight max point in red
-plt.xlabel("Ap")
-plt.ylabel("Percentage of TRY Events")
+         label="Fracción de tries")  # Highlight max point in red
+plt.xlabel("Ap", fontsize=font_size)
+plt.ylabel("Fracción de tries", fontsize=font_size)
 myxticks = []
 for i in range(15, 95):
-    if i % 5 == 0 and i != 65:
+    if i % 5 == 0 and i != 55:
         myxticks.append(i)
 myxticks.append(int(ap_values[max_index]))
+plt.xticks(myxticks, fontsize=font_size)
 
-plt.xticks(myxticks)
+myyticks = list(plt.yticks()[0]) + [try_percentages[max_index]]
+plt.yticks(myyticks, fontsize=font_size)
 ax = plt.gca()
 for tick_label in ax.get_xticklabels():
     print(int(tick_label.get_text()))
     print(ap_values[max_index])
     if int(tick_label.get_text()) == int(ap_values[max_index]):
         tick_label.set_color("red")
+for tick_label in ax.get_yticklabels():
+    if int(tick_label.get_text()) == int(try_percentages[max_index]):
+        tick_label.set_color("red")
+plt.axvline(x=ap_values[max_index], color='r', linestyle='--', label="Máximo", ymax=try_percentages[max_index] / 100)
+plt.axhline(y=try_percentages[max_index], color='r', linestyle='--', xmax=(ap_values[max_index] - 15) / 76)
 
 plt.show()
