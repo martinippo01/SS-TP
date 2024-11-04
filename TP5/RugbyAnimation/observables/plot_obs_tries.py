@@ -3,6 +3,7 @@ import json
 import pandas as pd
 import matplotlib.pyplot as plt
 
+font_size = 16
 
 def load_json_files(directory_path):
     data = []
@@ -40,14 +41,19 @@ def plot_avg_std(df):
     plt.errorbar(df["Nj"], df["Avg_Value"], fmt='o',
                  ecolor='salmon', capsize=5, linestyle='-', color='skyblue')
 
-    plt.xlabel("Nj")
-    plt.ylabel("Average TRY Events")
+    for i in range(len(df)):
+        print(f"Nj: {df['Nj'][i]}, #Tries: {df['Avg_Value'][i] * df['Count'][i]}")
+
+    plt.xlabel("Nj", fontsize=font_size)
+    plt.ylabel("Fracción de tries", fontsize=font_size)
+    plt.xticks(df["Nj"], fontsize=font_size)
+    plt.yticks(fontsize=font_size)
     plt.tight_layout()
     plt.show()
 
 
 # Main execution
-directory_path = "../../RugbySimulation/output/2024-10-31_21-07-20"
+directory_path = "../../RugbySimulation/output/ap_56_bp_1_5/2024-11-04_12-37-41"
 df = load_json_files(directory_path)
 grouped_df = calculate_avg_std(df)
 plot_avg_std(grouped_df)

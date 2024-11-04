@@ -4,6 +4,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
+font_size = 16
+
 
 def load_json_files(directory_path):
     data = []
@@ -22,7 +24,7 @@ def load_json_files(directory_path):
 
 def calculate_avg_std(df):
     grouped_df = df.groupby("Nj").agg(Avg_Value=("Value", "mean"), Std_Value=("Value", "std")).reset_index()
-    grouped_df["Std_Error"] = grouped_df["Std_Value"] / np.sqrt(100) # sigma / sqrt(n)
+    grouped_df["Std_Error"] = grouped_df["Std_Value"] # / np.sqrt(100) # sigma / sqrt(n)
     return grouped_df
 
 
@@ -40,14 +42,16 @@ def plot_avg_std(df):
     plt.errorbar(df["Nj"], df["Avg_Value"], yerr=yerr, fmt='o',
                  ecolor='salmon', capsize=5, linestyle='-', color='skyblue')
 
-    plt.xlabel("Nj")
-    plt.ylabel("Average Value")
+    plt.xlabel("Nj", fontsize=font_size)
+    plt.ylabel("<|x - 100|>", fontsize=font_size)
+    plt.xticks(df["Nj"], fontsize=font_size)
+    plt.yticks(fontsize=font_size)
     plt.tight_layout()
     plt.show()
 
 
 # Main execution
-directory_path = "../../RugbySimulation/output/2024-11-01_10-28-58"
+directory_path = "../../RugbySimulation/output/ap_56_bp_1_5/2024-11-04_12-37-41"
 df = load_json_files(directory_path)
 grouped_df = calculate_avg_std(df)
 plot_avg_std(grouped_df)
