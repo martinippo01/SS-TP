@@ -8,23 +8,23 @@
 \begin{frame}{Pseudocódigo}
     \scriptsize{
         \begin{algorithmic}
-            \State \text{Generar: campo, jugadores azules (uniformemente distribuidos) y jugador rojo}
+            \State \text{Generar: campo, defensores y atacante}
             \While{\text{true}}
                 \For{\text{cada jugador}}
                     \State \text{Preguntar su dirección objetivo deseada segun heuristica}
-                    \State \text{Calcular el vector velocidad en función del modelo operativo y direccón objetivo}
+                    \State \text{Calcular el vector velocidad en función del modelo operativo y dirección objetivo}
                 \EndFor
                 \State \text{Pasar dt tiempo}
                 \For{\text{cada jugador}}
                     \State \text{Actualizar posición}
                 \EndFor
-                \If{\text{jugador rojo está sobre linea izquierda}}
+                \If{\text{atacante está sobre linea izquierda}}
                     \State \text{Emitir evento $try$}
                     \State \text{break}
-                \ElsIf{\text{jugador rojo está sobre cualquier otra linea}}
+                \ElsIf{\text{atacante está sobre cualquier otra linea}}
                     \State \text{Emitir evento $out$}
                     \State \text{break}
-                \ElsIf{\text{algún jugador azul se solapa con el rojo}}
+                \ElsIf{\text{algún defensor se solapa con el atacante}}
                     \State \text{Emitir evento $tackle$}
                     \State \text{break}
                 \EndIf

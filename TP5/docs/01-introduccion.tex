@@ -49,7 +49,7 @@
                 \begin{equation*}
                     \mathbf{v}^i = \begin{cases}
                                        \mathbf{v}_d^i & \text{si $p^i$ está libre de contacto} \\
-                                       \mathbf{v}_e & \text{sino}
+                                       \mathbf{v}_e^i & \text{sino}
                     \end{cases}
                 \end{equation*}
             \end{block}
@@ -69,7 +69,7 @@
     \begin{block}{Defensores}
         \footnotesize{\text{Su dirección objetivo es la posición del atacante.}}
         \begin{equation*}
-            \mathbf{e}_{target}^{def\ j} = \mathbf{x}_{at} - \mathbf{x}_{def\ j}
+            \mathbf{n}_{desired}^{def\ j} = \mathbf{x}_{at} - \mathbf{x}_{def\ j}
         \end{equation*}
     \end{block}
     \begin{block}{Atacante}
@@ -81,13 +81,25 @@
             \begin{equation*}
                 \begin{aligned}
                     \mathbf{n_c}_{def\ j}^{at} &= A_p\ e^{-\frac{d_{at,def\ j}}{B_p}} &&& \mathbf{n_c}^{at} &= \sum_{j=1}^{N_j} \mathbf{n_c}_{def\ j}^{at} \\
-                    \mathbf{e}_{target}^{at} &= \mathbf{x}_{goal} - \mathbf{x}_{at} &&& \mathbf{e}_{avoid}^{at} &= \frac{\mathbf{n_c}^{at} + \mathbf{e}_{target}^{at}}{\left\| \mathbf{n_c}^{at} + \mathbf{e}_{target}^{at} \right\|}
+                    \mathbf{e}_{target}^{at} &= \frac{\mathbf{x}_{goal} - \mathbf{x}_{at}}{\left\| \mathbf{x}_{goal} - \mathbf{x}_{at} \right\|} &&& \mathbf{n}_{desired}^{at} &= \mathbf{n_c}^{at} + \mathbf{e}_{target}^{at}
                 \end{aligned}
             \end{equation*}
         \end{minipage}
         \begin{minipage}{0.2\linewidth}
             \includegraphics[width=\textwidth]{pic/01-introduccion/cpm-modified}
         \end{minipage}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Heurísticas}
+    \begin{block}{Velocidad deseada}
+        \text{Para todo jugador, la velocidad deseada se define}
+        \begin{equation*}
+            \begin{aligned}
+                \mathbf{e}_{desired}^i &= \frac{\mathbf{n}_{desired}^i}{\left\| \mathbf{n}_{desired}^i \right\|} \\
+                \mathbf{v}_{d}^i &= v_{d\ max}\ \mathbf{e}_{desired}^i
+            \end{aligned}
+        \end{equation*}
     \end{block}
 \end{frame}
 
