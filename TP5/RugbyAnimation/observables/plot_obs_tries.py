@@ -3,7 +3,7 @@ import json
 import pandas as pd
 import matplotlib.pyplot as plt
 
-font_size = 16
+font_size = 20
 
 def load_json_files(directory_path):
     data = []
@@ -35,7 +35,7 @@ def calculate_avg_std(df):
 
 
 def plot_avg_std(df):
-    plt.figure(figsize=(10, 6))
+    plt.figure(figsize=(12, 8))
 
     # Plot with error bars
     plt.errorbar(df["Nj"], df["Avg_Value"], fmt='o',
@@ -53,7 +53,7 @@ def plot_avg_std(df):
 
 
 # Main execution
-directory_path = "../../RugbySimulation/output/ap_56_bp_1_5/2024-11-04_12-37-41"
+directory_path = "../../RugbySimulation/output/Observables"
 df = load_json_files(directory_path)
 grouped_df = calculate_avg_std(df)
 plot_avg_std(grouped_df)

@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-font_size = 16
+font_size = 20
 
 
 def load_json_files(directory_path):
@@ -29,7 +29,7 @@ def calculate_avg_std(df):
 
 
 def plot_avg_std(df):
-    plt.figure(figsize=(10, 6))
+    plt.figure(figsize=(12, 8))
 
     # Esto es para que no se me vaya para arriba de 100 o abajo de 0
     lower_error = np.minimum(df["Std_Error"], df["Avg_Value"])
@@ -43,7 +43,7 @@ def plot_avg_std(df):
                  ecolor='salmon', capsize=5, linestyle='-', color='skyblue')
 
     plt.xlabel("Nj", fontsize=font_size)
-    plt.ylabel("<|x - 100|>", fontsize=font_size)
+    plt.ylabel("<|X - 100|>", fontsize=font_size)
     plt.xticks(df["Nj"], fontsize=font_size)
     plt.yticks(fontsize=font_size)
     plt.tight_layout()
@@ -51,7 +51,7 @@ def plot_avg_std(df):
 
 
 # Main execution
-directory_path = "../../RugbySimulation/output/ap_56_bp_1_5/2024-11-04_12-37-41"
+directory_path = "../../RugbySimulation/output/Observables"
 df = load_json_files(directory_path)
 grouped_df = calculate_avg_std(df)
 plot_avg_std(grouped_df)
