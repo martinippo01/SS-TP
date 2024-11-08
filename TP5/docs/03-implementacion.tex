@@ -18,10 +18,10 @@
                 \For{\text{cada jugador}}
                     \State \text{Actualizar posición}
                 \EndFor
-                \If{\text{atacante está sobre linea izquierda}}
+                \If{\text{atacante está sobre límite izquierdo}}
                     \State \text{Emitir evento $try$}
                     \State \text{break}
-                \ElsIf{\text{atacante está sobre cualquier otra linea}}
+                \ElsIf{\text{atacante está sobre cualquier otro límite}}
                     \State \text{Emitir evento $out$}
                     \State \text{break}
                 \ElsIf{\text{algún defensor se solapa con el atacante}}

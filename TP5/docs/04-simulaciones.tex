@@ -2,10 +2,10 @@
 \begin{frame}{Parámetros del sistema}
     \begin{block}{Parámetros fijos}
         \begin{itemize}
-            \item Dimensiones de la cancha - 100\ m x 70\ m\)
+            \item Dimensiones de la cancha - \(100\ m\ x\ 70\ m\)
             \item Velocidad máxima de los defensores - \(v_{def}^{max} = 3.8\ m/s\)
             \item Constantes de reacción - \(\tau_{def} = 0.5\ s\), \(\tau_{at} = 0.3\ s\)
-            \item Intervalo de radio de los jugadores - \(r \in [0.15, 0.32]\)
+            \item Intervalo de radio de los jugadores - \(r \in [0.15\ m, 0.32\ m]\)\
             \item Exponente Beta - \(\beta = 0.9\)
         \end{itemize}
     \end{block}
@@ -32,20 +32,18 @@
     \footnotesize{
         \textbf{Consideraciones:}
         \begin{itemize}
-            \item Se realizan 100 repeticiones por cada configuración.
             \item La posición inicial de los defensores es uniformemente distribuida.
-            \item La posición inicial del atacante es fija, en el otro extremo de la cancha.
+            \item La posición inicial del atacante es $(100\ m, 35\ m)$.
         \end{itemize}
     }
-
 \end{frame}
 
 
 \begin{frame}{Observables}
-    \begin{block}{Distancia maxima recorrida en el eje x}
+    \begin{block}{Distancia máxima recorrida promedio en el eje x}
         Distancia máxima recorrida en la dirección x, promediada para todas las realizaciones.
         \begin{equation*}
-            D_{x}^{Max} = <|x - 100|>
+            D_{x}^{max} = <|x - 100|>
         \end{equation*}
     \end{block}
     \begin{block}{Fracción de try logrados}

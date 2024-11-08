@@ -26,43 +26,61 @@
 %\end{frame}
 
 \begin{frame}{Modelo operativo: Contractile Particle Model (CPM)}
+    \small{
     \begin{center}
-        \begin{minipage}[t]{0.45\textwidth}
-            \begin{block}{Rapidez deseada}
-                \begin{equation*}
-                    v_d^i = v_{d\ max} \left[ \frac{(r^i - r_{min})}{(r_{max} - r_{min})} \right]^{\beta}
-                \end{equation*}
-            \end{block}
-        \end{minipage}
-        \hfill
-        \begin{minipage}[t]{0.45\textwidth}
+        \begin{minipage}[t]{0.30\textwidth}
             \begin{block}{Salto de instante}
                 \begin{equation*}
                     \Delta t = \frac{r_{min}}{2 \max (v_{d\ max}, v_e)}
                 \end{equation*}
             \end{block}
         \end{minipage}
-    \end{center}
-    \begin{center}
-        \begin{minipage}[t]{0.45\textwidth}
-            \begin{block}{Velocidad}
-                \begin{equation*}
-                    \mathbf{v}^i = \begin{cases}
-                                       \mathbf{v}_d^i & \text{si $p^i$ está libre de contacto} \\
-                                       \mathbf{v}_e^i & \text{sino}
-                    \end{cases}
-                \end{equation*}
-            \end{block}
-        \end{minipage}
         \hfill
-        \begin{minipage}[t]{0.45\textwidth}
+        \begin{minipage}[t]{0.30\textwidth}
             \begin{block}{Salto de radio}
                 \begin{equation*}
                     \Delta r = \frac{r_{max}}{\left( \frac{\tau}{\Delta t} \right)}
                 \end{equation*}
             \end{block}
         \end{minipage}
+        \hfill
+        \begin{minipage}[t]{0.30\textwidth}
+            \begin{block}{Rapidez deseada}
+                \begin{equation*}
+                    v_d^i = v_{d\ max} \left[ \frac{(r^i - r_{min})}{(r_{max} - r_{min})} \right]^{\beta}
+                \end{equation*}
+            \end{block}
+        \end{minipage}
     \end{center}
+    \begin{center}
+        \begin{minipage}[t]{0.30\textwidth}
+            \begin{block}{Dirección de escape}
+                \begin{equation*}
+                    e^{i\ j} = \frac{(x^i - x^j)}{\left\| x^i - x^j \right\|}
+                \end{equation*}
+            \end{block}
+        \end{minipage}
+        \hfill
+        \begin{minipage}[t]{0.30\textwidth}
+            \begin{block}{Velocidad de escape}
+                \begin{equation*}
+                    v_e^i = v_e\ \frac{\sum_{j} e^{i\ j}}{\left\| \sum_{j} e^{i\ j} \right\|}
+                \end{equation*}
+            \end{block}
+        \end{minipage}
+        \hfill
+        \begin{minipage}[t]{0.30\textwidth}
+            \begin{block}{Velocidad}
+                \begin{equation*}
+                    \mathbf{v}^i = \begin{cases}
+                                       \mathbf{v}_d^i & \footnotesize{\text{si $p^i$ está libre de contacto}} \\
+                                       \mathbf{v}_e^i & \footnotesize{\text{sino}}
+                    \end{cases}
+                \end{equation*}
+            \end{block}
+        \end{minipage}
+    \end{center}
+    }
 \end{frame}
 
 \begin{frame}{Heurísticas}
@@ -74,14 +92,15 @@
     \end{block}
     \begin{block}{Atacante}
         \footnotesize{
-            \text{Determinada por CPM modificado, ya que debe llegar a su posición objetivo principal, el \textit{in-goal} izquierdo,}
-            \text{y al mismo tiempo evitar a los defensores.}
+            \text{Basado en CPM modificado, ya que debe llegar a su objetivo principal,
+                el \textit{in-goal} izquierdo, y al mismo}
+            \text{tiempo evitar a los obstaculos (defensores y límites).}
         }
         \begin{minipage}{0.75\linewidth}
             \begin{equation*}
                 \begin{aligned}
-                    \mathbf{n_c}_{def\ j}^{at} &= A_p\ e^{-\frac{d_{at,def\ j}}{B_p}} &&& \mathbf{n_c}^{at} &= \sum_{j=1}^{N_j} \mathbf{n_c}_{def\ j}^{at} \\
-                    \mathbf{e}_{target}^{at} &= \frac{\mathbf{x}_{goal} - \mathbf{x}_{at}}{\left\| \mathbf{x}_{goal} - \mathbf{x}_{at} \right\|} &&& \mathbf{n}_{desired}^{at} &= \mathbf{n_c}^{at} + \mathbf{e}_{target}^{at}
+                    \mathbf{n_c}_{obs}^{at} &= A_p\ e^{-\frac{d_{at,obs}}{B_p}} & \mathbf{n_c}^{at} &= \sum_{j=1}^{N_j} \mathbf{n_c}_{def\ j}^{at} + \mathbf{n_c}_{top}^{at} + \mathbf{n_c}_{bottom}^{at} + \mathbf{n_c}_{right}^{at} \\
+                    \mathbf{x}_{goal} &= (0, y_{at}) & \mathbf{e}_{target}^{at} &= \frac{\mathbf{x}_{goal} - \mathbf{x}_{at}}{\left\| \mathbf{x}_{goal} - \mathbf{x}_{at} \right\|}\ \ \ \ \ \mathbf{n}_{desired}^{at} = \mathbf{n_c}^{at} + \mathbf{e}_{target}^{at}
                 \end{aligned}
             \end{equation*}
         \end{minipage}
@@ -96,8 +115,10 @@
         \text{Para todo jugador, la velocidad deseada se define}
         \begin{equation*}
             \begin{aligned}
-                \mathbf{e}_{desired}^i &= \frac{\mathbf{n}_{desired}^i}{\left\| \mathbf{n}_{desired}^i \right\|} \\
-                \mathbf{v}_{d}^i &= v_{d\ max}\ \mathbf{e}_{desired}^i
+                \\
+                \mathbf{e}_{d}^i &= \frac{\mathbf{n}_{desired}^i}{\left\| \mathbf{n}_{desired}^i \right\|} \\
+                \\
+                \mathbf{v}_{d}^i &= v_{d\ max}\ \mathbf{e}_{d}^i
             \end{aligned}
         \end{equation*}
     \end{block}
